@@ -1,0 +1,4 @@
+trainee,1,John,Doe,1990-01-01,1234 Elm Street
+trainer,2,Jane,Doe,Personal Training
+training,3,1,2,Strength Training,Group Training,2024-08-23T10:00:00,60
+
