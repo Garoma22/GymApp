@@ -10,12 +10,17 @@ import java.util.List;
 @Service
 public class TrainingService {
 
-    private final TrainingDAO trainingDAO;
+    private  TrainingDAO trainingDAO;
 
+//    @Autowired
+//    public TrainingService(TrainingDAO trainingDAO) {
+//        this.trainingDAO = trainingDAO;
+//    }
     @Autowired
-    public TrainingService(TrainingDAO trainingDAO) {
+    public void setTrainingDAO(TrainingDAO trainingDAO){
         this.trainingDAO = trainingDAO;
     }
+
 
     public void createTraining(Training training) {
         // Логика для создания тренировки

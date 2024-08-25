@@ -6,30 +6,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TraineeService {
 
-    private final TraineeDAO traineeDAO;
+
+
+//    private final TraineeDAO traineeDAO;
+
+//    @Autowired
+//    public TraineeService(TraineeDAO traineeDAO) {
+//        this.traineeDAO = traineeDAO;
+//    }
+
+
+
+private  TraineeDAO traineeDAO;
 
     @Autowired
-    public TraineeService(TraineeDAO traineeDAO) {
+    public void setTraineeDAO(TraineeDAO traineeDAO){
         this.traineeDAO = traineeDAO;
     }
+
+
+
 
     public void createTrainee(Trainee trainee) {
         // Дополнительная логика, если требуется
         traineeDAO.createTrainee(trainee);
     }
 
-    public void updateTrainee(Trainee trainee) {
 
-        traineeDAO.updateTrainee(trainee);
+
+    public boolean updateTrainee(Trainee trainee) {
+        return traineeDAO.updateTrainee(trainee);
     }
 
-    public void deleteTrainee(Long id) {
+    public boolean deleteTrainee(Long id) {
         // Логика удаления, если нужно
-        traineeDAO.deleteTrainee(id);
+        return traineeDAO.deleteTrainee(id);
     }
 
     public Trainee getTraineeById(Long id) {
@@ -41,4 +57,6 @@ public class TraineeService {
         // Дополнительная логика обработки списка, если нужно
         return traineeDAO.getAllTrainees();
     }
+
+
 }

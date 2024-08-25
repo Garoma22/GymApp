@@ -4,6 +4,7 @@ import com.example.gymApp.Model.Training;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -32,7 +33,12 @@ public class TrainingDAO {
         return storage.getTrainingsMap().get(id);
     }
 
+//    public List<Training> getAllTrainings() {
+//        return List.copyOf(storage.getTrainingsMap().values());
+//    }
+
     public List<Training> getAllTrainings() {
-        return List.copyOf(storage.getTrainingsMap().values());
+        return new ArrayList<>(storage.getTrainingsMap().values());
     }
+
 }

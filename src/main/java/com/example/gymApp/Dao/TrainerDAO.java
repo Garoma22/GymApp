@@ -1,6 +1,7 @@
 package com.example.gymApp.Dao;
 
 
+import com.example.gymApp.Model.Trainee;
 import com.example.gymApp.Model.Trainer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -22,12 +23,28 @@ public class TrainerDAO {
         storage.getTrainersMap().put(trainer.getId(), trainer);
     }
 
-    public void updateTrainer(Trainer trainer) {
-        storage.getTrainersMap().put(trainer.getId(), trainer);
+    public boolean updateTrainer(Trainer trainer) {
+        if(storage.getTrainersMap().containsKey(trainer.getId())){
+            storage.getTrainersMap().put(trainer.getId(), trainer);
+            return true;
+        }else{
+            return false;
+        }
     }
 
-    public void deleteTrainer(Long id) {
-        storage.getTrainersMap().remove(id);
+
+
+
+
+    public boolean deleteTrainer(Long id) {
+        if(storage.getTrainersMap().containsKey(id)){
+            storage.getTrainersMap().remove(id);
+            return true;
+
+        }else{
+            return false;
+        }
+
     }
 
     public Trainer getTrainerById(Long id) {

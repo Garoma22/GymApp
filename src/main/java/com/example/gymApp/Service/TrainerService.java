@@ -10,10 +10,15 @@ import java.util.List;
 @Service
 public class TrainerService {
 
-    private final TrainerDAO trainerDAO;
+    private TrainerDAO trainerDAO;
+
+//    @Autowired
+//    public TrainerService(TrainerDAO trainerDAO) {
+//        this.trainerDAO = trainerDAO;
+//    }
 
     @Autowired
-    public TrainerService(TrainerDAO trainerDAO) {
+    public void setTrainerDAO(TrainerDAO trainerDAO){
         this.trainerDAO = trainerDAO;
     }
 
@@ -22,14 +27,14 @@ public class TrainerService {
         trainerDAO.createTrainer(trainer);
     }
 
-    public void updateTrainer(Trainer trainer) {
+    public boolean updateTrainer(Trainer trainer) {
         // Логика обновления данных тренера
-        trainerDAO.updateTrainer(trainer);
+        return  trainerDAO.updateTrainer(trainer);
     }
 
-    public void deleteTrainer(Long id) {
+    public boolean deleteTrainer(Long id) {
         // Логика удаления тренера по ID
-        trainerDAO.deleteTrainer(id);
+        return trainerDAO.deleteTrainer(id);
     }
 
     public Trainer getTrainerById(Long id) {
