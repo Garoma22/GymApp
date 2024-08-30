@@ -33,10 +33,6 @@ public class TrainingDAO {
         return storage.getTrainingsMap().get(id);
     }
 
-//    public List<Training> getAllTrainings() {
-//        return List.copyOf(storage.getTrainingsMap().values());
-//    }
-
     public List<Training> getAllTrainings() {
         return new ArrayList<>(storage.getTrainingsMap().values());
     }

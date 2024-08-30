@@ -1,11 +1,15 @@
 package com.example.gymApp.Dao;
 
 import com.example.gymApp.Model.Trainee;
+import com.example.gymApp.Service.ProfileService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Repository
 public class TraineeDAO {
 
@@ -17,19 +21,24 @@ public class TraineeDAO {
     }
 
     public void createTrainee(Trainee trainee) {
+
+        String generatedUsername = ProfileService.generateUsername(trainee.getFirstName(),trainee.getLastName());
+        trainee.setUsername(generatedUsername);
+
+        String generatedPassword = ProfileService.generateRandomPassword();
+        trainee.setPassword(generatedPassword);
+
         storage.getTraineesMap().put(trainee.getId(), trainee);
     }
-
 
     public boolean updateTrainee(Trainee trainee) {
         if (storage.getTraineesMap().containsKey(trainee.getId())) {
             storage.getTraineesMap().put(trainee.getId(), trainee);
-            return true; // Успешное обновление
+            return true;
         } else {
-            return false; // Стажер с таким id не найден
+            return false;
         }
     }
-
 
     public boolean deleteTrainee(Long id) {
         if(storage.getTraineesMap().containsKey(id)){
@@ -39,7 +48,6 @@ public class TraineeDAO {
         }else{
           return false;
         }
-
     }
 
     public Trainee getTraineeById(Long id) {
@@ -47,6 +55,6 @@ public class TraineeDAO {
     }
 
     public List<Trainee> getAllTrainees() {
-        return List.copyOf(storage.getTraineesMap().values());
+        return new ArrayList<>(storage.getTraineesMap().values());
     }
 }

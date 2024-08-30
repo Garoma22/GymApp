@@ -1,6 +1,7 @@
 package com.example.gymApp.Model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 
@@ -8,6 +9,7 @@ import lombok.Data;
 
 
 @Data
+//@JsonIgnoreProperties(ignoreUnknown = true)
 //@Entity
 //@Table(name = "users")
 //@Inheritance(strategy = InheritanceType.JOINED) // So that other entities can inherit User
@@ -41,7 +43,6 @@ public class User {
         this.isActive = isActive;
     }
 
-    // Пустой конструктор
     public User() {}
 }
 

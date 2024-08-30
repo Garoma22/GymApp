@@ -1,10 +1,6 @@
 package com.example.gymApp.Model;
 
 
-
-
-
-
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -15,25 +11,34 @@ import java.time.LocalDate;
 //@Table(name = "trainees")
 public class Trainee extends User {
 
-//    @Column(name = "date_of_birth")
+    //    @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
-//    @Column(name = "address")
+    //    @Column(name = "address")
     private String address;
 
 
-    // Конструктор для Trainee, включая поля родителя
-    public Trainee(Long id, String firstName, String lastName, String username, String password, boolean isActive,
+
+
+
+
+    public Trainee(Long id, String firstName, String lastName, String username,
+                   String password, boolean isActive,
                    LocalDate dateOfBirth, String address) {
-        super(id, firstName, lastName, username, password, isActive); // Вызов конструктора родителя
-        this.dateOfBirth = dateOfBirth; // Поля Trainee
+        super(id, firstName, lastName, username, password, isActive);
+        this.dateOfBirth = dateOfBirth;
         this.address = address;
     }
 
     // Пустой конструктор
-    public Trainee() {}
+    public Trainee() {
+    }
 
-
-
-
+    @Override
+    public String toString() {
+        return "Trainee{" + " password: " +this.getPassword() + " username: " +this.getUsername() +
+                " dateOfBirth=" + dateOfBirth +
+                ", address='" + address + '\'' +
+                '}';
+    }
 }

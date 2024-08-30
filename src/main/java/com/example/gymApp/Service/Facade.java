@@ -4,18 +4,22 @@ package com.example.gymApp.Service;
 import com.example.gymApp.Model.Trainee;
 import com.example.gymApp.Model.Trainer;
 import com.example.gymApp.Model.Training;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+
+
+
+@Slf4j
 @Component
 public class Facade {
 
     private final TrainerService trainerService;
     private final TraineeService traineeService;
     private final TrainingService trainingService;
-
 
     @Autowired
     public Facade(TrainerService trainerService, TraineeService traineeService, TrainingService trainingService) {
@@ -24,86 +28,185 @@ public class Facade {
         this.trainingService = trainingService;
     }
 
+    // TRAINEE SERVICE
+
     public void createTrainee(Trainee trainee) {
-        // Дополнительная логика, если требуется
-        traineeService.createTrainee(trainee);
+        try {
+            traineeService.createTrainee(trainee);
+            log.info("Trainee {} is successfully created", trainee.getId());
+        } catch (Exception e) {
+            log.error("Error during creation of trainee {}: {}", trainee.getId(), e.getMessage());
+        }
     }
 
-
-
     public boolean updateTrainee(Trainee trainee) {
-        return traineeService.updateTrainee(trainee);
+        try {
+            boolean result = traineeService.updateTrainee(trainee);
+            log.info("Trainee {} is successfully updated", trainee.getId());
+            return result;
+        } catch (Exception e) {
+            log.error("Error during update of trainee {}: {}", trainee.getId(), e.getMessage());
+            return false;
+        }
     }
 
     public boolean deleteTrainee(Long id) {
-        // Логика удаления, если нужно
-        return traineeService.deleteTrainee(id);
+        try {
+            boolean result = traineeService.deleteTrainee(id);
+            if (result) {
+                log.info("Trainee {} is successfully deleted", id);
+            } else {
+                log.warn("Trainee {} could not be found for deletion", id);
+            }
+            return result;
+        } catch (Exception e) {
+            log.error("Error during deletion of trainee {}: {}", id, e.getMessage());
+            return false;
+        }
     }
 
     public Trainee getTraineeById(Long id) {
-        // Можно добавить проверку на null или существование
-        return traineeService.getTraineeById(id);
+        try {
+            Trainee trainee = traineeService.getTraineeById(id);
+            if (trainee != null) {
+                log.info("Trainee {} found", id);
+            } else {
+                log.warn("Trainee {} not found", id);
+            }
+            return trainee;
+        } catch (Exception e) {
+            log.error("Error fetching trainee by id {}: {}", id, e.getMessage());
+            return null;
+        }
     }
 
     public List<Trainee> getAllTrainees() {
-        // Дополнительная логика обработки списка, если нужно
-        return traineeService.getAllTrainees();
+        try {
+            List<Trainee> trainees = traineeService.getAllTrainees();
+            log.info("Successfully retrieved {} trainees", trainees.size());
+            return trainees;
+        } catch (Exception e) {
+            log.error("Error fetching all trainees: {}", e.getMessage());
+            return null;
+        }
     }
 
+    // TRAINER SERVICE
 
     public void createTrainer(Trainer trainer) {
-        // Дополнительная логика, если требуется
-        trainerService.createTrainer(trainer);
+        try {
+            trainerService.createTrainer(trainer);
+            log.info("Trainer {} is successfully created", trainer.getId());
+        } catch (Exception e) {
+            log.error("Error during creation of trainer {}: {}", trainer.getId(), e.getMessage());
+        }
     }
 
     public boolean updateTrainer(Trainer trainer) {
-        // Логика обновления данных тренера
-        return  trainerService.updateTrainer(trainer);
+        try {
+            boolean result = trainerService.updateTrainer(trainer);
+            log.info("Trainer {} is successfully updated", trainer.getId());
+            return result;
+        } catch (Exception e) {
+            log.error("Error during update of trainer {}: {}", trainer.getId(), e.getMessage());
+            return false;
+        }
     }
 
-
-    //TRAINER SERVICE
     public boolean deleteTrainer(Long id) {
-        // Логика удаления тренера по ID
-        return trainerService.deleteTrainer(id);
+        try {
+            boolean result = trainerService.deleteTrainer(id);
+            if (result) {
+                log.info("Trainer {} is successfully deleted", id);
+            } else {
+                log.warn("Trainer {} could not be found for deletion", id);
+            }
+            return result;
+        } catch (Exception e) {
+            log.error("Error during deletion of trainer {}: {}", id, e.getMessage());
+            return false;
+        }
     }
 
     public Trainer getTrainerById(Long id) {
-        // Можно добавить проверку на null или существование тренера
-        return trainerService.getTrainerById(id);
+        try {
+            Trainer trainer = trainerService.getTrainerById(id);
+            if (trainer != null) {
+                log.info("Trainer {} found", id);
+            } else {
+                log.warn("Trainer {} not found", id);
+            }
+            return trainer;
+        } catch (Exception e) {
+            log.error("Error fetching trainer by id {}: {}", id, e.getMessage());
+            return null;
+        }
     }
 
     public List<Trainer> getAllTrainers() {
-        // Логика получения списка всех тренеров
-        return trainerService.getAllTrainers();
+        try {
+            List<Trainer> trainers = trainerService.getAllTrainers();
+            log.info("Successfully retrieved {} trainers", trainers.size());
+            return trainers;
+        } catch (Exception e) {
+            log.error("Error fetching all trainers: {}", e.getMessage());
+            return null;
+        }
     }
 
-
-
-    //TRAINING SERVICE
+    // TRAINING SERVICE
 
     public void createTraining(Training training) {
-        // Логика для создания тренировки
-        trainingService.createTraining(training);
+        try {
+            trainingService.createTraining(training);
+            log.info("Training {} is successfully created", training.getId());
+        } catch (Exception e) {
+            log.error("Error during creation of training {}: {}", training.getId(), e.getMessage());
+        }
     }
 
     public void updateTraining(Training training) {
-        // Логика для обновления тренировки
-        trainingService.updateTraining(training);
+        try {
+            trainingService.updateTraining(training);
+            log.info("Training {} is successfully updated", training.getId());
+        } catch (Exception e) {
+            log.error("Error during update of training {}: {}", training.getId(), e.getMessage());
+        }
     }
 
     public void deleteTraining(Long id) {
-        // Логика для удаления тренировки
-        trainingService.deleteTraining(id);
+        try {
+            trainingService.deleteTraining(id);
+            log.info("Training {} is successfully deleted", id);
+        } catch (Exception e) {
+            log.error("Error during deletion of training {}: {}", id, e.getMessage());
+        }
     }
 
     public Training getTrainingById(Long id) {
-        // Логика для получения тренировки по ID
-        return trainingService.getTrainingById(id);
+        try {
+            Training training = trainingService.getTrainingById(id);
+            if (training != null) {
+                log.info("Training {} found", id);
+            } else {
+                log.warn("Training {} not found", id);
+            }
+            return training;
+        } catch (Exception e) {
+            log.error("Error fetching training by id {}: {}", id, e.getMessage());
+            return null;
+        }
     }
 
     public List<Training> getAllTrainings() {
-        // Логика для получения всех тренировок
-        return trainingService.getAllTrainings();
+        try {
+            List<Training> trainings = trainingService.getAllTrainings();
+            log.info("Successfully retrieved {} trainings", trainings.size());
+            return trainings;
+        } catch (Exception e) {
+            log.error("Error fetching all trainings: {}", e.getMessage());
+            return null;
+        }
     }
 }
+

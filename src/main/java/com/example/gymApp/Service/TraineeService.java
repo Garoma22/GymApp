@@ -2,25 +2,17 @@ package com.example.gymApp.Service;
 
 import com.example.gymApp.Dao.TraineeDAO;
 import com.example.gymApp.Model.Trainee;
+import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@Slf4j
 @Service
 public class TraineeService {
-
-
-
-//    private final TraineeDAO traineeDAO;
-
-//    @Autowired
-//    public TraineeService(TraineeDAO traineeDAO) {
-//        this.traineeDAO = traineeDAO;
-//    }
-
-
 
 private  TraineeDAO traineeDAO;
 
@@ -29,14 +21,9 @@ private  TraineeDAO traineeDAO;
         this.traineeDAO = traineeDAO;
     }
 
-
-
-
     public void createTrainee(Trainee trainee) {
-        // Дополнительная логика, если требуется
         traineeDAO.createTrainee(trainee);
     }
-
 
 
     public boolean updateTrainee(Trainee trainee) {
@@ -44,19 +31,14 @@ private  TraineeDAO traineeDAO;
     }
 
     public boolean deleteTrainee(Long id) {
-        // Логика удаления, если нужно
         return traineeDAO.deleteTrainee(id);
     }
 
     public Trainee getTraineeById(Long id) {
-        // Можно добавить проверку на null или существование
         return traineeDAO.getTraineeById(id);
     }
 
     public List<Trainee> getAllTrainees() {
-        // Дополнительная логика обработки списка, если нужно
-        return traineeDAO.getAllTrainees();
+        return  traineeDAO.getAllTrainees();
     }
-
-
 }

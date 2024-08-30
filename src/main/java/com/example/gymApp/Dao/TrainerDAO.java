@@ -32,10 +32,6 @@ public class TrainerDAO {
         }
     }
 
-
-
-
-
     public boolean deleteTrainer(Long id) {
         if(storage.getTrainersMap().containsKey(id)){
             storage.getTrainersMap().remove(id);

@@ -16,12 +16,18 @@ public class Trainer extends User {
 
 
     public Trainer(Long id, String firstName, String lastName, String username, String password, boolean isActive, String specialization) {
-        // Вызов конструктора родительского класса
         super(id, firstName, lastName, username, password, isActive);
         this.specialization = specialization;
     }
 
 
     public Trainer(){};
+
+    @Override
+    public String toString() {
+        return "Trainer{" +  " password: " +this.getPassword() + " username: " +this.getUsername() +
+                "specialization='" + specialization + '\'' +
+                '}';
+    }
 }
 

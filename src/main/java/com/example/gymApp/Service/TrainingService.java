@@ -12,10 +12,6 @@ public class TrainingService {
 
     private  TrainingDAO trainingDAO;
 
-//    @Autowired
-//    public TrainingService(TrainingDAO trainingDAO) {
-//        this.trainingDAO = trainingDAO;
-//    }
     @Autowired
     public void setTrainingDAO(TrainingDAO trainingDAO){
         this.trainingDAO = trainingDAO;
@@ -23,27 +19,22 @@ public class TrainingService {
 
 
     public void createTraining(Training training) {
-        // Логика для создания тренировки
         trainingDAO.createTraining(training);
     }
 
     public void updateTraining(Training training) {
-        // Логика для обновления тренировки
         trainingDAO.updateTraining(training);
     }
 
     public void deleteTraining(Long id) {
-        // Логика для удаления тренировки
         trainingDAO.deleteTraining(id);
     }
 
     public Training getTrainingById(Long id) {
-        // Логика для получения тренировки по ID
         return trainingDAO.getTrainingById(id);
     }
 
     public List<Training> getAllTrainings() {
-        // Логика для получения всех тренировок
         return trainingDAO.getAllTrainings();
     }
 }

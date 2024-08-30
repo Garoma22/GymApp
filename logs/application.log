@@ -1,0 +1,287 @@
+2024-08-29 17:46:30 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Parsing line: trainee,1,John,Doe,1990-01-01,1234 Elm Street
+2024-08-29 17:46:30 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current traineesMap: {1=Trainee(dateOfBirth=1990-01-01, address=1234 Elm Street)}
+2024-08-29 17:46:30 [main] INFO  com.example.gymApp.Service.Facade - Successfully retrieved 0 trainings
+2024-08-29 17:46:30 [main] INFO  com.example.gymApp.Service.Facade - Successfully retrieved 0 trainees
+2024-08-29 17:46:30 [main] INFO  com.example.gymApp.Service.Facade - Successfully retrieved 0 trainers
+2024-08-29 17:47:25 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-29 17:47:26 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-08-29 17:47:26 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-2cdd0d4b'
+2024-08-29 17:47:26 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-2cdd0d4b'
+2024-08-29 17:47:26 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Parsing line: trainee,1,John,Doe,1990-01-01,1234 Elm Street
+2024-08-29 17:47:26 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current traineesMap: {1=Trainee(dateOfBirth=1990-01-01, address=1234 Elm Street)}
+2024-08-29 17:47:26 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainersMap : {2=Trainer(specialization=Personal Training)}
+2024-08-29 17:47:26 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainingsMap : {3=Training(id=3, trainee=Trainee(dateOfBirth=1990-01-01, address=1234 Elm Street), trainer=Trainer(specialization=Personal Training), trainingName=Strength Training, trainingType=Group Training, trainingDate=2024-08-23T10:00, trainingDuration=60)}
+2024-08-29 17:47:26 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 363 ms
+2024-08-29 17:47:26 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@aed0151{/,null,AVAILABLE}
+2024-08-29 17:47:26 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@5656be13{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+2024-08-29 17:47:26 [main] INFO  org.eclipse.jetty.server.Server - Started Server@2892dae4{STARTING}[11.0.23,sto=0] @781ms
+2024-08-29 17:47:26 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@2892dae4{STARTED}[11.0.23,sto=0]
+2024-08-29 17:47:26 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Parsing line: trainee,1,John,Doe,1990-01-01,1234 Elm Street
+2024-08-29 17:47:26 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current traineesMap: {1=Trainee(dateOfBirth=1990-01-01, address=1234 Elm Street)}
+2024-08-29 17:47:26 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainersMap : {2=Trainer(specialization=Personal Training)}
+2024-08-29 17:47:26 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainingsMap : {3=Training(id=3, trainee=Trainee(dateOfBirth=1990-01-01, address=1234 Elm Street), trainer=Trainer(specialization=Personal Training), trainingName=Strength Training, trainingType=Group Training, trainingDate=2024-08-23T10:00, trainingDuration=60)}
+2024-08-29 17:48:33 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-29 17:48:33 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-08-29 17:48:33 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-29 17:48:33 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-29 17:48:33 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 364 ms
+2024-08-29 17:48:33 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@34237b90{/,null,AVAILABLE}
+2024-08-29 17:48:33 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@77888435{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+2024-08-29 17:48:33 [main] INFO  org.eclipse.jetty.server.Server - Started Server@d6e7bab{STARTING}[11.0.23,sto=0] @883ms
+2024-08-29 17:48:33 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@d6e7bab{STARTED}[11.0.23,sto=0]
+2024-08-29 17:50:13 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-29 17:50:13 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-08-29 17:50:13 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-29 17:50:13 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-29 17:50:13 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 358 ms
+2024-08-29 17:50:13 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@34237b90{/,null,AVAILABLE}
+2024-08-29 17:50:13 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@77888435{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+2024-08-29 17:50:13 [main] INFO  org.eclipse.jetty.server.Server - Started Server@d6e7bab{STARTING}[11.0.23,sto=0] @820ms
+2024-08-29 17:50:13 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@d6e7bab{STARTED}[11.0.23,sto=0]
+2024-08-30 12:02:40 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 12:02:40 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-08-30 12:02:40 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 12:02:40 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 12:02:40 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 378 ms
+2024-08-30 12:02:40 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@1d01dfa5{/,null,AVAILABLE}
+2024-08-30 12:02:40 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@77888435{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+2024-08-30 12:02:40 [main] INFO  org.eclipse.jetty.server.Server - Started Server@d6e7bab{STARTING}[11.0.23,sto=0] @907ms
+2024-08-30 12:02:40 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@d6e7bab{STARTED}[11.0.23,sto=0]
+2024-08-30 12:02:56 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 12:02:56 [main] ERROR com.example.gymApp.GymApplication - Server start error!
+2024-08-30 12:02:56 [main] ERROR com.example.gymApp.GymApplication - Server is stopped
+2024-08-30 12:02:56 [main] INFO  org.eclipse.jetty.server.Server - Stopped Server@d6e7bab{STOPPING}[11.0.23,sto=0]
+2024-08-30 12:03:09 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 12:03:09 [main] ERROR com.example.gymApp.GymApplication - Server start error!
+2024-08-30 12:03:09 [main] ERROR com.example.gymApp.GymApplication - Server is stopped
+2024-08-30 12:03:09 [main] INFO  org.eclipse.jetty.server.Server - Stopped Server@d6e7bab{STOPPING}[11.0.23,sto=0]
+2024-08-30 12:03:36 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 12:03:36 [main] ERROR com.example.gymApp.GymApplication - Server start error!
+2024-08-30 12:03:36 [main] ERROR com.example.gymApp.GymApplication - Server is stopped
+2024-08-30 12:03:36 [main] INFO  org.eclipse.jetty.server.Server - Stopped Server@d6e7bab{STOPPING}[11.0.23,sto=0]
+2024-08-30 12:12:09 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 12:12:09 [main] ERROR com.example.gymApp.GymApplication - Server start error!
+2024-08-30 12:12:09 [main] ERROR com.example.gymApp.GymApplication - Server is stopped
+2024-08-30 12:12:09 [main] INFO  org.eclipse.jetty.server.Server - Stopped Server@d6e7bab{STOPPING}[11.0.23,sto=0]
+2024-08-30 12:12:19 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 12:12:19 [main] ERROR com.example.gymApp.GymApplication - Server start error!
+2024-08-30 12:12:19 [main] ERROR com.example.gymApp.GymApplication - Server is stopped
+2024-08-30 12:12:19 [main] INFO  org.eclipse.jetty.server.Server - Stopped Server@d6e7bab{STOPPING}[11.0.23,sto=0]
+2024-08-30 12:12:20 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 12:12:20 [main] ERROR com.example.gymApp.GymApplication - Server start error!
+2024-08-30 12:12:20 [main] ERROR com.example.gymApp.GymApplication - Server is stopped
+2024-08-30 12:12:20 [main] INFO  org.eclipse.jetty.server.Server - Stopped Server@d6e7bab{STOPPING}[11.0.23,sto=0]
+2024-08-30 12:13:15 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 12:13:15 [main] ERROR com.example.gymApp.GymApplication - Server start error!
+2024-08-30 12:13:15 [main] ERROR com.example.gymApp.GymApplication - Server is stopped
+2024-08-30 12:13:15 [main] INFO  org.eclipse.jetty.server.Server - Stopped Server@d6e7bab{STOPPING}[11.0.23,sto=0]
+2024-08-30 12:14:15 [main] INFO  com.example.gymApp.Service.Facade - Successfully retrieved 0 trainings
+2024-08-30 12:14:15 [main] INFO  com.example.gymApp.Service.Facade - Successfully retrieved 0 trainees
+2024-08-30 12:14:15 [main] INFO  com.example.gymApp.Service.Facade - Successfully retrieved 0 trainers
+2024-08-30 12:14:20 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 12:14:20 [main] ERROR com.example.gymApp.GymApplication - Server start error!
+2024-08-30 12:14:20 [main] ERROR com.example.gymApp.GymApplication - Server is stopped
+2024-08-30 12:14:20 [main] INFO  org.eclipse.jetty.server.Server - Stopped Server@d6e7bab{STOPPING}[11.0.23,sto=0]
+2024-08-30 12:14:56 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 12:14:56 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-08-30 12:14:56 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 12:14:56 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 12:14:56 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 371 ms
+2024-08-30 12:14:56 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@1d01dfa5{/,null,AVAILABLE}
+2024-08-30 12:14:56 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@77888435{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-08-30 12:14:56 [main] INFO  org.eclipse.jetty.server.Server - Started Server@d6e7bab{STARTING}[11.0.23,sto=0] @816ms
+2024-08-30 12:14:56 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@d6e7bab{STARTED}[11.0.23,sto=0]
+2024-08-30 12:15:17 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 12:15:17 [main] ERROR com.example.gymApp.GymApplication - Server start error!
+2024-08-30 12:15:17 [main] ERROR com.example.gymApp.GymApplication - Server is stopped
+2024-08-30 12:15:17 [main] INFO  org.eclipse.jetty.server.Server - Stopped Server@d6e7bab{STOPPING}[11.0.23,sto=0]
+2024-08-30 12:15:24 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 12:15:24 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-08-30 12:15:24 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 12:15:24 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 12:15:24 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 357 ms
+2024-08-30 12:15:24 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@1d01dfa5{/,null,AVAILABLE}
+2024-08-30 12:15:24 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@77888435{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-08-30 12:15:24 [main] INFO  org.eclipse.jetty.server.Server - Started Server@d6e7bab{STARTING}[11.0.23,sto=0] @786ms
+2024-08-30 12:15:24 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@d6e7bab{STARTED}[11.0.23,sto=0]
+2024-08-30 12:15:52 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 12:15:52 [main] ERROR com.example.gymApp.GymApplication - Server start error!
+2024-08-30 12:15:52 [main] ERROR com.example.gymApp.GymApplication - Server is stopped
+2024-08-30 12:15:52 [main] INFO  org.eclipse.jetty.server.Server - Stopped Server@d6e7bab{STOPPING}[11.0.23,sto=0]
+2024-08-30 12:16:11 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 12:16:11 [main] ERROR com.example.gymApp.GymApplication - Server start error!
+2024-08-30 12:16:11 [main] ERROR com.example.gymApp.GymApplication - Server is stopped
+2024-08-30 12:16:11 [main] INFO  org.eclipse.jetty.server.Server - Stopped Server@d6e7bab{STOPPING}[11.0.23,sto=0]
+2024-08-30 12:16:21 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 12:16:21 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-08-30 12:16:21 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 12:16:21 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 12:16:22 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 378 ms
+2024-08-30 12:16:22 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@1d01dfa5{/,null,AVAILABLE}
+2024-08-30 12:16:22 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@77888435{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-08-30 12:16:22 [main] INFO  org.eclipse.jetty.server.Server - Started Server@d6e7bab{STARTING}[11.0.23,sto=0] @830ms
+2024-08-30 12:16:22 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@d6e7bab{STARTED}[11.0.23,sto=0]
+2024-08-30 12:17:31 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 12:17:31 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-08-30 12:17:31 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 12:17:31 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 12:17:31 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 419 ms
+2024-08-30 12:17:31 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@1d01dfa5{/,null,AVAILABLE}
+2024-08-30 12:17:31 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@77888435{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-08-30 12:17:31 [main] INFO  org.eclipse.jetty.server.Server - Started Server@d6e7bab{STARTING}[11.0.23,sto=0] @845ms
+2024-08-30 12:17:31 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@d6e7bab{STARTED}[11.0.23,sto=0]
+2024-08-30 12:18:24 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 12:18:24 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-08-30 12:18:24 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 12:18:24 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 12:18:24 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Parsing line: trainee,1,John,Doe,1990-01-01,1234 Elm Street
+2024-08-30 12:18:24 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current traineesMap: {1=Trainee(dateOfBirth=1990-01-01, address=1234 Elm Street)}
+2024-08-30 12:18:24 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainersMap : {2=Trainer(specialization=Personal Training)}
+2024-08-30 12:18:24 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainingsMap : {3=Training(id=3, trainee=Trainee(dateOfBirth=1990-01-01, address=1234 Elm Street), trainer=Trainer(specialization=Personal Training), trainingName=Strength Training, trainingType=Group Training, trainingDate=2024-08-23T10:00, trainingDuration=60)}
+2024-08-30 12:18:25 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 366 ms
+2024-08-30 12:18:25 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@389562d6{/,null,AVAILABLE}
+2024-08-30 12:18:25 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@77888435{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-08-30 12:18:25 [main] INFO  org.eclipse.jetty.server.Server - Started Server@d6e7bab{STARTING}[11.0.23,sto=0] @859ms
+2024-08-30 12:18:25 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@d6e7bab{STARTED}[11.0.23,sto=0]
+2024-08-30 12:18:25 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Parsing line: trainee,1,John,Doe,1990-01-01,1234 Elm Street
+2024-08-30 12:18:25 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current traineesMap: {1=Trainee(dateOfBirth=1990-01-01, address=1234 Elm Street)}
+2024-08-30 12:18:25 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainersMap : {2=Trainer(specialization=Personal Training)}
+2024-08-30 12:18:25 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainingsMap : {3=Training(id=3, trainee=Trainee(dateOfBirth=1990-01-01, address=1234 Elm Street), trainer=Trainer(specialization=Personal Training), trainingName=Strength Training, trainingType=Group Training, trainingDate=2024-08-23T10:00, trainingDuration=60)}
+2024-08-30 12:19:38 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 12:19:38 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-08-30 12:19:38 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 12:19:38 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 12:19:38 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Parsing line: trainee,1,John,Doe,1990-01-01,1234 Elm Street
+2024-08-30 12:19:38 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current traineesMap: {1=Trainee(dateOfBirth=1990-01-01, address=1234 Elm Street)}
+2024-08-30 12:19:38 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainersMap : {2=Trainer(specialization=Personal Training)}
+2024-08-30 12:19:38 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainingsMap : {3=Training(id=3, trainee=Trainee(dateOfBirth=1990-01-01, address=1234 Elm Street), trainer=Trainer(specialization=Personal Training), trainingName=Strength Training, trainingType=Group Training, trainingDate=2024-08-23T10:00, trainingDuration=60)}
+2024-08-30 12:19:38 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 370 ms
+2024-08-30 12:19:38 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@389562d6{/,null,AVAILABLE}
+2024-08-30 12:19:38 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@77888435{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-08-30 12:19:38 [main] INFO  org.eclipse.jetty.server.Server - Started Server@d6e7bab{STARTING}[11.0.23,sto=0] @801ms
+2024-08-30 12:19:38 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@d6e7bab{STARTED}[11.0.23,sto=0]
+2024-08-30 12:19:38 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Parsing line: trainee,1,John,Doe,1990-01-01,1234 Elm Street
+2024-08-30 12:19:38 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current traineesMap: {1=Trainee(dateOfBirth=1990-01-01, address=1234 Elm Street)}
+2024-08-30 12:19:38 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainersMap : {2=Trainer(specialization=Personal Training)}
+2024-08-30 12:19:38 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainingsMap : {3=Training(id=3, trainee=Trainee(dateOfBirth=1990-01-01, address=1234 Elm Street), trainer=Trainer(specialization=Personal Training), trainingName=Strength Training, trainingType=Group Training, trainingDate=2024-08-23T10:00, trainingDuration=60)}
+2024-08-30 12:22:00 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 12:22:00 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-08-30 12:22:00 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 12:22:00 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 12:22:00 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Parsing line: trainee,1,John,Doe,1990-01-01,1234 Elm Street
+2024-08-30 12:22:00 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current traineesMap: {1=Trainee + password and username{OugLZxRpMfJohn.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}}
+2024-08-30 12:22:00 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainersMap : {2=Trainer(specialization=Personal Training)}
+2024-08-30 12:22:00 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainingsMap : {3=Training(id=3, trainee=Trainee + password and username{OugLZxRpMfJohn.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}, trainer=Trainer(specialization=Personal Training), trainingName=Strength Training, trainingType=Group Training, trainingDate=2024-08-23T10:00, trainingDuration=60)}
+2024-08-30 12:22:01 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 371 ms
+2024-08-30 12:22:01 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@469d003c{/,null,AVAILABLE}
+2024-08-30 12:22:01 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@77888435{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-08-30 12:22:01 [main] INFO  org.eclipse.jetty.server.Server - Started Server@d6e7bab{STARTING}[11.0.23,sto=0] @791ms
+2024-08-30 12:22:01 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@d6e7bab{STARTED}[11.0.23,sto=0]
+2024-08-30 12:22:01 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Parsing line: trainee,1,John,Doe,1990-01-01,1234 Elm Street
+2024-08-30 12:22:01 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current traineesMap: {1=Trainee + password and username{02jIvKF4LHJohn.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}}
+2024-08-30 12:22:01 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainersMap : {2=Trainer(specialization=Personal Training)}
+2024-08-30 12:22:01 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainingsMap : {3=Training(id=3, trainee=Trainee + password and username{02jIvKF4LHJohn.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}, trainer=Trainer(specialization=Personal Training), trainingName=Strength Training, trainingType=Group Training, trainingDate=2024-08-23T10:00, trainingDuration=60)}
+2024-08-30 12:22:28 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 12:22:29 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-08-30 12:22:29 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 12:22:29 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 12:22:29 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Parsing line: trainee,1,John,Doe,1990-01-01,1234 Elm Street
+2024-08-30 12:22:29 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current traineesMap: {1=Trainee + password and username{NzF44xvEPdJohn.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}}
+2024-08-30 12:22:29 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainersMap : {2=Trainer(specialization=Personal Training)}
+2024-08-30 12:22:29 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainingsMap : {3=Training(id=3, trainee=Trainee + password and username{NzF44xvEPdJohn.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}, trainer=Trainer(specialization=Personal Training), trainingName=Strength Training, trainingType=Group Training, trainingDate=2024-08-23T10:00, trainingDuration=60)}
+2024-08-30 12:22:29 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 412 ms
+2024-08-30 12:22:29 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@469d003c{/,null,AVAILABLE}
+2024-08-30 12:22:29 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@77888435{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-08-30 12:22:29 [main] INFO  org.eclipse.jetty.server.Server - Started Server@d6e7bab{STARTING}[11.0.23,sto=0] @931ms
+2024-08-30 12:22:29 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@d6e7bab{STARTED}[11.0.23,sto=0]
+2024-08-30 12:22:29 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Parsing line: trainee,1,John,Doe,1990-01-01,1234 Elm Street
+2024-08-30 12:22:29 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current traineesMap: {1=Trainee + password and username{bv8a1ciYS6John.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}}
+2024-08-30 12:22:29 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainersMap : {2=Trainer(specialization=Personal Training)}
+2024-08-30 12:22:29 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainingsMap : {3=Training(id=3, trainee=Trainee + password and username{bv8a1ciYS6John.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}, trainer=Trainer(specialization=Personal Training), trainingName=Strength Training, trainingType=Group Training, trainingDate=2024-08-23T10:00, trainingDuration=60)}
+2024-08-30 12:24:05 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 12:24:05 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-08-30 12:24:05 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 12:24:05 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 12:24:05 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Parsing line: trainee,1,John,Doe,1990-01-01,1234 Elm Street
+2024-08-30 12:24:05 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current traineesMap: {1=Trainee{ password: mVAr1RrCmW username: John.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}}
+2024-08-30 12:24:05 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainersMap : {2=Trainer{ password: GCJp1ek2Mo username: Jane.Doespecialization='Personal Training'}}
+2024-08-30 12:24:05 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainingsMap : {3=Training(id=3, trainee=Trainee{ password: mVAr1RrCmW username: John.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}, trainer=Trainer{ password: GCJp1ek2Mo username: Jane.Doespecialization='Personal Training'}, trainingName=Strength Training, trainingType=Group Training, trainingDate=2024-08-23T10:00, trainingDuration=60)}
+2024-08-30 12:24:05 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 365 ms
+2024-08-30 12:24:05 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@469d003c{/,null,AVAILABLE}
+2024-08-30 12:24:05 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@77888435{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-08-30 12:24:05 [main] INFO  org.eclipse.jetty.server.Server - Started Server@d6e7bab{STARTING}[11.0.23,sto=0] @799ms
+2024-08-30 12:24:05 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@d6e7bab{STARTED}[11.0.23,sto=0]
+2024-08-30 12:24:05 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Parsing line: trainee,1,John,Doe,1990-01-01,1234 Elm Street
+2024-08-30 12:24:05 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current traineesMap: {1=Trainee{ password: WajcTujHni username: John.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}}
+2024-08-30 12:24:05 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainersMap : {2=Trainer{ password: 70EFee7Qe0 username: Jane.Doespecialization='Personal Training'}}
+2024-08-30 12:24:05 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainingsMap : {3=Training(id=3, trainee=Trainee{ password: WajcTujHni username: John.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}, trainer=Trainer{ password: 70EFee7Qe0 username: Jane.Doespecialization='Personal Training'}, trainingName=Strength Training, trainingType=Group Training, trainingDate=2024-08-23T10:00, trainingDuration=60)}
+2024-08-30 12:41:44 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 12:41:44 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-08-30 12:41:44 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 12:41:44 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 12:41:44 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Parsing line: trainee,1,John,Doe,1990-01-01,1234 Elm Street
+2024-08-30 12:41:44 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current traineesMap: {1=Trainee{ password: N1qUvwktXW username: John.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}}
+2024-08-30 12:41:44 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainersMap : {2=Trainer{ password: H0BJHkIcaj username: Jane.Doespecialization='Personal Training'}}
+2024-08-30 12:41:44 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainingsMap : {3=Training(id=3, trainee=Trainee{ password: N1qUvwktXW username: John.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}, trainer=Trainer{ password: H0BJHkIcaj username: Jane.Doespecialization='Personal Training'}, trainingName=Strength Training, trainingType=Group Training, trainingDate=2024-08-23T10:00, trainingDuration=60)}
+2024-08-30 12:41:44 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 387 ms
+2024-08-30 12:41:44 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@469d003c{/,null,AVAILABLE}
+2024-08-30 12:41:44 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@77888435{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-08-30 12:41:44 [main] INFO  org.eclipse.jetty.server.Server - Started Server@d6e7bab{STARTING}[11.0.23,sto=0] @868ms
+2024-08-30 12:41:44 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@d6e7bab{STARTED}[11.0.23,sto=0]
+2024-08-30 12:41:44 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Parsing line: trainee,1,John,Doe,1990-01-01,1234 Elm Street
+2024-08-30 12:41:44 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current traineesMap: {1=Trainee{ password: NTY87QdMuH username: John.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}}
+2024-08-30 12:41:44 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainersMap : {2=Trainer{ password: X1yKZliC6J username: Jane.Doespecialization='Personal Training'}}
+2024-08-30 12:41:44 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainingsMap : {3=Training(id=3, trainee=Trainee{ password: NTY87QdMuH username: John.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}, trainer=Trainer{ password: X1yKZliC6J username: Jane.Doespecialization='Personal Training'}, trainingName=Strength Training, trainingType=Group Training, trainingDate=2024-08-23T10:00, trainingDuration=60)}
+2024-08-30 12:51:18 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 12:51:18 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-08-30 12:51:18 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 12:51:18 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 12:51:19 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Parsing line: trainee,1,John,Doe,1990-01-01,1234 Elm Street
+2024-08-30 12:51:19 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current traineesMap: {1=Trainee{ password: S5TmdnvM1t username: John.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}}
+2024-08-30 12:51:19 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainersMap : {2=Trainer{ password: GdoVQsV50o username: Jane.Doespecialization='Personal Training'}}
+2024-08-30 12:51:19 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainingsMap : {3=Training(id=3, trainee=Trainee{ password: S5TmdnvM1t username: John.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}, trainer=Trainer{ password: GdoVQsV50o username: Jane.Doespecialization='Personal Training'}, trainingName=Strength Training, trainingType=Group Training, trainingDate=2024-08-23T10:00, trainingDuration=60)}
+2024-08-30 12:51:19 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 398 ms
+2024-08-30 12:51:19 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@469d003c{/,null,AVAILABLE}
+2024-08-30 12:51:19 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@77888435{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-08-30 12:51:19 [main] INFO  org.eclipse.jetty.server.Server - Started Server@d6e7bab{STARTING}[11.0.23,sto=0] @880ms
+2024-08-30 12:51:19 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@d6e7bab{STARTED}[11.0.23,sto=0]
+2024-08-30 12:51:19 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Parsing line: trainee,1,John,Doe,1990-01-01,1234 Elm Street
+2024-08-30 12:51:19 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current traineesMap: {1=Trainee{ password: YxHjHpZ2k4 username: John.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}}
+2024-08-30 12:51:19 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainersMap : {2=Trainer{ password: 8iTaEMsbFd username: Jane.Doespecialization='Personal Training'}}
+2024-08-30 12:51:19 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainingsMap : {3=Training(id=3, trainee=Trainee{ password: YxHjHpZ2k4 username: John.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}, trainer=Trainer{ password: 8iTaEMsbFd username: Jane.Doespecialization='Personal Training'}, trainingName=Strength Training, trainingType=Group Training, trainingDate=2024-08-23T10:00, trainingDuration=60)}
+2024-08-30 12:51:32 [qtp1357563986-27] INFO  com.example.gymApp.Service.Facade - Successfully retrieved 1 trainees
+2024-08-30 12:51:32 [qtp1357563986-27] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.http.converter.HttpMessageNotWritableException: No converter for [class java.util.ArrayList] with preset Content-Type 'null']
+2024-08-30 13:33:49 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 13:33:49 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-08-30 13:33:49 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 13:33:49 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 13:33:49 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Parsing line: trainee,1,John,Doe,1990-01-01,1234 Elm Street
+2024-08-30 13:33:49 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current traineesMap: {1=Trainee{ password: GG2L2GgSsV username: John.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}}
+2024-08-30 13:33:49 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainersMap : {2=Trainer{ password: UQMpuXv2aO username: Jane.Doespecialization='Personal Training'}}
+2024-08-30 13:33:49 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainingsMap : {3=Training(id=3, trainee=Trainee{ password: GG2L2GgSsV username: John.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}, trainer=Trainer{ password: UQMpuXv2aO username: Jane.Doespecialization='Personal Training'}, trainingName=Strength Training, trainingType=Group Training, trainingDate=2024-08-23T10:00, trainingDuration=60)}
+2024-08-30 13:33:49 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 384 ms
+2024-08-30 13:33:49 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@469d003c{/,null,AVAILABLE}
+2024-08-30 13:33:49 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@77888435{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-08-30 13:33:49 [main] INFO  org.eclipse.jetty.server.Server - Started Server@d6e7bab{STARTING}[11.0.23,sto=0] @883ms
+2024-08-30 13:33:49 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@d6e7bab{STARTED}[11.0.23,sto=0]
+2024-08-30 13:33:49 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Parsing line: trainee,1,John,Doe,1990-01-01,1234 Elm Street
+2024-08-30 13:33:49 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current traineesMap: {1=Trainee{ password: dMjAxDlrWF username: John.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}}
+2024-08-30 13:33:49 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainersMap : {2=Trainer{ password: yLeHFJYYKu username: Jane.Doespecialization='Personal Training'}}
+2024-08-30 13:33:49 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainingsMap : {3=Training(id=3, trainee=Trainee{ password: dMjAxDlrWF username: John.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}, trainer=Trainer{ password: yLeHFJYYKu username: Jane.Doespecialization='Personal Training'}, trainingName=Strength Training, trainingType=Group Training, trainingDate=2024-08-23T10:00, trainingDuration=60)}
+2024-08-30 13:40:29 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-08-30 13:40:29 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-08-30 13:40:29 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 13:40:29 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-08-30 13:40:29 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Parsing line: trainee,1,John,Doe,1990-01-01,1234 Elm Street
+2024-08-30 13:40:29 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current traineesMap: {1=Trainee{ password: zrHiYBkK2d username: John.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}}
+2024-08-30 13:40:29 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainersMap : {2=Trainer{ password: jOZ3HZI7ES username: Jane.Doespecialization='Personal Training'}}
+2024-08-30 13:40:29 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainingsMap : {3=Training(id=3, trainee=Trainee{ password: zrHiYBkK2d username: John.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}, trainer=Trainer{ password: jOZ3HZI7ES username: Jane.Doespecialization='Personal Training'}, trainingName=Strength Training, trainingType=Group Training, trainingDate=2024-08-23T10:00, trainingDuration=60)}
+2024-08-30 13:40:29 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 383 ms
+2024-08-30 13:40:29 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@469d003c{/,null,AVAILABLE}
+2024-08-30 13:40:29 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@77888435{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-08-30 13:40:29 [main] INFO  org.eclipse.jetty.server.Server - Started Server@d6e7bab{STARTING}[11.0.23,sto=0] @882ms
+2024-08-30 13:40:29 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@d6e7bab{STARTED}[11.0.23,sto=0]
+2024-08-30 13:40:29 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Parsing line: trainee,1,John,Doe,1990-01-01,1234 Elm Street
+2024-08-30 13:40:29 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current traineesMap: {1=Trainee{ password: IXJ2inEEnd username: John.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}}
+2024-08-30 13:40:29 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainersMap : {2=Trainer{ password: x0V0CoCyAg username: Jane.Doespecialization='Personal Training'}}
+2024-08-30 13:40:29 [main] INFO  c.example.gymApp.Dao.InMemoryStorage - Current trainingsMap : {3=Training(id=3, trainee=Trainee{ password: IXJ2inEEnd username: John.Doe dateOfBirth=1990-01-01, address='1234 Elm Street'}, trainer=Trainer{ password: x0V0CoCyAg username: Jane.Doespecialization='Personal Training'}, trainingName=Strength Training, trainingType=Group Training, trainingDate=2024-08-23T10:00, trainingDuration=60)}

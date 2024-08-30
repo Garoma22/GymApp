@@ -5,11 +5,12 @@ package com.example.gymApp.Dao;
 import com.example.gymApp.Model.Trainee;
 import com.example.gymApp.Model.Trainer;
 import com.example.gymApp.Model.Training;
-import com.example.gymApp.Model.User;
+import com.example.gymApp.Service.ProfileService;
 import jakarta.annotation.PostConstruct;
+import lombok.Data;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +25,7 @@ import java.util.HashMap;
 
 
 
-
+@Data
 @Slf4j
 @Component
 public class InMemoryStorage {
@@ -36,43 +37,51 @@ public class InMemoryStorage {
     @Getter
     private Map<Long, Training> trainingsMap = new HashMap<>();
 
-    @Value("${data.file}")
-    private Resource dataFile;
 
     @PostConstruct
     public void init() throws IOException {
-        loadDataFromFile();
+        Resource resource = new ClassPathResource("data.txt");
+        if (!resource.exists()) {
+            log.error("File not found!");
+            return;
+        }
+
+        loadDataFromFile(resource);
+
     }
 
-    private void loadDataFromFile() throws IOException {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(dataFile.getInputStream()))) {
+
+
+    public void loadDataFromFile(Resource resource) throws IOException {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                // Пример парсинга строки данных и загрузки в хранилище
                 String[] parts = line.split(",");
                 if (parts[0].startsWith("trainee")) {
-                    // Парсим строку для Trainee
                     Long id = Long.parseLong(parts[1]);
                     String firstName = parts[2];
                     String lastName = parts[3];
                     LocalDate dateOfBirth = LocalDate.parse(parts[4]);
                     String address = parts[5];
 
-                    Trainee trainee = new Trainee(id, firstName, lastName, firstName + "." + lastName, "password", true, dateOfBirth, address);
+                    Trainee trainee = new Trainee(id, firstName, lastName,
+                         ProfileService.generateUsername(firstName,lastName),
+                          ProfileService.generateRandomPassword(), true, dateOfBirth, address);
                     traineesMap.put(id, trainee);
+//                    System.out.println(getTraineesMap());
                     log.info("Parsing line: {}", line);
                     log.info("Current traineesMap: {}", traineesMap);
 
                 } else if (parts[0].startsWith("trainer")) {
-                    // Парсим строку для Trainer
                     Long id = Long.parseLong(parts[1]);
                     String firstName = parts[2];
                     String lastName = parts[3];
                     String specialization = parts[4];
 
-                    Trainer trainer = new Trainer(id, firstName, lastName, firstName + "." + lastName, "password", true, specialization);
+                    Trainer trainer = new Trainer(id, firstName, lastName, ProfileService.generateUsername(firstName,lastName), ProfileService.generateRandomPassword(), true, specialization);
                     trainersMap.put(id, trainer);
                     log.info("Current trainersMap : {}", trainersMap);
+                   System.out.println(trainersMap);
 
                 } else if (parts[0].startsWith("training")) {
                     // Парсим строку для Training
@@ -91,6 +100,8 @@ public class InMemoryStorage {
                         Training training = new Training(id, trainee, trainer, trainingName, trainingType, trainingDate, trainingDuration);
                         trainingsMap.put(id, training);
                         log.info("Current trainingsMap : {}", trainingsMap);
+
+                       System.out.println(trainingsMap);
                     } else {
                         log.warn("Trainee or Trainer not found for training: {}", id);
                     }
@@ -98,5 +109,4 @@ public class InMemoryStorage {
             }
         }
     }
-
 }
