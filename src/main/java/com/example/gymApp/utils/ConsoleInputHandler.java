@@ -1,28 +1,38 @@
 package com.example.gymApp.utils;
 
-import com.example.gymApp.service.Facade;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
-import java.util.List;
-import java.util.Scanner;
-
 
 import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.Trainer;
 import com.example.gymApp.model.Training;
+import com.example.gymApp.service.TraineeService;
+import com.example.gymApp.service.TrainerService;
+import com.example.gymApp.service.TrainingService;
+import java.time.LocalDateTime;
+import java.util.NoSuchElementException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Scanner;
+
+
+@Slf4j
 @Component
 public class ConsoleInputHandler {
 
-  private final Facade facade;
+  private final TraineeService traineeService;
+  private final TrainerService trainerService;
+  private final TrainingService trainingService;
   private final Scanner scanner;
 
   @Autowired
-  public ConsoleInputHandler(Facade facade) {
-    this.facade = facade;
+  public ConsoleInputHandler(TraineeService traineeService, TrainerService trainerService,
+      TrainingService trainingService) {
+    this.traineeService = traineeService;
+    this.trainerService = trainerService;
+    this.trainingService = trainingService;
     this.scanner = new Scanner(System.in);
   }
 
@@ -42,14 +52,14 @@ public class ConsoleInputHandler {
       System.out.println("9: Get Trainer by ID");
       System.out.println("10: Get All Trainers");
       System.out.println("11: Create Training");
-      System.out.println("12: Update Training");
-      System.out.println("13: Delete Training");
-      System.out.println("14: Get Training by ID");
-      System.out.println("15: Get All Trainings");
+      System.out.println("12: Get Training by ID");
+      System.out.println("13: Get All Trainings");
       System.out.println("0: Exit");
 
+
+
       int choice = scanner.nextInt();
-      scanner.nextLine();
+      scanner.nextLine(); // Consume the newline character
 
       switch (choice) {
         case 1:
@@ -86,15 +96,9 @@ public class ConsoleInputHandler {
           createTraining();
           break;
         case 12:
-          updateTraining();
-          break;
-        case 13:
-          deleteTraining();
-          break;
-        case 14:
           getTrainingById();
           break;
-        case 15:
+        case 13:
           getAllTrainings();
           break;
         case 0:
@@ -106,236 +110,270 @@ public class ConsoleInputHandler {
     }
   }
 
+
   private void createTrainee() {
-    Trainee trainee = new Trainee();
+    System.out.println("Enter Trainee id:");
+    Long id;
+    String firstName;
+    String lastName;
+    LocalDate dateOfBirth;
+    String address;
 
+    try {
+      id = Long.valueOf(scanner.nextLine());
+      System.out.println("Enter Trainee First Name:");
+      firstName = scanner.nextLine();
+      System.out.println("Enter Trainee Last Name:");
+      lastName = scanner.nextLine();
+      System.out.println("Enter Trainee Date of Birth (YYYY-MM-DD):");
+      dateOfBirth = LocalDate.parse(scanner.nextLine());
+      System.out.println("Enter Trainee Address:");
+      address = scanner.nextLine();
 
-    boolean validId = false;
-    while (!validId) {
-      try {
-        System.out.println("Enter Trainee id");
-        trainee.setId(Long.valueOf(scanner.nextLine()));
-        validId = true;
-      } catch (NumberFormatException e) {
-        System.out.println("Invalid ID format. Please enter a valid numeric ID.");
+      traineeService.createTrainee(id, firstName, lastName, dateOfBirth, address);
+
+      if (traineeService.createTrainee(id, firstName, lastName, dateOfBirth, address)) {
+        System.out.println("Trainee created successfully!");
+      } else {
+        System.out.println("Failed to create Trainee due to validation error.");
       }
+
+    } catch (IllegalArgumentException e) {
+      System.out.println("Failed to create Trainee: " + e.getMessage());
+    } catch (Exception e) {
+      System.out.println("An unexpected error occurred: " + e.getMessage());
     }
-
-    System.out.println("Enter Trainee First Name:");
-    trainee.setFirstName(scanner.nextLine());
-    System.out.println("Enter Trainee Last Name:");
-    trainee.setLastName(scanner.nextLine());
-
-    boolean validDate = false;
-    while (!validDate) {
-      try {
-        System.out.println("Enter Trainee Date of Birth (YYYY-MM-DD):");
-        trainee.setDateOfBirth(LocalDate.parse(scanner.nextLine()));
-        validDate = true;
-      } catch (DateTimeParseException e) {
-        System.out.println("Invalid date format. Please enter the date in YYYY-MM-DD format.");
-      }
-    }
-
-    System.out.println("Enter Trainee Address:");
-    trainee.setAddress(scanner.nextLine());
-
-    facade.createTrainee(trainee);
   }
 
 
   private void updateTrainee() {
     System.out.println("Enter Trainee ID:");
     Long id = scanner.nextLong();
-    scanner.nextLine(); // consume the newline
+    scanner.nextLine(); // Consume the newline character
 
-    Trainee trainee = facade.getTraineeById(id);
-    if (trainee == null) {
-      System.out.println("Trainee not found.");
-      return;
+    System.out.println("Enter new First Name:");
+    String firstName = scanner.nextLine();
+    System.out.println("Enter new Last Name:");
+    String lastName = scanner.nextLine();
+    System.out.println("Enter new Date of Birth (YYYY-MM-DD):");
+    LocalDate dateOfBirth = LocalDate.parse(scanner.nextLine());
+    System.out.println("Enter new Address:");
+    String address = scanner.nextLine();
+
+    try {
+      traineeService.updateTrainee(id, firstName, lastName, dateOfBirth, address);
+      System.out.println("Trainee updated successfully!");
+    } catch (IllegalArgumentException e) {
+      System.out.println("Failed to update Trainee: " + e.getMessage());
     }
-
-    System.out.println("Enter new First Name (current: " + trainee.getFirstName() + "):");
-    trainee.setFirstName(scanner.nextLine());
-    System.out.println("Enter new Last Name (current: " + trainee.getLastName() + "):");
-    trainee.setLastName(scanner.nextLine());
-    System.out.println("Enter new Date of Birth (current: " + trainee.getDateOfBirth() + "):");
-
-    //todo separate util method2
-
-    boolean validDate = false;
-    while (!validDate) {
-      try {
-        System.out.println("Enter Trainee Date of Birth (YYYY-MM-DD):");
-        trainee.setDateOfBirth(LocalDate.parse(scanner.nextLine()));
-        validDate = true;
-      } catch (DateTimeParseException e) {
-        System.out.println("Invalid date format. Please enter the date in YYYY-MM-DD format.");
-      }
-    }
-
-    System.out.println("Enter new Address (current: " + trainee.getAddress() + "):");
-    trainee.setAddress(scanner.nextLine());
-
-    facade.updateTrainee(trainee);
   }
 
   private void deleteTrainee() {
     System.out.println("Enter Trainee ID:");
     Long id = scanner.nextLong();
-    scanner.nextLine(); // consume the newline
+    scanner.nextLine(); // Consume the newline character
 
-    facade.deleteTrainee(id);
+    try {
+      traineeService.deleteTrainee(id);
+      System.out.println("Trainee deleted successfully!");
+    } catch (NoSuchElementException e) {
+      System.out.println("Failed to delete Trainee: " + e.getMessage());
+    }
   }
 
   private void getTraineeById() {
     System.out.println("Enter Trainee ID:");
     Long id = scanner.nextLong();
-    scanner.nextLine(); // consume the newline
+    scanner.nextLine(); // Consume the newline character
 
-    Trainee trainee = facade.getTraineeById(id);
-    if (trainee != null) {
+    try {
+      Trainee trainee = traineeService.getTraineeById(id);
       System.out.println(trainee);
-    } else {
-      System.out.println("Trainee not found.");
+    } catch (NoSuchElementException e) {
+      System.out.println("Trainee not found: " + e.getMessage());
     }
   }
 
   private void getAllTrainees() {
-    List<Trainee> trainees = facade.getAllTrainees();
+    List<Trainee> trainees = traineeService.getAllTrainees();
     trainees.forEach(System.out::println);
   }
 
-  private void createTrainer() {
-    Trainer trainer = new Trainer();
-    System.out.println("Enter Trainer Id: ");
-    trainer.setId(Long.valueOf(scanner.nextLine()));
-    System.out.println("Enter Trainer First Name : ");
-    trainer.setFirstName(scanner.nextLine());
-    System.out.println("Enter Trainer Last Name: ");
-    trainer.setLastName(scanner.nextLine());
-    System.out.println("Enter Trainer Specialization: ");
-    trainer.setSpecialization(scanner.nextLine());
 
-    facade.createTrainer(trainer);
+  private void createTrainer() {
+    System.out.println("Enter Trainer id:");
+    Long id;
+    String firstName;
+    String lastName;
+    String specialization;
+
+    try {
+      id = Long.valueOf(scanner.nextLine());
+      System.out.println("Enter Trainer First Name:");
+      firstName = scanner.nextLine();
+      System.out.println("Enter Trainer Last Name:");
+      lastName = scanner.nextLine();
+      System.out.println("Enter Trainer Specialization:");
+      specialization = scanner.nextLine();
+
+      if (trainerService.createTrainer(id, firstName, lastName, specialization)) {
+        System.out.println("Trainer created successfully!");
+      } else {
+        System.out.println("Failed to create Trainer due to validation error.");
+      }
+
+    } catch (IllegalArgumentException e) {
+      System.out.println("Failed to create Trainer: " + e.getMessage());
+    } catch (Exception e) {
+      System.out.println("An unexpected error occurred: " + e.getMessage());
+    }
   }
 
   private void updateTrainer() {
     System.out.println("Enter Trainer ID:");
     Long id = scanner.nextLong();
-    scanner.nextLine(); // consume the newline
+    scanner.nextLine(); // Consume the newline character
 
-    Trainer trainer = facade.getTrainerById(id);
-    if (trainer == null) {
-      System.out.println("Trainer not found.");
-      return;
+    System.out.println("Enter new First Name:");
+    String firstName = scanner.nextLine();
+    System.out.println("Enter new Last Name:");
+    String lastName = scanner.nextLine();
+    System.out.println("Enter new Specialization:");
+    String specialization = scanner.nextLine();
+
+    try {
+      trainerService.updateTrainer(id, firstName, lastName, specialization);
+      System.out.println("Trainer updated successfully!");
+    } catch (IllegalArgumentException e) {
+      System.out.println("Failed to update Trainer: " + e.getMessage());
     }
-
-    System.out.println("Enter new First Name (current: " + trainer.getFirstName() + "):");
-    trainer.setFirstName(scanner.nextLine());
-    System.out.println("Enter new Last Name (current: " + trainer.getLastName() + "):");
-    trainer.setLastName(scanner.nextLine());
-    System.out.println("Enter new Specialization (current: " + trainer.getSpecialization() + "):");
-    trainer.setSpecialization(scanner.nextLine());
-
-    facade.updateTrainer(trainer);
   }
 
   private void deleteTrainer() {
     System.out.println("Enter Trainer ID:");
     Long id = scanner.nextLong();
-    scanner.nextLine(); // consume the newline
+    scanner.nextLine(); // Consume the newline character
 
-    facade.deleteTrainer(id);
+    try {
+      trainerService.deleteTrainer(id);
+      System.out.println("Trainer deleted successfully!");
+    } catch (NoSuchElementException e) {
+      System.out.println("Failed to delete Trainer: " + e.getMessage());
+    }
   }
 
   private void getTrainerById() {
     System.out.println("Enter Trainer ID:");
     Long id = scanner.nextLong();
-    scanner.nextLine(); // consume the newline
+    scanner.nextLine(); // Consume the newline character
 
-    Trainer trainer = facade.getTrainerById(id);
-    if (trainer != null) {
+    try {
+      Trainer trainer = trainerService.getTrainerById(id);
       System.out.println(trainer);
-    } else {
-      System.out.println("Trainer not found.");
+    } catch (NoSuchElementException e) {
+      System.out.println("Trainer not found: " + e.getMessage());
     }
   }
 
   private void getAllTrainers() {
-    List<Trainer> trainers = facade.getAllTrainers();
+    List<Trainer> trainers = trainerService.getAllTrainers();
     trainers.forEach(System.out::println);
   }
 
+
+  //TRAINING
+
+
   private void createTraining() {
-    Training training = new Training();
-    System.out.println("Enter training id");
-    training.setId(Long.valueOf(scanner.nextLine()));
-    System.out.println("Enter Training Name:");
-    training.setTrainingName(scanner.nextLine());
-    System.out.println("Enter Training Type:");
-    training.setTrainingType(scanner.nextLine());
+    Long id;
+    String trainingName;
+    String trainingType;
+    int duration = 0;
+    LocalDate trainingDate;
+    Long traineeId;
+    Long trainerId;
 
-    // Assume traineeId and trainerId are known
-    System.out.println("Enter Trainee ID:");
-    Long traineeId = scanner.nextLong();
-    System.out.println("Enter Trainer ID:");
-    Long trainerId = scanner.nextLong();
-    scanner.nextLine(); // consume the newline
-
-    Trainee trainee = facade.getTraineeById(traineeId);
-    Trainer trainer = facade.getTrainerById(trainerId);
-    training.setTrainee(trainee);
-    training.setTrainer(trainer);
-
-    facade.createTraining(training);
-  }
-
-  private void updateTraining() {
-    System.out.println("Enter Training ID:");
-    Long id = scanner.nextLong();
-    scanner.nextLine(); // consume the newline
-
-    Training training = facade.getTrainingById(id);
-    if (training == null) {
-      System.out.println("Training not found.");
+    try {
+      System.out.println("Enter Training id:");
+      id = Long.valueOf(scanner.nextLine());
+    } catch (NumberFormatException e) {
+      System.out.println("Invalid input for Training ID. Please enter a valid number.");
       return;
     }
 
-    System.out.println("Enter new Training Name (current: " + training.getTrainingName() + "):");
-    training.setTrainingName(scanner.nextLine());
-    System.out.println("Enter new Training Type (current: " + training.getTrainingType() + "):");
-    training.setTrainingType(scanner.nextLine());
+    System.out.println("Enter Training Name:");
+    trainingName = scanner.nextLine();
 
-    facade.updateTraining(training);
+    System.out.println("Enter Training Type:");
+    trainingType = scanner.nextLine();
+
+    try {
+      System.out.println("Enter Training Duration in hours:");
+      duration = Integer.parseInt(scanner.nextLine());
+    } catch (NumberFormatException e) {
+      System.out.println("Invalid input for Training Duration. Please enter a valid number.");
+      return;
+    }
+
+    try {
+      System.out.println("Enter Training Date (YYYY-MM-DD):");
+      trainingDate = LocalDate.parse(scanner.nextLine());
+    } catch (Exception e) {
+      System.out.println("Invalid input for Training Date. Please enter a date in the format YYYY-MM-DD.");
+      return;
+    }
+
+    try {
+      System.out.println("Enter Trainee ID:");
+      traineeId = Long.valueOf(scanner.nextLine());
+    } catch (NumberFormatException e) {
+      System.out.println("Invalid input for Trainee ID. Please enter a valid number.");
+      return;
+    }
+
+    try {
+      System.out.println("Enter Trainer ID:");
+      trainerId = Long.valueOf(scanner.nextLine());
+    } catch (NumberFormatException e) {
+      System.out.println("Invalid input for Trainer ID. Please enter a valid number.");
+      return;
+    }
+
+    try {
+      Trainee trainee = traineeService.getTraineeById(traineeId);
+      Trainer trainer = trainerService.getTrainerById(trainerId);
+
+      if (trainingService.createTraining(id, trainee.getId(), trainer.getId(), trainingName,
+          trainingType, trainingDate, duration)) {
+        System.out.println("Training created successfully!");
+      } else {
+        System.out.println("Failed to create Training due to validation error.");
+      }
+
+    } catch (NoSuchElementException e) {
+      System.out.println("Failed to create Training: " + e.getMessage());
+    } catch (Exception e) {
+      System.out.println("An unexpected error occurred: " + e.getMessage());
+    }
   }
 
-  private void deleteTraining() {
-    System.out.println("Enter Training ID:");
-    Long id = scanner.nextLong();
-    scanner.nextLine();
-
-    facade.deleteTraining(id);
-  }
 
   private void getTrainingById() {
     System.out.println("Enter Training ID:");
     Long id = scanner.nextLong();
-    scanner.nextLine(); // consume the newline
+    scanner.nextLine();
 
-    Training training = facade.getTrainingById(id);
-    if (training != null) {
+    try {
+      Training training = trainingService.getTrainingById(id);
       System.out.println(training);
-    } else {
-      System.out.println("Training not found.");
+    } catch (NoSuchElementException e) {
+      System.out.println("Training not found: " + e.getMessage());
     }
   }
 
   private void getAllTrainings() {
-    List<Training> trainings = facade.getAllTrainings();
+    List<Training> trainings = trainingService.getAllTrainings();
     trainings.forEach(System.out::println);
   }
 }
-
-
 

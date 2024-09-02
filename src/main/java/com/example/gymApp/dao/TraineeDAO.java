@@ -3,13 +3,14 @@ package com.example.gymApp.dao;
 import com.example.gymApp.model.Trainee;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-@Repository
+@Component
 public class TraineeDAO {
 
   private final InMemoryStorage storage;

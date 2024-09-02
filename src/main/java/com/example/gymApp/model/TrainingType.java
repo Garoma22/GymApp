@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class TrainingType {
-
+  private String typeName;
 
   public TrainingType() {
   }
@@ -15,9 +15,8 @@ public class TrainingType {
     this.typeName = typeName;
   }
 
-  private Long id;
 
-  private String typeName;
+
 
 }
 

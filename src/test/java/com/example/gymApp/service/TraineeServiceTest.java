@@ -3,11 +3,16 @@ package com.example.gymApp.service;
 
 import com.example.gymApp.dao.TraineeDAO;
 import com.example.gymApp.model.Trainee;
+import java.time.DateTimeException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -15,170 +20,139 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class TraineeServiceTest {
+public class TraineeServiceTest {
 
-  private TraineeService traineeService;
+  @Mock
   private TraineeDAO traineeDAO;
 
+  @InjectMocks
+  private TraineeService traineeService;
+
   @BeforeEach
-  void setUp() {
-    traineeDAO = Mockito.mock(TraineeDAO.class);
-    traineeService = new TraineeService();
-    traineeService.setTraineeDAO(traineeDAO);
+  public void setUp() {
+    MockitoAnnotations.openMocks(this);
   }
 
   @Test
-  void testCreateTrainee_success() {
-    // Arrange
+  public void testCreateTraineeSuccess() {
     Trainee trainee = new Trainee();
     trainee.setId(1L);
     trainee.setFirstName("John");
     trainee.setLastName("Doe");
     trainee.setDateOfBirth(LocalDate.of(1990, 1, 1));
     trainee.setAddress("123 Main St");
+
     when(traineeDAO.createTrainee(any(Trainee.class))).thenReturn(true);
 
-    // Act
-    boolean result = traineeService.createTrainee(trainee);
+    boolean result = traineeService.createTrainee(1L, "John", "Doe", LocalDate.of(1990, 1, 1), "123 Main St");
 
-    // Assert
     assertTrue(result);
-    verify(traineeDAO, times(1)).createTrainee(trainee);
+
   }
 
-
   @Test
-  void testCreateTrainee_exceptionWhenDaoFails() {
-    // Arrange
-    Trainee trainee = new Trainee();
-    trainee.setId(1L);
-    trainee.setFirstName("John");
-    trainee.setLastName("Doe");
-    trainee.setDateOfBirth(LocalDate.of(1990, 1, 1));
-    trainee.setAddress("123 Main St");
-    trainee.setUsername("john.doe");
-    trainee.setPassword("password123");
+  public void testCreateTraineeValidationError() {
+    boolean emptyName = traineeService.createTrainee(1L, "", "Doe", LocalDate.of(1990, 1, 1), "123 Main St");
 
-    when(traineeDAO.createTrainee(any(Trainee.class))).thenReturn(false);
+    boolean emptyLastName = traineeService.createTrainee(1L, "Ivan", "", LocalDate.of(1990, 1, 1), "123 Main St");
 
-    // Act & Assert
-    NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> {
-      traineeService.createTrainee(trainee);
+    assertThrows(DateTimeException.class, () -> {
+      traineeService.createTrainee(1L, "Ivan", "Doe", LocalDate.of(99999999, 21, 1101), "123 Main St");
     });
-    assertEquals("Trainee with ID 1 is not created.", exception.getMessage());
-    verify(traineeDAO, times(1)).createTrainee(trainee);
+
+
+
+    assertFalse(emptyName);
+    assertFalse(emptyLastName);
+
+
+    verify(traineeDAO, never()).createTrainee(any(Trainee.class));
   }
 
-
   @Test
-  void testUpdateTrainee_success() {
-    // Arrange
-    Trainee trainee = new Trainee();
-    trainee.setId(1L);
-    trainee.setFirstName("John");
-    trainee.setLastName("Doe");
-    trainee.setDateOfBirth(LocalDate.of(1990, 1, 1));
-    trainee.setAddress("123 Main St");
-    trainee.setUsername("john.doe");
-    trainee.setPassword("password123");
-    trainee.setActive(true);
+  public void testUpdateTraineeSuccess() {
+    Trainee existingTrainee = new Trainee();
+    existingTrainee.setId(1L);
+    existingTrainee.setFirstName("John");
+    existingTrainee.setLastName("Doe");
 
+    when(traineeDAO.getTraineeById(1L)).thenReturn(existingTrainee);
     when(traineeDAO.updateTrainee(any(Trainee.class))).thenReturn(true);
 
-    // Act
-    boolean result = traineeService.updateTrainee(trainee);
+    boolean result = traineeService.updateTrainee(1L, "Jane", "Smith", LocalDate.of(1992, 2, 2), "456 Elm St");
 
-    // Assert
     assertTrue(result);
-    verify(traineeDAO, times(1)).updateTrainee(trainee);
+
   }
 
   @Test
-  void testUpdateTrainee_exceptionWhenDaoFails() {
-    // Arrange
+  public void testUpdateTraineeNotFound() {
+    when(traineeDAO.getTraineeById(1L)).thenReturn(null);
+
+    assertThrows(NoSuchElementException.class, () -> {
+      traineeService.updateTrainee(1L, "Jane", "Smith", LocalDate.of(1992, 2, 2), "456 Elm St");
+    });
+
+    verify(traineeDAO, never()).updateTrainee(any(Trainee.class));
+  }
+
+  @Test
+  public void testDeleteTraineeSuccess() {
+    when(traineeDAO.deleteTrainee(1L)).thenReturn(true);
+
+    boolean result = traineeService.deleteTrainee(1L);
+
+    assertTrue(result);
+  }
+
+  @Test
+  public void testDeleteTraineeNotFound() {
+    when(traineeDAO.deleteTrainee(1L)).thenReturn(false);
+
+    boolean result = traineeService.deleteTrainee(1L);
+
+    assertFalse(result);
+
+  }
+
+  @Test
+  public void testGetTraineeByIdSuccess() {
     Trainee trainee = new Trainee();
     trainee.setId(1L);
     trainee.setFirstName("John");
-    trainee.setLastName("Doe");
-    trainee.setDateOfBirth(LocalDate.of(1990, 1, 1));
-    trainee.setAddress("123 Main St");
-    trainee.setUsername("john.doe");
-    trainee.setPassword("password123");
-    trainee.setActive(true);
 
-    when(traineeDAO.updateTrainee(any(Trainee.class))).thenReturn(false);
+    when(traineeDAO.getTraineeById(1L)).thenReturn(trainee);
 
-    // Act & Assert
-    NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> {
-      traineeService.updateTrainee(trainee);
+    assertNotNull(traineeService.getTraineeById(1L));
+
+    assertEquals(1L, traineeService.getTraineeById(1L).getId());
+
+  }
+
+  @Test
+  public void testGetTraineeByIdNotFound() {
+    when(traineeDAO.getTraineeById(1L)).thenReturn(null);
+
+    assertThrows(NoSuchElementException.class, () -> {
+      traineeService.getTraineeById(1L);
     });
-    assertEquals("Trainee with ID 1 is not updated.", exception.getMessage());
-    verify(traineeDAO, times(1)).updateTrainee(trainee);
-  }
 
-
-  @Test
-  void testDeleteTrainee_success() {
-    Long traineeId = 1L;
-    when(traineeDAO.deleteTrainee(traineeId)).thenReturn(true);
-
-    boolean result = traineeService.deleteTrainee(traineeId);
-
-    assertTrue(result);
-    verify(traineeDAO, times(1)).deleteTrainee(traineeId);
+    verify(traineeDAO, times(1)).getTraineeById(1L);
   }
 
   @Test
-  void testDeleteTrainee_exceptionWhenDaoFails() {
+  public void testGetAllTrainees() {
+    Trainee trainee1 = new Trainee();
+    trainee1.setId(1L);
+    Trainee trainee2 = new Trainee();
+    trainee2.setId(2L);
 
-    Long traineeId = 1L;
-    when(traineeDAO.deleteTrainee(traineeId)).thenReturn(false);
+    when(traineeDAO.getAllTrainees()).thenReturn(Arrays.asList(trainee1, trainee2));
 
-    NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> {
-      traineeService.deleteTrainee(traineeId);
-    });
-    assertEquals("Trainee with ID 1 not found.", exception.getMessage());
-    verify(traineeDAO, times(1)).deleteTrainee(traineeId);
-  }
+    List<Trainee> trainees = traineeService.getAllTrainees();
 
-  @Test
-  void testGetTraineeById_success() {
+    assertNotNull(trainees);
+    assertEquals(2, trainees.size());
 
-    Long traineeId = 1L;
-    Trainee trainee = new Trainee();
-    trainee.setId(traineeId);
-    when(traineeDAO.getTraineeById(traineeId)).thenReturn(trainee);
-
-    Trainee result = traineeService.getTraineeById(traineeId);
-
-    assertNotNull(result);
-    assertEquals(traineeId, result.getId());
-    verify(traineeDAO, times(1)).getTraineeById(traineeId);
-  }
-
-  @Test
-  void testGetTraineeById_exceptionWhenNotFound() {
-
-    Long traineeId = 1L;
-    when(traineeDAO.getTraineeById(traineeId)).thenReturn(null);
-
-    NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> {
-      traineeService.getTraineeById(traineeId);
-    });
-    assertEquals("Trainee with ID 1 not found.", exception.getMessage());
-    verify(traineeDAO, times(1)).getTraineeById(traineeId);
-  }
-
-  @Test
-  void testGetAllTrainees_success() {
-
-    List<Trainee> trainees = List.of(new Trainee(), new Trainee());
-    when(traineeDAO.getAllTrainees()).thenReturn(trainees);
-
-    List<Trainee> result = traineeService.getAllTrainees();
-
-    assertNotNull(result);
-    assertEquals(2, result.size());
-    verify(traineeDAO, times(1)).getAllTrainees();
   }
 }

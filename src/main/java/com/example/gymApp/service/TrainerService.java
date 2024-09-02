@@ -2,84 +2,130 @@ package com.example.gymApp.service;
 
 import com.example.gymApp.dao.TrainerDAO;
 import com.example.gymApp.model.Trainer;
+import java.util.List;
+import java.util.NoSuchElementException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.NoSuchElementException;
 
 @Slf4j
 @Service
 public class TrainerService {
 
-  private TrainerDAO trainerDAO;
+  private final TrainerDAO trainerDAO;
 
   @Autowired
-  public void setTrainerDAO(TrainerDAO trainerDAO) {
+  public TrainerService(TrainerDAO trainerDAO) {
     this.trainerDAO = trainerDAO;
   }
 
+  public boolean createTrainer(Long id, String firstName, String lastName, String specialization) {
+    try {
+      Trainer trainer = new Trainer();
+      trainer.setId(id);
+      trainer.setFirstName(firstName);
+      trainer.setLastName(lastName);
+      trainer.setSpecialization(specialization);
 
-  public boolean createTrainer(Trainer trainer) {
+      validateTrainer(trainer);
 
-    if (trainer.getUsername() == null || trainer.getUsername().isEmpty()) {
-      String generatedUsername = ProfileService.generateUsername(trainer.getFirstName(),
-          trainer.getLastName());
-      trainer.setUsername(generatedUsername);
-      log.info("Generated username for trainer {}: {}", trainer.getId(), generatedUsername);
+      if (trainer.getUsername() == null || trainer.getUsername().isEmpty()) {
+        String generatedUsername = ProfileService.generateUsername(firstName, lastName);
+        trainer.setUsername(generatedUsername);
+        log.info("Generated username for trainer {}: {}", id, generatedUsername);
+      }
+      try {
+        if (trainer.getPassword() == null || trainer.getPassword().isEmpty()) {
+          String generatedPassword = ProfileService.generateRandomPassword();
+          trainer.setPassword(generatedPassword);
+          log.info("Generated password for trainer {}: {}", id, generatedPassword);
+        }
+      } catch (Exception e) {
+        log.error("Error generating password for trainer {}: {}", id, e.getMessage());
+        throw new RuntimeException("Failed to generate password for trainer.");
+      }
+
+
+      if (!trainerDAO.createTrainer(trainer)) {
+        throw new NoSuchElementException("Trainer with ID " + id + " could not be created.");
+      }
+      log.info("Trainer {} has been created successfully.", id);
+      return true;
+
+    } catch (IllegalArgumentException e) {
+      log.error("Error creating trainer: {}", e.getMessage());
+      return false;
     }
-
-    if (trainer.getPassword() == null || trainer.getPassword().isEmpty()) {
-      String generatedPassword = ProfileService.generateRandomPassword();
-      trainer.setPassword(generatedPassword);
-      log.info("Generated password for trainer {}: {}", trainer.getId(), generatedPassword);
-    }
-
-    if (!trainerDAO.createTrainer(trainer)) {
-      throw new NoSuchElementException("Trainer with ID " + trainer.getId() + " is not created.");
-    }
-    log.info("Trainer {} has been saved successfully.", trainer.getId());
-    return true;
   }
 
+  public boolean updateTrainer(Long id, String firstName, String lastName, String specialization) {
+    try {
 
-  public boolean updateTrainer(Trainer trainer) {
-    if (!trainerDAO.updateTrainer(trainer)) {
-      throw new NoSuchElementException("Trainer with ID " + trainer.getId() + " is not updated.");
+      Trainer trainer = getTrainerById(id);
+
+      trainer.setFirstName(firstName);
+      trainer.setLastName(lastName);
+      trainer.setSpecialization(specialization);
+
+      validateTrainer(trainer);
+
+      // Сохраняем изменения
+      if (!trainerDAO.updateTrainer(trainer)) {
+        throw new NoSuchElementException("Trainer with ID " + id + " could not be updated.");
+      }
+      log.info("Trainer {} has been updated successfully.", id);
+      return true;
+
+    } catch (IllegalArgumentException e) {
+      log.error("Error updating trainer: {}", e.getMessage());
+      return false;
     }
-    return true;
   }
-
 
   public boolean deleteTrainer(Long id) {
-
-   if(!trainerDAO.deleteTrainer(id)){
-     throw new NoSuchElementException("Trainer with ID : " + id + " is not deleted.");
+    try {
+      if (!trainerDAO.deleteTrainer(id)) {
+        throw new NoSuchElementException("Trainer with ID " + id + " not found.");
+      }
+      log.info("Trainer {} has been deleted successfully.", id);
+      return true;
+    } catch (NoSuchElementException e) {
+      log.error("Error deleting trainer: {}", e.getMessage());
+      return false;
     }
-    log.info("Trainer {} has been deleted successfully.", id);
-    return true;
   }
 
   public Trainer getTrainerById(Long id) {
     Trainer trainer = trainerDAO.getTrainerById(id);
-
     if (trainer == null) {
-      log.error("Trainer with ID: " + id + " not found.");
-      throw new NoSuchElementException("Trainer with ID: " + id + " not found.");
+      throw new NoSuchElementException("Trainer with ID " + id + " not found.");
     }
-    log.info("Trainer with ID: " + id + " successfully retrieved.");
     return trainer;
   }
 
   public List<Trainer> getAllTrainers() {
-    List<Trainer> trainers = trainerDAO.getAllTrainers();
-
-    if (trainers == null) {
-      log.error("Failed to retrieve the list of trainers. The list is null.");
-      throw new NoSuchElementException("Failed to retrieve the list of trainers. The list is null.");
+    try {
+      List<Trainer> trainers = trainerDAO.getAllTrainers();
+      log.info("Successfully retrieved list of trainers.");
+      return trainers;
+    } catch (Exception e) {
+      log.error("Error fetching all trainers: {}", e.getMessage());
+      throw new RuntimeException("Unable to retrieve trainers.");
     }
+  }
 
-    return trainers;
+  private void validateTrainer(Trainer trainer) {
+    if (trainer.getId() == null || trainer.getId() <= 0) {
+      throw new IllegalArgumentException("Invalid ID: " + trainer.getId());
+    }
+    if (trainer.getFirstName() == null || trainer.getFirstName().trim().isEmpty()) {
+      throw new IllegalArgumentException("First name cannot be empty.");
+    }
+    if (trainer.getLastName() == null || trainer.getLastName().trim().isEmpty()) {
+      throw new IllegalArgumentException("Last name cannot be empty.");
+    }
+    if (trainer.getSpecialization() == null || trainer.getSpecialization().trim().isEmpty()) {
+      throw new IllegalArgumentException("Specialization cannot be empty.");
+    }
   }
 }

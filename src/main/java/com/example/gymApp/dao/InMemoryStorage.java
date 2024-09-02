@@ -94,8 +94,7 @@ public class InMemoryStorage {
       training.setTrainer(trainer);
       training.setTrainingName("Simple training");
       training.setTrainingType("Simple training");
-      training.setTrainingDate(
-          LocalDateTime.now());
+      training.setTrainingDate(LocalDate.now());
       training.setTrainingDuration(
           60);
 

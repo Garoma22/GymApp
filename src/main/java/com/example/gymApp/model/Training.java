@@ -1,5 +1,6 @@
 package com.example.gymApp.model;
 
+import java.time.LocalDate;
 import lombok.Data;
 import java.time.LocalDateTime;
 
@@ -16,7 +17,7 @@ public class Training {
 
   private String trainingType;
 
-  private LocalDateTime trainingDate;
+  private LocalDate trainingDate;
 
   private Integer trainingDuration;
 
@@ -25,7 +26,7 @@ public class Training {
   }
 
   public Training(Long id, Trainee trainee, Trainer trainer, String trainingName,
-      String trainingType, LocalDateTime trainingDate, Integer trainingDuration) {
+      String trainingType, LocalDate trainingDate, Integer trainingDuration) {
 
     this.id = id;
     this.trainee = trainee;
