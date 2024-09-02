@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HomeController {
 
-    @GetMapping("/1")
-    @ResponseBody
-    public String home() {
-        return "Welcome to GymApp!";
-    }
+  @GetMapping("/1")
+  @ResponseBody
+  public String home() {
+    return "Welcome to GymApp!";
+  }
 }

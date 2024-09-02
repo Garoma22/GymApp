@@ -6,25 +6,34 @@
   <component name="ChangeListManager">
     <list default="true" id="eb89e892-aee3-4360-91b8-da22ca892d05" name="Changes" comment="commit 1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/logs/application.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/application.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/AppConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Controller/GymController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Controller/GymController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Controller/TraineeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Controller/TraineeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Controller/TrainerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Controller/TrainerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Controller/TrainingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Controller/TrainingController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Dao/InMemoryStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Dao/InMemoryStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Dao/TraineeDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Dao/TraineeDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Dao/TrainerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Dao/TrainerDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Dao/TrainingDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Dao/TrainingDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/GymApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Model/Trainee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Model/Trainee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Model/Trainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Model/Trainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Service/Facade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Service/Facade.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Service/TraineeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Service/TraineeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Service/TrainerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Service/TrainerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Service/TrainingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Service/TrainingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Dao/InMemoryStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/dao/InMemoryStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Dao/TraineeDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/dao/TraineeDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Dao/TrainerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/dao/TrainerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Dao/TrainingDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/dao/TrainingDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/GymApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/GymApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Model/Trainee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/Trainee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Model/Trainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/Trainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Model/Training.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/Training.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Model/TrainingType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/TrainingType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Service/Facade.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/Facade.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Service/ProfileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/ProfileService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Service/TraineeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TraineeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Service/TrainerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Service/TrainingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/WebConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/gymApp/service/FacadeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/gymApp/Service/FacadeTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/logback.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/logback.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/gymApp/Dao/InMemoryStorageTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/gymApp/Dao/TraineeDAOTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/gymApp/Service/FacadeTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,18 +50,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Garoma22"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Garoma22&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Garoma22/GymApp.git",
-    "accountId": "1d769988-ff60-4452-9dca-42a3863f96c5"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Garoma22/GymApp.git&quot;,
+    &quot;accountId&quot;: &quot;1d769988-ff60-4452-9dca-42a3863f96c5&quot;
   }
-}]]></component>
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -77,12 +86,21 @@
     "JUnit.InMemoryStorageTest.executor": "Run",
     "JUnit.InMemoryStorageTest.testFileNotFound.executor": "Run",
     "JUnit.InMemoryStorageTest.testLoadDataFromFile.executor": "Run",
+    "JUnit.ProfileServiceTest.executor": "Run",
     "JUnit.TraineeDAOTest.executor": "Run",
     "JUnit.TraineeDAOTest.testCreateTrainee.executor": "Run",
     "JUnit.TraineeDAOTest.testCreateTraineeWithCustomUsernameAndPass.executor": "Run",
     "JUnit.TraineeDAOTest.testCreateTraineeWithRandomizer.executor": "Run",
     "JUnit.TraineeDaoTest.testCreateTrainee.executor": "Run",
     "JUnit.TraineeDaoTest.testUpdateTrainee_whenExists.executor": "Run",
+    "JUnit.TraineeServiceTest.executor": "Run",
+    "JUnit.TraineeServiceTest.testCreateTrainee_success.executor": "Run",
+    "JUnit.TraineeServiceTest.testGetAllTrainees_success.executor": "Run",
+    "JUnit.TraineeServiceTest.testUpdateTrainee_exceptionWhenDaoFails.executor": "Run",
+    "JUnit.TraineeServiceTest.testUpdateTrainee_success.executor": "Run",
+    "JUnit.TrainerServiceTest.executor": "Run",
+    "JUnit.TrainerServiceTest.testCreateTrainer_success.executor": "Run",
+    "JUnit.TrainerServiceTest.testUpdateTrainer_exceptionWhenDaoFails.executor": "Run",
     "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
     "Maven.GymApp [clean].executor": "Run",
     "Maven.GymApp [compile].executor": "Run",
@@ -97,10 +115,10 @@
     "project.structure.last.edited": "SDKs",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+    "settings.editor.selected.configurable": "preferences.sourceCode.Java"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.GymApplication">
+  <component name="RunManager" selected="JUnit.TrainerServiceTest.testUpdateTrainer_exceptionWhenDaoFails">
     <configuration name="GymApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.gymApp.GymApplication" />
       <module name="GymApp" />
@@ -114,64 +132,62 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TraineeDAOTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ProfileServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GymApp" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.gymApp.Dao.*" />
+          <option name="PATTERN" value="com.example.gymApp.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.example.gymApp.Dao" />
-      <option name="MAIN_CLASS_NAME" value="com.example.gymApp.Dao.TraineeDAOTest" />
+      <option name="PACKAGE_NAME" value="com.example.gymApp.service" />
+      <option name="MAIN_CLASS_NAME" value="com.example.gymApp.service.ProfileServiceTest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TraineeDAOTest.testCreateTrainee" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TraineeServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GymApp" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.gymApp.Dao.*" />
+          <option name="PATTERN" value="com.example.gymApp.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.example.gymApp.Dao" />
-      <option name="MAIN_CLASS_NAME" value="com.example.gymApp.Dao.TraineeDAOTest" />
-      <option name="METHOD_NAME" value="testCreateTrainee" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="com.example.gymApp.service" />
+      <option name="MAIN_CLASS_NAME" value="com.example.gymApp.service.TraineeServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TraineeDAOTest.testCreateTraineeWithCustomUsernameAndPass" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TrainerServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GymApp" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.gymApp.Dao.*" />
+          <option name="PATTERN" value="com.example.gymApp.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.example.gymApp.Dao" />
-      <option name="MAIN_CLASS_NAME" value="com.example.gymApp.Dao.TraineeDAOTest" />
-      <option name="METHOD_NAME" value="testCreateTraineeWithCustomUsernameAndPass" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" value="com.example.gymApp.service" />
+      <option name="MAIN_CLASS_NAME" value="com.example.gymApp.service.TrainerServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TraineeDAOTest.testCreateTraineeWithRandomizer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TrainerServiceTest.testUpdateTrainer_exceptionWhenDaoFails" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GymApp" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.gymApp.Dao.*" />
+          <option name="PATTERN" value="com.example.gymApp.service.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.example.gymApp.Dao" />
-      <option name="MAIN_CLASS_NAME" value="com.example.gymApp.Dao.TraineeDAOTest" />
-      <option name="METHOD_NAME" value="testCreateTraineeWithRandomizer" />
+      <option name="PACKAGE_NAME" value="com.example.gymApp.service" />
+      <option name="MAIN_CLASS_NAME" value="com.example.gymApp.service.TrainerServiceTest" />
+      <option name="METHOD_NAME" value="testUpdateTrainer_exceptionWhenDaoFails" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -179,11 +195,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TrainerServiceTest.testUpdateTrainer_exceptionWhenDaoFails" />
+        <item itemvalue="JUnit.TraineeServiceTest" />
+        <item itemvalue="JUnit.ProfileServiceTest" />
         <item itemvalue="Application.GymApplication" />
-        <item itemvalue="JUnit.TraineeDAOTest" />
-        <item itemvalue="JUnit.TraineeDAOTest.testCreateTraineeWithCustomUsernameAndPass" />
-        <item itemvalue="JUnit.TraineeDAOTest.testCreateTrainee" />
-        <item itemvalue="JUnit.TraineeDAOTest.testCreateTraineeWithRandomizer" />
+        <item itemvalue="JUnit.TrainerServiceTest" />
       </list>
     </recent_temporary>
   </component>
@@ -220,5 +236,17 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="NONE" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/gymApp/AppConfig.java</url>
+          <line>26</line>
+          <log-expression expression="//        @Bean&#10;//        public TrainingDAO trainingDAO() {&#10;//            return new TrainingDAO(inMemoryStorage());&#10;//        }&#10;//&#10;//        @Bean&#10;//        public HomeController homeController(){&#10;//            return new HomeController();&#10;//        }&#10;//&#10;//        @Bean&#10;//        public GymController gymController(){&#10;//            return new GymController(facade());&#10;//       }" language="JAVA" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
