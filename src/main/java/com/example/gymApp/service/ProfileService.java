@@ -25,3 +25,4 @@ public class ProfileService {
         .collect(Collectors.joining());
   }
 }
+

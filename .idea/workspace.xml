@@ -5,31 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eb89e892-aee3-4360-91b8-da22ca892d05" name="Changes" comment="commit 1">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/application.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/application.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/AppConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Controller/GymController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Controller/HomeController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Controller/TraineeController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Controller/TrainerController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/Controller/TrainingController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/GymApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/GymApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/dao/InMemoryStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/dao/InMemoryStorage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/dao/TraineeDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/dao/TraineeDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/dao/TrainingDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/dao/TrainingDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/Training.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/Training.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/TrainingType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/TrainingType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/Facade.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TraineeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TraineeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainerService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainingService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/utils/ConsoleInputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/utils/ConsoleInputHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/utils/DataInitializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/utils/DataInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/gymApp/service/ProfileServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/gymApp/service/TraineeServiceTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/gymApp/service/TrainerServiceTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/ProfileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/ProfileService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
