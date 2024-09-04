@@ -37,4 +37,8 @@ build/
 ### Mac OS ###
 .DS_Store
 
+<<<<<<< HEAD
 .idea/workspace.xml
+=======
+application.log
+>>>>>>> spring-core-refactor
