@@ -1837,3 +1837,37 @@
 2024-09-02 23:37:58 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@2145b572{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
 2024-09-02 23:37:58 [main] INFO  org.eclipse.jetty.server.Server - Started Server@d6e7bab{STARTING}[11.0.23,sto=0] @860ms
 2024-09-02 23:37:58 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@d6e7bab{STARTED}[11.0.23,sto=0]
+2024-09-04 13:18:55 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-04 13:18:55 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-04 13:18:55 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-09-04 13:18:55 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-09-04 13:18:56 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'appConfig' of type [com.example.gymApp.AppConfig$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [userInitializationPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2024-09-04 13:18:56 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-04 13:18:56 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'dataInitializer' of type [com.example.gymApp.utils.DataInitializer] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [userInitializationPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2024-09-04 13:18:56 [main] INFO  c.e.g.u.UserInitializationPostProcessor - DataInitializer init method called.
+2024-09-04 13:18:56 [main] INFO  c.example.gymApp.dao.InMemoryStorage - Initializing InMemoryStorage...
+2024-09-04 13:18:56 [main] INFO  c.example.gymApp.dao.InMemoryStorage - Trainees: {1=Trainee{id=1, firstName='John', lastName='Doe', username='John.Doe', password='h69igLnVWd', isActive=true, dateOfBirth=1990-01-01, address='1234'}}
+2024-09-04 13:18:56 [main] INFO  c.example.gymApp.dao.InMemoryStorage - Trainers: {2=Trainer{id=2, firstName=' Bill', lastName='Loan', username=' Bill.Loan', password='nN1fpMgIJ6', isActive=true, specialization='Personal Training'}}
+2024-09-04 13:18:56 [main] INFO  c.example.gymApp.dao.InMemoryStorage - Trainings: {1=Training(id=1, trainee=Trainee{id=1, firstName='John', lastName='Doe', username='John.Doe', password='h69igLnVWd', isActive=true, dateOfBirth=1990-01-01, address='1234'}, trainer=Trainer{id=2, firstName=' Bill', lastName='Loan', username=' Bill.Loan', password='nN1fpMgIJ6', isActive=true, specialization='Personal Training'}, trainingName=Simple training, trainingType=Simple training, trainingDate=2024-09-04, trainingDuration=60)}
+2024-09-04 13:18:56 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 439 ms
+2024-09-04 13:18:56 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@5bcde458{/,null,AVAILABLE}
+2024-09-04 13:18:56 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@2145b572{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-04 13:18:56 [main] INFO  org.eclipse.jetty.server.Server - Started Server@d6e7bab{STARTING}[11.0.23,sto=0] @967ms
+2024-09-04 13:18:56 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@d6e7bab{STARTED}[11.0.23,sto=0]
+2024-09-04 13:23:17 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-04 13:23:17 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-04 13:23:17 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-09-04 13:23:17 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-2525ff7e'
+2024-09-04 13:23:18 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'appConfig' of type [com.example.gymApp.AppConfig$$SpringCGLIB$$0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [userInitializationPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2024-09-04 13:23:18 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-04 13:23:18 [main] WARN  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'dataInitializer' of type [com.example.gymApp.utils.DataInitializer] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying). Is this bean getting eagerly injected into a currently created BeanPostProcessor [userInitializationPostProcessor]? Check the corresponding BeanPostProcessor declaration and its dependencies.
+2024-09-04 13:23:18 [main] INFO  c.e.g.u.UserInitializationPostProcessor - DataInitializer init method called.
+2024-09-04 13:23:18 [main] INFO  c.example.gymApp.dao.InMemoryStorage - Initializing InMemoryStorage...
+2024-09-04 13:23:18 [main] INFO  c.example.gymApp.dao.InMemoryStorage - Trainees: {1=Trainee{id=1, firstName='John', lastName='Doe', username='John.Doe', password='aeCY4MdZBn', isActive=true, dateOfBirth=1990-01-01, address='1234'}}
+2024-09-04 13:23:18 [main] INFO  c.example.gymApp.dao.InMemoryStorage - Trainers: {2=Trainer{id=2, firstName=' Bill', lastName='Loan', username=' Bill.Loan', password='7HEDT9x1SI', isActive=true, specialization='Personal Training'}}
+2024-09-04 13:23:18 [main] INFO  c.example.gymApp.dao.InMemoryStorage - Trainings: {1=Training(id=1, trainee=Trainee{id=1, firstName='John', lastName='Doe', username='John.Doe', password='aeCY4MdZBn', isActive=true, dateOfBirth=1990-01-01, address='1234'}, trainer=Trainer{id=2, firstName=' Bill', lastName='Loan', username=' Bill.Loan', password='7HEDT9x1SI', isActive=true, specialization='Personal Training'}, trainingName=Simple training, trainingType=Simple training, trainingDate=2024-09-04, trainingDuration=60)}
+2024-09-04 13:23:18 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 459 ms
+2024-09-04 13:23:18 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@5bcde458{/,null,AVAILABLE}
+2024-09-04 13:23:18 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@2145b572{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-04 13:23:18 [main] INFO  org.eclipse.jetty.server.Server - Started Server@d6e7bab{STARTING}[11.0.23,sto=0] @1108ms
+2024-09-04 13:23:18 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@d6e7bab{STARTED}[11.0.23,sto=0]
