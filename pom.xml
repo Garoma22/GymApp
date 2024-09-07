@@ -1,3 +1,206 @@
+<!--<project xmlns="http://maven.apache.org/POM/4.0.0"-->
+<!--  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
+<!--  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">-->
+<!--  <modelVersion>4.0.0</modelVersion>-->
+<!--  <groupId>org.example</groupId>-->
+<!--  <artifactId>GymApp</artifactId>-->
+<!--  <packaging>war</packaging>-->
+<!--  <version>1.0-SNAPSHOT</version>-->
+<!--  <name>GymApp Maven Webapp</name>-->
+<!--  <url>http://maven.apache.org</url>-->
+
+<!--  <properties>-->
+<!--    <spring.version>6.1.12</spring.version>-->
+<!--  </properties>-->
+
+<!--  <dependencies>-->
+<!--    &lt;!&ndash; Spring Framework dependencies &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework</groupId>-->
+<!--      <artifactId>spring-context</artifactId>-->
+<!--      <version>${spring.version}</version>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework</groupId>-->
+<!--      <artifactId>spring-aop</artifactId>-->
+<!--      <version>${spring.version}</version>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework</groupId>-->
+<!--      <artifactId>spring-webmvc</artifactId>-->
+<!--      <version>${spring.version}</version>-->
+<!--    </dependency>-->
+
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.springframework/spring-web &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework</groupId>-->
+<!--      <artifactId>spring-web</artifactId>-->
+<!--      <version>${spring.version}</version>-->
+<!--    </dependency>-->
+
+<!--    &lt;!&ndash; Jakarta Servlet API &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>jakarta.servlet</groupId>-->
+<!--      <artifactId>jakarta.servlet-api</artifactId>-->
+<!--      <version>6.0.0</version>-->
+<!--      <scope>provided</scope>-->
+<!--    </dependency>-->
+
+<!--    &lt;!&ndash; Jetty Server dependencies &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>org.eclipse.jetty</groupId>-->
+<!--      <artifactId>jetty-server</artifactId>-->
+<!--      <version>11.0.23</version>-->
+<!--    </dependency>-->
+<!--    <dependency>-->
+<!--      <groupId>org.eclipse.jetty</groupId>-->
+<!--      <artifactId>jetty-webapp</artifactId>-->
+<!--      <version>11.0.23</version>-->
+<!--    </dependency>-->
+
+<!--    &lt;!&ndash; Jakarta Annotations API &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>jakarta.annotation</groupId>-->
+<!--      <artifactId>jakarta.annotation-api</artifactId>-->
+<!--      <version>3.0.0</version>-->
+<!--    </dependency>-->
+
+<!--    &lt;!&ndash; Lombok &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>org.projectlombok</groupId>-->
+<!--      <artifactId>lombok</artifactId>-->
+<!--      <version>1.18.34</version>-->
+<!--      <scope>provided</scope>-->
+<!--    </dependency>-->
+
+<!--    &lt;!&ndash; TestNG &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>org.testng</groupId>-->
+<!--      <artifactId>testng</artifactId>-->
+<!--      <version>7.10.0</version>-->
+<!--      <scope>test</scope>-->
+<!--    </dependency>-->
+
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--      <artifactId>jackson-databind</artifactId>-->
+<!--      <version>2.17.2</version>-->
+<!--    </dependency>-->
+
+
+
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>com.fasterxml.jackson.core</groupId>-->
+<!--      <artifactId>jackson-core</artifactId>-->
+<!--      <version>2.17.2</version>-->
+<!--    </dependency>-->
+
+<!--    <dependency>-->
+<!--      <groupId>org.springframework</groupId>-->
+<!--      <artifactId>spring-test</artifactId>-->
+<!--      <version>6.1.12</version>-->
+<!--      <scope>test</scope>-->
+<!--    </dependency>-->
+
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>org.junit.jupiter</groupId>-->
+<!--      <artifactId>junit-jupiter-api</artifactId>-->
+<!--      <version>5.11.0</version>-->
+<!--      <scope>test</scope>-->
+<!--    </dependency>-->
+
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>org.junit.jupiter</groupId>-->
+<!--      <artifactId>junit-jupiter-engine</artifactId>-->
+<!--      <version>5.11.0</version>-->
+<!--      <scope>test</scope>-->
+<!--    </dependency>-->
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>org.mockito</groupId>-->
+<!--      <artifactId>mockito-junit-jupiter</artifactId>-->
+<!--      <version>5.12.0</version>-->
+<!--      <scope>test</scope>-->
+<!--    </dependency>-->
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.assertj/assertj-core &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>org.assertj</groupId>-->
+<!--      <artifactId>assertj-core</artifactId>-->
+<!--      <version>3.26.3</version>-->
+<!--      <scope>test</scope>-->
+<!--    </dependency>-->
+
+
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/ch.qos.logback/logback-classic &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>ch.qos.logback</groupId>-->
+<!--      <artifactId>logback-classic</artifactId>-->
+<!--      <version>1.5.7</version>-->
+<!--      &lt;!&ndash;      <scope>test</scope>&ndash;&gt;-->
+<!--    </dependency>-->
+
+
+
+
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.postgresql/postgresql &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>org.postgresql</groupId>-->
+<!--      <artifactId>postgresql</artifactId>-->
+<!--      <version>42.7.4</version>-->
+<!--    </dependency>-->
+
+
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>org.hibernate.orm</groupId>-->
+<!--      <artifactId>hibernate-core</artifactId>-->
+<!--      <version>6.6.0.Final</version>-->
+<!--    </dependency>-->
+
+
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.springframework/spring-orm &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework</groupId>-->
+<!--      <artifactId>spring-orm</artifactId>-->
+<!--      <version>6.1.12</version>-->
+<!--    </dependency>-->
+
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>org.springframework.data</groupId>-->
+<!--      <artifactId>spring-data-jpa</artifactId>-->
+<!--      <version>3.3.3</version>-->
+<!--    </dependency>-->
+
+
+<!--  </dependencies>-->
+
+<!--  <build>-->
+<!--    <finalName>GymApp</finalName>-->
+<!--    <plugins>-->
+<!--      <plugin>-->
+<!--        <groupId>org.apache.maven.plugins</groupId>-->
+<!--        <artifactId>maven-war-plugin</artifactId>-->
+<!--        <version>3.3.1</version>-->
+<!--      </plugin>-->
+<!--      <plugin>-->
+<!--        <groupId>org.apache.maven.plugins</groupId>-->
+<!--        <artifactId>maven-compiler-plugin</artifactId>-->
+<!--        <version>3.8.1</version>-->
+<!--        <configuration>-->
+<!--          <source>21</source>-->
+<!--          <target>21</target>-->
+<!--        </configuration>-->
+<!--      </plugin>-->
+<!--    </plugins>-->
+<!--  </build>-->
+<!--</project>-->
+
+
 <project xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -9,36 +212,52 @@
   <name>GymApp Maven Webapp</name>
   <url>http://maven.apache.org</url>
 
+  <properties>
+    <spring.version>6.1.12</spring.version>
+    <jetty.version>11.0.23</jetty.version>
+    <jakarta.servlet.version>6.0.0</jakarta.servlet.version>
+    <jackson.version>2.17.2</jackson.version>
+    <lombok.version>1.18.34</lombok.version>
+    <testng.version>7.10.0</testng.version>
+    <junit.version>5.11.0</junit.version>
+    <mockito.version>5.12.0</mockito.version>
+    <assertj.version>3.26.3</assertj.version>
+    <logback.version>1.5.7</logback.version>
+    <postgresql.version>42.7.4</postgresql.version>
+    <hibernate.version>6.6.0.Final</hibernate.version>
+    <compiler.version>3.8.1</compiler.version>
+    <maven.war.plugin.version>3.3.1</maven.war.plugin.version>
+    <java.version>21</java.version>
+  </properties>
+
   <dependencies>
     <!-- Spring Framework dependencies -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
-      <version>6.1.12</version>
+      <version>${spring.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-aop</artifactId>
-      <version>6.1.12</version>
+      <version>${spring.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
-      <version>6.1.12</version>
+      <version>${spring.version}</version>
     </dependency>
-
-    <!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-web</artifactId>
-      <version>6.1.12</version>
+      <version>${spring.version}</version>
     </dependency>
 
     <!-- Jakarta Servlet API -->
     <dependency>
       <groupId>jakarta.servlet</groupId>
       <artifactId>jakarta.servlet-api</artifactId>
-      <version>6.0.0</version>
+      <version>${jakarta.servlet.version}</version>
       <scope>provided</scope>
     </dependency>
 
@@ -46,12 +265,12 @@
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-server</artifactId>
-      <version>11.0.23</version>
+      <version>${jetty.version}</version>
     </dependency>
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-webapp</artifactId>
-      <version>11.0.23</version>
+      <version>${jetty.version}</version>
     </dependency>
 
     <!-- Jakarta Annotations API -->
@@ -65,7 +284,7 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.34</version>
+      <version>${lombok.version}</version>
       <scope>provided</scope>
     </dependency>
 
@@ -73,76 +292,90 @@
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
-      <version>7.10.0</version>
+      <version>${testng.version}</version>
       <scope>test</scope>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+    <!-- Jackson dependencies -->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>2.17.2</version>
+      <version>${jackson.version}</version>
     </dependency>
-
-
-
-    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core -->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
-      <version>2.17.2</version>
+      <version>${jackson.version}</version>
     </dependency>
 
+    <!-- Spring Test -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-test</artifactId>
-      <version>6.1.12</version>
+      <version>${spring.version}</version>
       <scope>test</scope>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+    <!-- JUnit and Mockito -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <version>5.11.0</version>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
-
-    <!-- https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>5.11.0</version>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.mockito/mockito-junit-jupiter -->
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-junit-jupiter</artifactId>
-      <version>5.12.0</version>
+      <version>${mockito.version}</version>
       <scope>test</scope>
     </dependency>
-    <!-- https://mvnrepository.com/artifact/org.assertj/assertj-core -->
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>3.26.3</version>
+      <version>${assertj.version}</version>
       <scope>test</scope>
     </dependency>
 
-
-    <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+    <!-- Logback -->
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-      <version>1.5.7</version>
-      <!--      <scope>test</scope>-->
+      <version>${logback.version}</version>
     </dependency>
 
+    <!-- PostgreSQL -->
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>${postgresql.version}</version>
+    </dependency>
 
+    <!-- Hibernate -->
+    <dependency>
+      <groupId>org.hibernate.orm</groupId>
+      <artifactId>hibernate-core</artifactId>
+      <version>${hibernate.version}</version>
+    </dependency>
 
+    <!-- Spring ORM -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>${spring.version}</version>
+    </dependency>
 
-
+    <!-- Spring Data JPA -->
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-jpa</artifactId>
+      <version>3.3.3</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -151,15 +384,15 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-war-plugin</artifactId>
-        <version>3.3.1</version>
+        <version>${maven.war.plugin.version}</version>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
+        <version>${compiler.version}</version>
         <configuration>
-          <source>21</source>
-          <target>21</target>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
         </configuration>
       </plugin>
     </plugins>

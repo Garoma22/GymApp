@@ -40,9 +40,11 @@ public class DataInitializer {
         if (parts[0].equals("trainee")) {
           TraineeData traineeData = new TraineeData(
               Long.parseLong(parts[1]),
+
               parts[2],
               parts[3],
-              parts[4],
+              parts[4]
+              ,
               parts[5]
           );
           traineeDataList.add(traineeData);

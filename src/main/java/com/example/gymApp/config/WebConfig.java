@@ -1,4 +1,4 @@
-package com.example.gymApp;
+package com.example.gymApp.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;

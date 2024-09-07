@@ -1,46 +1,54 @@
-package com.example.gymApp.dao;
-
-import com.example.gymApp.model.Trainee;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
-
-import java.util.ArrayList;
-import java.util.List;
-
-@Slf4j
-@Component
-public class TraineeDAO {
-
-  private final InMemoryStorage storage;
-
-  @Autowired
-  public TraineeDAO(InMemoryStorage storage) {
-    this.storage = storage;
-  }
-
-
-  public boolean createTrainee(Trainee trainee) {
-    storage.getTraineesMap().put(trainee.getId(), trainee);
-    return storage.getTraineesMap().containsKey(trainee.getId());
-
-  }
-
-  public boolean updateTrainee(Trainee trainee) {
-    return storage.getTraineesMap().put(trainee.getId(), trainee) != null;
-  }
-
-  public boolean deleteTrainee(Long id) {
-    return storage.getTraineesMap().remove(id) != null;
-
-  }
-
-  public Trainee getTraineeById(Long id) {
-    return storage.getTraineesMap().get(id);
-  }
-
-  public List<Trainee> getAllTrainees() {
-    return new ArrayList<>(storage.getTraineesMap().values());
-  }
-}
+//
+//
+//package com.example.gymApp.dao;
+//
+//import com.example.gymApp.model.Trainee;
+//import com.example.gymApp.repository.TraineeRepository;
+//import lombok.extern.slf4j.Slf4j;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.stereotype.Component;
+//
+//import java.util.List;
+//
+//@Slf4j
+//@Component
+//public class TraineeDAO {
+//
+//  private final TraineeRepository traineeRepository;
+//
+//  @Autowired
+//  public TraineeDAO(TraineeRepository traineeRepository) {
+//    this.traineeRepository = traineeRepository;
+//  }
+//
+//  public boolean createTrainee(Trainee trainee) {
+//
+//    log.info("Added trainee in the DB: " + trainee.toString());
+//    Trainee savedTrainee = traineeRepository.save(trainee); // сохраняем объект через репозиторий
+//    return savedTrainee.getId() != null;
+//  }
+//
+//  public boolean updateTrainee(Trainee trainee) {
+//    if (traineeRepository.existsById(trainee.getId())) { // проверяем, существует ли стажер
+//      traineeRepository.save(trainee); // сохраняем изменения
+//      return true;
+//    }
+//    return false;
+//  }
+//
+//  public boolean deleteTrainee(Long id) {
+//    if (traineeRepository.existsById(id)) {
+//      traineeRepository.deleteById(id);
+//      return true;
+//    }
+//    return false;
+//  }
+//
+//  public Trainee getTraineeById(Long id) {
+//    return traineeRepository.findById(id).orElse(null); // возвращаем стажера, если найден
+//  }
+//
+//  public List<Trainee> getAllTrainees() {
+//    return traineeRepository.findAll(); // возвращаем всех стажеров
+//  }
+//}

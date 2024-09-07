@@ -1,6 +1,8 @@
 package com.example.gymApp;
 
-import com.example.gymApp.utils.ConsoleInputHandler;
+import com.example.gymApp.config.AppConfig;
+//import com.example.gymApp.utils.ConsoleInputHandler;
+//import com.example.gymApp.utils.ConsoleInputHandler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
@@ -33,8 +35,8 @@ public class GymApplication {
       server.start();
       log.info("Server started at {}", server);
 
-      ConsoleInputHandler consoleInputHandler = context.getBean(ConsoleInputHandler.class);
-      consoleInputHandler.start();
+//      ConsoleInputHandler consoleInputHandler = context.getBean(ConsoleInputHandler.class);
+//      consoleInputHandler.start();
 
       server.join();
     } catch (Exception e) {
@@ -48,6 +50,8 @@ public class GymApplication {
     }
   }
 }
+
+
 
 
 

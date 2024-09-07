@@ -1,4 +1,4 @@
-trainee,1,John,Doe,1990-01-01,1234, Elm Street
+trainee,1, John,Doe,1990-01-01,1234, Elm Street
 trainer,2, Bill,Loan,Personal Training
 
 
