@@ -5,10 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="eb89e892-aee3-4360-91b8-da22ca892d05" name="Changes" comment="commit 1">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/config/AppConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/config/HibernateConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/dao/TrainingTypeDAO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/repository/TraineeRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/repository/TrainerRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/repository/TrainingRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/repository/TrainingTypeRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/repository/UserRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainingTypeService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/application.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/application.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/config/AppConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/AppConfig.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/GymApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/GymApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/config/WebConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/dao/InMemoryStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/dao/InMemoryStorage.java" afterDir="false" />
