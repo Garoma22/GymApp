@@ -7,6 +7,29 @@
     <list default="true" id="eb89e892-aee3-4360-91b8-da22ca892d05" name="Changes" comment="commit 1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/application.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/application.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/AppConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/GymApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/GymApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/dao/InMemoryStorage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/dao/InMemoryStorage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/dao/TraineeDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/dao/TraineeDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/dao/TrainerDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/dao/TrainerDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/dao/TrainingDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/dao/TrainingDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/Trainee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/Trainee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/Trainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/Trainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/Training.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/Training.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/TrainingType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/TrainingType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/ProfileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/ProfileService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TraineeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TraineeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/utils/ConsoleInputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/utils/ConsoleInputHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/utils/UserInitializationPostProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/utils/UserInitializationPostProcessor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/gymApp/service/ProfileServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/gymApp/service/ProfileServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/gymApp/service/TraineeServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/gymApp/service/TraineeServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/gymApp/service/TrainerServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/gymApp/service/TrainerServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/example/gymApp/service/TrainingServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/example/gymApp/service/TrainingServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,8 +39,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Dockerfile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -51,59 +74,59 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.GymApplication.executor": "Run",
-    "Docker.docker-compose.yaml.postgres: Compose Deployment.executor": "Run",
-    "Docker.docker-compose.yaml: Compose Deployment.executor": "Run",
-    "JUnit.FacadeTest (1).executor": "Run",
-    "JUnit.FacadeTest.executor": "Run",
-    "JUnit.FacadeTest.testGetAllTrainees.executor": "Run",
-    "JUnit.InMemoryStorageTest.executor": "Run",
-    "JUnit.InMemoryStorageTest.testFileNotFound.executor": "Run",
-    "JUnit.InMemoryStorageTest.testLoadDataFromFile.executor": "Run",
-    "JUnit.ProfileServiceTest.executor": "Run",
-    "JUnit.ProfileServiceTest.testGenerateRandomPassword.executor": "Run",
-    "JUnit.ProfileServiceTest.testGenerateUsername.executor": "Run",
-    "JUnit.TraineeDAOTest.executor": "Run",
-    "JUnit.TraineeDAOTest.testCreateTrainee.executor": "Run",
-    "JUnit.TraineeDAOTest.testCreateTraineeWithCustomUsernameAndPass.executor": "Run",
-    "JUnit.TraineeDAOTest.testCreateTraineeWithRandomizer.executor": "Run",
-    "JUnit.TraineeDaoTest.testCreateTrainee.executor": "Run",
-    "JUnit.TraineeDaoTest.testUpdateTrainee_whenExists.executor": "Run",
-    "JUnit.TraineeServiceTest.executor": "Run",
-    "JUnit.TraineeServiceTest.testCreateTraineeValidationError.executor": "Run",
-    "JUnit.TraineeServiceTest.testCreateTrainee_success.executor": "Run",
-    "JUnit.TraineeServiceTest.testGetAllTrainees_success.executor": "Run",
-    "JUnit.TraineeServiceTest.testGetTraineeByIdSuccess.executor": "Run",
-    "JUnit.TraineeServiceTest.testUpdateTrainee_exceptionWhenDaoFails.executor": "Run",
-    "JUnit.TraineeServiceTest.testUpdateTrainee_success.executor": "Run",
-    "JUnit.TrainerServiceTest.executor": "Run",
-    "JUnit.TrainerServiceTest.testCreateTrainerSuccess.executor": "Run",
-    "JUnit.TrainerServiceTest.testCreateTrainerValidationError.executor": "Run",
-    "JUnit.TrainerServiceTest.testCreateTrainer_success.executor": "Run",
-    "JUnit.TrainerServiceTest.testGetAllTrainersSuccess.executor": "Run",
-    "JUnit.TrainerServiceTest.testGetTrainerByIdSuccess.executor": "Run",
-    "JUnit.TrainerServiceTest.testUpdateTrainer_exceptionWhenDaoFails.executor": "Run",
-    "JUnit.TrainingServiceTest.executor": "Run",
-    "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
-    "Maven.GymApp [clean].executor": "Run",
-    "Maven.GymApp [compile].executor": "Run",
-    "Maven.GymApp [install].executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "TestNG.FacadeTest.contextLoad.executor": "Run",
-    "git-widget-placeholder": "new__hibernate__realization",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.sourceCode.Java"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.GymApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yaml.postgres: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yaml: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FacadeTest (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FacadeTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.FacadeTest.testGetAllTrainees.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.InMemoryStorageTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.InMemoryStorageTest.testFileNotFound.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.InMemoryStorageTest.testLoadDataFromFile.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ProfileServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ProfileServiceTest.testGenerateRandomPassword.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ProfileServiceTest.testGenerateUsername.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TraineeDAOTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TraineeDAOTest.testCreateTrainee.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TraineeDAOTest.testCreateTraineeWithCustomUsernameAndPass.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TraineeDAOTest.testCreateTraineeWithRandomizer.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TraineeDaoTest.testCreateTrainee.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TraineeDaoTest.testUpdateTrainee_whenExists.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TraineeServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TraineeServiceTest.testCreateTraineeValidationError.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TraineeServiceTest.testCreateTrainee_success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TraineeServiceTest.testGetAllTrainees_success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TraineeServiceTest.testGetTraineeByIdSuccess.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TraineeServiceTest.testUpdateTrainee_exceptionWhenDaoFails.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TraineeServiceTest.testUpdateTrainee_success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TrainerServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TrainerServiceTest.testCreateTrainerSuccess.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TrainerServiceTest.testCreateTrainerValidationError.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TrainerServiceTest.testCreateTrainer_success.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TrainerServiceTest.testGetAllTrainersSuccess.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TrainerServiceTest.testGetTrainerByIdSuccess.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TrainerServiceTest.testUpdateTrainer_exceptionWhenDaoFails.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TrainingServiceTest.executor&quot;: &quot;Run&quot;,
+    &quot;Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.GymApp [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.GymApp [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.GymApp [install].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;TestNG.FacadeTest.contextLoad.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;new__hibernate__realization&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.Java&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="Docker.docker-compose.yaml: Compose Deployment">
+}</component>
+  <component name="RunManager" selected="Application.GymApplication">
     <configuration name="GymApplication" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.example.gymApp.GymApplication" />
       <module name="GymApp" />
@@ -149,7 +172,9 @@
       </method>
     </configuration>
     <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
-      <deployment type="docker-compose.yml" />
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
       <method v="2" />
     </configuration>
     <configuration name="docker-compose.yaml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
@@ -175,9 +200,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.GymApplication" />
         <item itemvalue="Docker.docker-compose.yaml: Compose Deployment" />
         <item itemvalue="Docker.docker-compose.yaml.postgres: Compose Deployment" />
-        <item itemvalue="Application.GymApplication" />
         <item itemvalue="JUnit.TrainingServiceTest" />
         <item itemvalue="JUnit.TrainerServiceTest.testGetAllTrainersSuccess" />
       </list>
