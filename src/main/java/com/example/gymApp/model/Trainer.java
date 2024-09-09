@@ -96,7 +96,7 @@ public class Trainer {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
@@ -115,12 +115,24 @@ public class Trainer {
   public String toString() {
     return "Trainer{" +
         "id=" + id +
-        ", user=" + user.getUsername() +
+        ", firstName=" + user.getFirstName() +
+        ", lastName=" + user.getLastName() +
+        ", username=" + user.getUsername() +
+        ", password=" + user.getPassword() +
+        ", active=" + user.isActive() +
         ", specialization=" + specialization.getName() +
         '}';
   }
 
+
+
+
+
+
+
   public String getUsername() {
     return user.getUsername();
   }
+
+
 }

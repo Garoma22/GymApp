@@ -129,3 +129,156 @@
 //    }
 //  }
 //}
+
+package com.example.gymApp.service;
+
+import com.example.gymApp.model.Trainee;
+import com.example.gymApp.model.Trainer;
+import com.example.gymApp.model.TrainingType;
+import com.example.gymApp.model.User;
+import com.example.gymApp.repository.TraineeRepository;
+import com.example.gymApp.repository.TrainerRepository;
+import com.example.gymApp.repository.TrainingTypeRepository;
+import com.example.gymApp.repository.UserRepository;
+import java.time.LocalDate;
+import java.util.NoSuchElementException;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
+
+
+@Slf4j
+@Service
+public class TrainerService {
+
+  private final TrainerRepository trainerRepository;
+  private final UserRepository userRepository;
+  private final TrainingTypeRepository trainingTypeRepository;
+  private final TraineeRepository traineeRepository;
+
+  @Autowired
+  public TrainerService(TrainerRepository trainerRepository, UserRepository userRepository,
+      TrainingTypeRepository trainingTypeRepository, TraineeRepository traineeRepository) {
+    this.trainerRepository = trainerRepository;
+    this.userRepository = userRepository;
+    this.trainingTypeRepository = trainingTypeRepository;
+    this.traineeRepository = traineeRepository;
+  }
+
+  @Transactional
+  public Trainer updateTrainer(Trainer trainer, String name, String lastName, String username,
+      String password, Boolean activeStatus, String  specialization) {
+
+    // Поиск специализации в базе данных
+    Optional<TrainingType> trainingTypeOptional = trainingTypeRepository.findByName(specialization);
+    if (trainingTypeOptional.isEmpty()) {
+      throw new IllegalArgumentException("Specialization not found in the database");
+    }
+
+    TrainingType trainingType = trainingTypeOptional.get();
+
+
+    trainer.getUser().setFirstName(name);
+    trainer.getUser().setLastName(lastName);
+    trainer.getUser().setUsername(username);
+    trainer.getUser().setPassword(password);
+    trainer.getUser().setActive(activeStatus);
+    trainer.setSpecialization(trainingType);
+
+    trainerRepository.save(trainer);
+
+
+
+    return trainer;
+  }
+
+
+  // Метод для создания тренера
+  public Trainer createTrainer(String firstName, String lastName, String username, String password,
+      String specialization) {
+    // Проверка на наличие существующего пользователя с таким именем пользователя
+    if (userRepository.findByUsername(username).isPresent()) {
+      throw new IllegalArgumentException("Username already exists");
+    }
+
+    // Поиск специализации в базе данных
+    Optional<TrainingType> trainingTypeOptional = trainingTypeRepository.findByName(specialization);
+    if (trainingTypeOptional.isEmpty()) {
+      throw new IllegalArgumentException("Specialization not found in the database");
+    }
+
+    TrainingType trainingType = trainingTypeOptional.get();
+
+    // Создание объекта User для тренера
+    User user = new User();
+    user.setFirstName(firstName);
+    user.setLastName(lastName);
+    user.setUsername(username);
+    user.setPassword(password);
+    user.setActive(true);
+
+    //we do not need to create user separately
+//    userRepository.save(user);
+
+    // Создание тренера с указанной специализацией
+    Trainer trainer = new Trainer(user, trainingType);
+
+    // Сохранение тренера в базе данных
+    trainerRepository.save(trainer);
+
+
+  log.info("Trainer created successfully: {}", trainer.getUser().getUsername());
+
+  return trainer;
+  }
+
+
+  public Trainer getTrainerByUsername(String username) {
+    return trainerRepository.findByUserUsername(username)
+        .orElseThrow(
+            () -> new IllegalArgumentException("No trainer found with the username: " + username));
+  }
+
+  public User getTrainerByPassword(String password) {
+    // Найти пользователя по паролю
+    Optional<User> userOpt = userRepository.findByPassword(password);
+
+    if (userOpt.isEmpty()) {
+      throw new IllegalArgumentException("No user found with the provided password");
+    }
+
+    User user = userOpt.get();
+
+    return user;
+
+
+  }
+
+  public void deleteTraineeByUsername(String username) {
+
+    Optional<User> userOpt = userRepository.findByUsername(username);
+
+
+    if (userOpt.isEmpty()) {
+      throw new NoSuchElementException("No user found with the provided username");
+    }
+
+    User user = userOpt.get();
+
+
+    Optional<Trainee> traineeOpt = traineeRepository.findByUser(user);
+
+
+    if (traineeOpt.isEmpty()) {
+      throw new NoSuchElementException("No trainee found for the provided user");
+    }
+    Trainee trainee = traineeOpt.get();
+    traineeRepository.delete(trainee);
+    System.out.println("Trainee and related entities deleted successfully.");
+  }
+
+}
+

@@ -84,3 +84,74 @@
 //    }
 //  }
 //}
+
+
+package com.example.gymApp.service;
+
+import com.example.gymApp.model.Trainee;
+import com.example.gymApp.model.Trainer;
+import com.example.gymApp.model.Training;
+import com.example.gymApp.repository.TraineeRepository;
+import com.example.gymApp.repository.TrainerRepository;
+import com.example.gymApp.repository.TrainingRepository;
+import com.example.gymApp.repository.TrainingTypeRepository;
+import com.example.gymApp.repository.UserRepository;
+import java.time.LocalDate;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+@Service
+@Data
+@Slf4j
+public class TrainingService {
+
+
+  private final TraineeRepository traineeRepository;
+  private final UserRepository userRepository;
+  private final TrainerRepository trainerRepository;
+  private final TrainingTypeRepository trainingTypeRepository;
+  private final TrainingRepository trainingRepository;
+
+
+  public TrainingService(TraineeRepository traineeRepository, UserRepository userRepository,
+      TrainerRepository trainerRepository, TrainingTypeRepository trainingTypeRepository,
+      TrainingRepository trainingRepository) {
+    this.traineeRepository = traineeRepository;
+    this.userRepository = userRepository;
+    this.trainerRepository = trainerRepository;
+    this.trainingTypeRepository = trainingTypeRepository;
+    this.trainingRepository = trainingRepository;
+  }
+
+  public void createTraining(String trainerUsername, String traineeUsername,String trainingName,
+      LocalDate dateOfTraining, int durationInHours) {
+
+    Trainer trainer = trainerRepository.findByUserUsername(trainerUsername)
+        .orElseThrow(() -> new NoSuchElementException(
+            "Trainer with username " + trainerUsername + " not found"));
+
+    Trainee trainee = traineeRepository.findByUserUsername(traineeUsername)
+        .orElseThrow(() -> new NoSuchElementException(
+            "Trainee with username " + traineeUsername + " not found"));
+
+    log.info(trainee.toString());
+
+    Training training = new Training();
+    training.setTrainer(trainer);
+    training.setTrainee(trainee);
+    training.setTrainingType(trainer.getSpecialization());
+    training.setTrainingName(trainingName);
+    training.setTrainingDate(dateOfTraining);
+    training.setTrainingDuration(durationInHours);
+
+    trainingRepository.save(training);
+
+    log.info("Training " + training + " successfully saved");
+  }
+}
+
+
+
