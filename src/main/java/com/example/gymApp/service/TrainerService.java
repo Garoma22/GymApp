@@ -141,6 +141,7 @@ import com.example.gymApp.repository.TrainerRepository;
 import com.example.gymApp.repository.TrainingTypeRepository;
 import com.example.gymApp.repository.UserRepository;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.NoSuchElementException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -280,5 +281,11 @@ public class TrainerService {
     System.out.println("Trainee and related entities deleted successfully.");
   }
 
+  public List<Trainer> getAllTrainersNotAssignedToTrainee(String traineeUsername) {
+
+    return trainerRepository.getAllTrainersNotAssignedToTrainee(traineeUsername);
+
+
+  }
 }
 

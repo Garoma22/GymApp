@@ -97,6 +97,7 @@ import com.example.gymApp.repository.TrainingRepository;
 import com.example.gymApp.repository.TrainingTypeRepository;
 import com.example.gymApp.repository.UserRepository;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import lombok.Data;
@@ -126,7 +127,7 @@ public class TrainingService {
     this.trainingRepository = trainingRepository;
   }
 
-  public void createTraining(String trainerUsername, String traineeUsername,String trainingName,
+  public void createTraining(String trainerUsername, String traineeUsername, String trainingName,
       LocalDate dateOfTraining, int durationInHours) {
 
     Trainer trainer = trainerRepository.findByUserUsername(trainerUsername)
@@ -150,6 +151,21 @@ public class TrainingService {
     trainingRepository.save(training);
 
     log.info("Training " + training + " successfully saved");
+  }
+
+  public List<Training> getTrainingsByUserUsername(String traineeUsername, LocalDate startDate,
+      LocalDate finishDate, String trainerName, String specialization) {
+
+    return trainingRepository.getAllTrainingsByTraineeAndCriteria(traineeUsername, startDate,
+        finishDate, trainerName, specialization);
+
+  }
+
+  public List<Training> getTraineesList(String trainerUsername, String traineeName,
+      LocalDate startDate, LocalDate finishDate) {
+
+    return trainingRepository.getAllTrainingsByTrainerAndCriteria(trainerUsername, traineeName,
+        startDate, finishDate);
   }
 }
 

@@ -7,14 +7,8 @@
     <list default="true" id="eb89e892-aee3-4360-91b8-da22ca892d05" name="Changes" comment="commit 1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/application.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/application.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/AppConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/GymApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/GymApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/Trainee.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/Trainee.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/Trainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/Trainer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/Training.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/Training.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/ProfileService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/ProfileService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TraineeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TraineeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/repository/TrainerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/repository/TrainerRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/repository/TrainingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/repository/TrainingRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainerService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainingService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/utils/ConsoleInputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/utils/ConsoleInputHandler.java" afterDir="false" />
@@ -219,7 +213,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="new_hibernate_realization" />
+                        <option value="origin/new_hibernate_realization" />
                       </list>
                     </value>
                   </entry>
@@ -242,17 +236,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainerService.java</url>
-          <line>232</line>
+          <line>233</line>
           <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainingService.java</url>
-          <line>135</line>
+          <line>136</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainerService.java</url>
-          <line>199</line>
+          <line>200</line>
           <properties class="com.example.gymApp.service.TrainerService" method="createTrainer">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -261,7 +255,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainingService.java</url>
-          <line>128</line>
+          <line>129</line>
           <properties class="com.example.gymApp.service.TrainingService" method="createTraining">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
