@@ -18,10 +18,10 @@ public class UserService {
     this.userRepository = userRepository;
   }
 
-  public User getUserByPassword(String password) {
+  public User getUserByPasswordAndUsername(String password, String username) {
 
     Optional<User> user = userRepository.findByPassword(password);
-    if (user.isPresent()) {
+    if (user.isPresent()&& user.get().getUsername().equals(username)) {
       return user.get();
     } else {
       throw new NoSuchElementException("No user with such password");
@@ -41,5 +41,24 @@ public class UserService {
 
   public void saveUpdatedUser(User user) {
     userRepository.save(user);
+  }
+
+  public boolean setActivityStatusToUser(String activityStatus, User user) {
+    boolean newActiveStatus = false;
+    boolean actualUserStatus = user.isActive();
+
+    try {
+
+      if (activityStatus.equals("true") || activityStatus.equals("false")) {
+        newActiveStatus = Boolean.parseBoolean(activityStatus);
+        System.out.println("Success! Activity status set to user : "  + user.getUsername() + " is : "  + newActiveStatus);
+
+        return newActiveStatus; //returns true or false
+      } else {
+        throw new IllegalArgumentException("Invalid input. Please enter 'true' or 'false'.");
+      }
+    } catch (IllegalArgumentException e) {
+      System.out.println(e.getMessage());
+    }return actualUserStatus;
   }
 }

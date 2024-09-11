@@ -1,5 +1,6 @@
 package com.example.gymApp.repository;
 
+import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.Trainer;
 import com.example.gymApp.model.Training;
 import java.time.LocalDate;
@@ -36,6 +37,9 @@ public interface TrainingRepository extends JpaRepository<Training, Long> {
       @Param("startDate") LocalDate startDate,
       @Param("finishDate") LocalDate finishDate);
 
+
+  @Query("SELECT DISTINCT t.trainer FROM Training t WHERE t.trainee = :trainee")
+  List<Trainer> findDistinctTrainersByTrainee(@Param("trainee") Trainee trainee);
 
 }
 

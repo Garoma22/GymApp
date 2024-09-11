@@ -149,6 +149,7 @@ import com.example.gymApp.model.TrainingType;
 import com.example.gymApp.model.User;
 import com.example.gymApp.repository.TraineeRepository;
 import com.example.gymApp.repository.UserRepository;
+import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -239,7 +240,7 @@ public class TraineeService {
   public Trainee getTraineeByUsername(String username) {
     return traineeRepository.findByUserUsername(username)
         .orElseThrow(
-            () -> new IllegalArgumentException("No trainee found with the username: " + username));
+            () -> new NoSuchElementException("No trainee found with the username: " + username));
   }
 
   public Trainee updateTrainee(Trainee trainee, String newName, String newLastName,

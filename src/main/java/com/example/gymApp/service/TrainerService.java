@@ -138,6 +138,7 @@ import com.example.gymApp.model.TrainingType;
 import com.example.gymApp.model.User;
 import com.example.gymApp.repository.TraineeRepository;
 import com.example.gymApp.repository.TrainerRepository;
+import com.example.gymApp.repository.TrainingRepository;
 import com.example.gymApp.repository.TrainingTypeRepository;
 import com.example.gymApp.repository.UserRepository;
 import java.time.LocalDate;
@@ -159,14 +160,18 @@ public class TrainerService {
   private final UserRepository userRepository;
   private final TrainingTypeRepository trainingTypeRepository;
   private final TraineeRepository traineeRepository;
+  private final TrainingRepository trainingRepository;
+
 
   @Autowired
   public TrainerService(TrainerRepository trainerRepository, UserRepository userRepository,
-      TrainingTypeRepository trainingTypeRepository, TraineeRepository traineeRepository) {
+      TrainingTypeRepository trainingTypeRepository, TraineeRepository traineeRepository,
+      TrainingRepository trainingRepository) {
     this.trainerRepository = trainerRepository;
     this.userRepository = userRepository;
     this.trainingTypeRepository = trainingTypeRepository;
     this.traineeRepository = traineeRepository;
+    this.trainingRepository = trainingRepository;
   }
 
   @Transactional
@@ -196,24 +201,24 @@ public class TrainerService {
     return trainer;
   }
 
-
-  // Метод для создания тренера
-  public Trainer createTrainer(String firstName, String lastName, String username, String password,
-      String specialization) {
-    // Проверка на наличие существующего пользователя с таким именем пользователя
-    if (userRepository.findByUsername(username).isPresent()) {
-      throw new IllegalArgumentException("Username already exists");
-    }
-
-    // Поиск специализации в базе данных
-    Optional<TrainingType> trainingTypeOptional = trainingTypeRepository.findByName(specialization);
-    if (trainingTypeOptional.isEmpty()) {
+  public TrainingType checkSpecializationCorrectness(String specialization){
+    Optional<TrainingType> trainingType = trainingTypeRepository.findByName(specialization);
+    if (trainingType.isEmpty()) {
       throw new IllegalArgumentException("Specialization not found in the database");
     }
+    return trainingType.get(); //get clear TrainingType object;
+  }
 
-    TrainingType trainingType = trainingTypeOptional.get();
 
-    // Создание объекта User для тренера
+
+  public Trainer createTrainer(String firstName, String lastName, String username, String password,
+      String specialization) {
+    if (userRepository.findByUsername(username).isPresent()) {
+      throw new IllegalArgumentException("Username of trainer already exists");
+    }
+
+    TrainingType trainingType = checkSpecializationCorrectness(specialization);
+
     User user = new User();
     user.setFirstName(firstName);
     user.setLastName(lastName);
@@ -221,18 +226,11 @@ public class TrainerService {
     user.setPassword(password);
     user.setActive(true);
 
-    //we do not need to create user separately
-//    userRepository.save(user);
-
-    // Создание тренера с указанной специализацией
     Trainer trainer = new Trainer(user, trainingType);
 
-    // Сохранение тренера в базе данных
     trainerRepository.save(trainer);
 
-
   log.info("Trainer created successfully: {}", trainer.getUser().getUsername());
-
   return trainer;
   }
 
@@ -240,7 +238,7 @@ public class TrainerService {
   public Trainer getTrainerByUsername(String username) {
     return trainerRepository.findByUserUsername(username)
         .orElseThrow(
-            () -> new IllegalArgumentException("No trainer found with the username: " + username));
+            () -> new NoSuchElementException("No trainer found with the username: " + username));
   }
 
   public User getTrainerByPassword(String password) {
@@ -284,6 +282,23 @@ public class TrainerService {
   public List<Trainer> getAllTrainersNotAssignedToTrainee(String traineeUsername) {
 
     return trainerRepository.getAllTrainersNotAssignedToTrainee(traineeUsername);
+
+
+  }
+
+  public List<Trainer> getAlltrainersByTrainee(String traineeUsername) {
+
+    Optional<Trainee> traineeOpt = traineeRepository.findByUserUsername(traineeUsername);
+
+    if(traineeOpt.isEmpty()){
+      throw new NoSuchElementException("No trainee found for the provided user");
+    }
+    Trainee trainee = traineeOpt.get();
+
+   return trainingRepository.findDistinctTrainersByTrainee(trainee);
+
+
+
 
 
   }

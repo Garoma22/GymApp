@@ -7,11 +7,13 @@
     <list default="true" id="eb89e892-aee3-4360-91b8-da22ca892d05" name="Changes" comment="commit 1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/application.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/application.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/repository/TrainerRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/repository/TrainerRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/repository/TrainingRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/repository/TrainingRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TraineeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TraineeService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainerService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainerService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainingService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/utils/ConsoleInputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/utils/ConsoleInputHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/gymApp/utils/DateTimeFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/gymApp/utils/DateTimeFormatter.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,7 +215,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="origin/new_hibernate_realization" />
+                        <option value="new_hibernate_realization" />
                       </list>
                     </value>
                   </entry>
@@ -233,34 +235,6 @@
           <line>23</line>
           <log-expression expression="//        @Bean&#10;//        public TrainingDAO trainingDAO() {&#10;//            return new TrainingDAO(inMemoryStorage());&#10;//        }&#10;//&#10;//        @Bean&#10;//        public HomeController homeController(){&#10;//            return new HomeController();&#10;//        }&#10;//&#10;//        @Bean&#10;//        public GymController gymController(){&#10;//            return new GymController(facade());&#10;//       }" language="JAVA" />
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainerService.java</url>
-          <line>233</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainingService.java</url>
-          <line>136</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainerService.java</url>
-          <line>200</line>
-          <properties class="com.example.gymApp.service.TrainerService" method="createTrainer">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/gymApp/service/TrainingService.java</url>
-          <line>129</line>
-          <properties class="com.example.gymApp.service.TrainingService" method="createTraining">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
