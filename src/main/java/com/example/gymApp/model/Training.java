@@ -13,12 +13,12 @@ public class Training {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-//  @ManyToOne(cascade = CascadeType.ALL)
+
   @ManyToOne
   @JoinColumn(name = "trainer_id", nullable = false)
   private Trainer trainer;
 
-//  @ManyToOne(cascade = CascadeType.ALL)
+
   @ManyToOne
   @JoinColumn(name = "trainee_id", nullable = false)
   private Trainee trainee;

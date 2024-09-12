@@ -47,13 +47,9 @@ public class ConsoleInputHandler {
 
   }
 
-  // Основной метод, запускающий процесс создания тренера
   public void start() {
 
     boolean running = true;
-
-
-
     while (running) {
       try {
         System.out.println("\n=== GYM APP MENU ===");
@@ -81,7 +77,7 @@ public class ConsoleInputHandler {
 
         switch (choice) {
           case 1:
-            createTrainer(); // Вызов метода создания тренера
+            createTrainer();
             break;
           case 2:
             selectTrainerByUsername();
@@ -111,9 +107,8 @@ public class ConsoleInputHandler {
             deleteTraineeByUsername();
             break;
           case 11:
-            addTraining();
+            createTraining();
             break;
-
           case 12:
             getTraineeTrainings();
             break;
@@ -130,7 +125,7 @@ public class ConsoleInputHandler {
 
           case 16:
             System.out.println("Exiting the application.");
-            running = false; // Завершение работы приложения
+            running = false;
             break;
 
           default:
@@ -142,128 +137,186 @@ public class ConsoleInputHandler {
 
       }
     }
-
   }
 
+
+  //this method not in the task requirements!
   private void getAllTraineesTreners() {
+    try {
 
-    System.out.println("Enter trainee's username: ");
-    String traineeUsername = scanner.nextLine();
+      System.out.println("Enter trainee's username: ");
+      String traineeUsername = scanner.nextLine();
 
-    List<Trainer> allTrainers = trainerService.getAlltrainersByTrainee(traineeUsername);
+      List<Trainer> allTrainers = trainerService.getAlltrainersByTrainee(traineeUsername);
 
-    System.out.println("All trainers by trainee: " + traineeUsername + " : " + allTrainers);
+      System.out.println("All trainers by trainee: " + traineeUsername + " : " + allTrainers);
 
-
+    } catch (NoSuchElementException e) {
+      System.out.println(e.getMessage());
+    }
   }
 
   private void getAllTrainersNotAssignedOnTrainee() {
-    System.out.println("Enter trainee's username: ");
-    String traineeUsername = scanner.nextLine();
+    try {
 
-    List<Trainer> trainers = trainerService.getAllTrainersNotAssignedToTrainee(traineeUsername);
+      System.out.println("Enter trainee's username: ");
+      String traineeUsername = scanner.nextLine();
+      System.out.println("Enter trainee password: ");
+      String traineePassword = scanner.nextLine();
+      userService.getUserByPasswordAndUsername(traineePassword, traineeUsername);
 
-    System.out.println(
-        "The list of trainers not assigned to trainee: " + traineeUsername + " is : " +
-            trainers);
+      List<Trainer> trainers = trainerService.getAllTrainersNotAssignedToTrainee(traineeUsername);
+
+      System.out.println(
+          "The list of trainers not assigned to trainee: " + traineeUsername + " is : " +
+              trainers);
 
 
+    } catch (NoSuchElementException e) {
+      System.out.println(e.getMessage());
+    }
   }
 
   private void getTrainersTrainings() {
-    System.out.println("Enter trainer's username: ");
-    String trainerUsername = scanner.nextLine();
 
-    System.out.println("Enter trainee's name (firstName): ");
-    String traineeName = scanner.nextLine();
+    try {
 
-    System.out.println("Enter start date you want to get trainings for trainer: ");
-    String startTrainingDate = scanner.nextLine();
-    LocalDate startDate = DateTimeFormatter.getCorrectDateFormat(startTrainingDate);
+      System.out.println("Enter trainer's username: ");
+      String trainerUsername = scanner.nextLine();
+
+      System.out.println("Enter trainer's old password: ");
+      String trainerOldPassword = scanner.nextLine();
+
+      userService.getUserByPasswordAndUsername(trainerOldPassword, trainerUsername);
+
+      System.out.println("Enter trainee's name (firstName): ");
+      String traineeName = scanner.nextLine();
+
+      System.out.println("Enter start date you want to get trainings for trainer: ");
+      String startTrainingDate = scanner.nextLine();
+      LocalDate startDate = DateTimeFormatter.getCorrectDateFormat(startTrainingDate);
+
+      System.out.println("Enter finish date you want to get trainings for trainer: ");
+      String finishTrainingDate = scanner.nextLine();
+      LocalDate finishDate = DateTimeFormatter.getCorrectDateFormat(finishTrainingDate);
+
+      List<Training> trainerTrainingsList = trainingService.getTraineesList(trainerUsername,
+          traineeName, startDate, finishDate);
+
+      System.out.println("All trainings for trainee with username : "
+          + trainerUsername + " is : " + trainerTrainingsList);
 
 
-
-
-
-    System.out.println("Enter finish date you want to get trainings for trainer: ");
-    String finishTrainingDate = scanner.nextLine();
-    LocalDate finishDate = DateTimeFormatter.getCorrectDateFormat(finishTrainingDate);
-
-
-
-    List<Training> trainerTrainingsList = trainingService.getTraineesList(trainerUsername,
-        traineeName, startDate, finishDate);
-
-    System.out.println("All trainings for trainee with username : "
-        + trainerUsername + " is : " + trainerTrainingsList);
-
-
+    } catch (NoSuchElementException e) {
+      System.out.println(e.getMessage());
+    }
   }
-
 
   public void getTraineeTrainings() {
+    try {
 
-    System.out.println("Enter trainee's username : ");
+      System.out.println("Enter trainee's username : ");
+      String traineeUsername = scanner.nextLine();
+      System.out.println("Enter trainee old password: ");
+      String traineeOldPassword = scanner.nextLine();
+      userService.getUserByPasswordAndUsername(traineeOldPassword, traineeUsername);
 
-    String traineeUsername = scanner.nextLine();
+      System.out.println("Enter trainer's name");
+      String trainerName = scanner.nextLine();
 
-    System.out.println("Enter trainer's name");
-    String trainerName = scanner.nextLine();
+      System.out.println("Enter start date you want to get trainings for trainee: ");
+      String rawStartTrainingDate = scanner.nextLine();
 
-    System.out.println("Enter start date you want to get trainings for trainee: ");
-    String startTrainingDate = scanner.nextLine();
-    LocalDate startDate = DateTimeFormatter.getCorrectDateFormat(startTrainingDate);
-    System.out.println("Enter finish date you want to get trainings: ");
-    String finishTrainingDate = scanner.nextLine();
-    LocalDate finishDate = DateTimeFormatter.getCorrectDateFormat(finishTrainingDate);
-
-    //todo: add specialization check
-    System.out.println("Enter trainer's specialization: ");
-    String trainerSpecialization = scanner.nextLine();
-
-    //pay attention - we ask not trainer's username but only name!
-    List<Training> traineeTtainingList =
-        trainingService.getTrainingsByUserUsername(traineeUsername,
-            startDate, finishDate, trainerName, trainerSpecialization);
-    System.out.println("All trainings for trainee with username : "
-        + traineeUsername + " is : " + traineeTtainingList);
-
-  }
-
-  private void addTraining() {
-    System.out.println("Enter trainer's username: ");
-    String trainerUsername = scanner.nextLine();
-
-    System.out.println("Enter trainee's username: ");
-    String traineeUsername = scanner.nextLine();
-
-    System.out.println("Enter training name: ");
-    String trainingName = scanner.nextLine();
-
-    LocalDate dateOfTraining = null;
-    while (dateOfTraining == null) {
-      System.out.print("Enter training date (YYYY-MM-DD): ");
-      try {
-        dateOfTraining = LocalDate.parse(scanner.nextLine());
-      } catch (DateTimeParseException e) {
-        System.out.println("Invalid date format. Please try again.");
+      LocalDate startOfTraining = DateTimeFormatter.getCorrectDateFormat(rawStartTrainingDate);
+      if (startOfTraining == null) {
+        return;
       }
+
+      System.out.println("Enter finish date you want to get trainings: ");
+      String rawFinishTrainingDate = scanner.nextLine();
+
+      LocalDate finishOfTraining = DateTimeFormatter.getCorrectDateFormat(rawFinishTrainingDate);
+      if (finishOfTraining == null) {
+        return;
+      }
+
+      System.out.println("Enter trainer's specialization: ");
+      String trainerSpecialization = scanner.nextLine();
+
+      trainerService.checkSpecializationCorrectness(trainerSpecialization);
+
+      //pay attention - we ask not trainer's username but only name!
+      List<Training> traineeTtainingList =
+          trainingService.getTrainingsByUserUsername(traineeUsername,
+              startOfTraining, finishOfTraining, trainerName, trainerSpecialization);
+      System.out.println("All trainings for trainee with username : "
+          + traineeUsername + " is : " + traineeTtainingList);
+
+    } catch (NoSuchElementException | IllegalArgumentException e) {
+      System.out.println(e.getMessage());
     }
-
-    System.out.println("Enter training duration in hours: ");
-    int trainingDurationInHours = Integer.parseInt(scanner.nextLine());
-
-    trainingService.createTraining(trainerUsername, traineeUsername, trainingName, dateOfTraining,
-        trainingDurationInHours);
-
-
   }
 
+  private void createTraining() {
+    try {
+      System.out.println("Enter trainer's username: ");
+      String trainerUsername = scanner.nextLine();
+
+      System.out.println("Enter trainer old paassword: ");
+      String trainerOldPassword = scanner.nextLine();
+
+      userService.getUserByPasswordAndUsername(trainerOldPassword, trainerUsername);
+
+      System.out.println("Enter trainee's username: ");
+      String traineeUsername = scanner.nextLine();
+
+      System.out.println("Enter trainee old paassword: ");
+      String traineeOldPassword = scanner.nextLine();
+
+      userService.getUserByPasswordAndUsername(traineeOldPassword, traineeUsername);
+
+      System.out.println("Enter training name: ");
+      String trainingName = scanner.nextLine();
+
+      System.out.println("Enter training date: ");
+      String rawDate = scanner.nextLine();
+
+      LocalDate dateOfTraining = DateTimeFormatter.getCorrectDateFormat(rawDate);
+      if (dateOfTraining == null) {
+        return;
+      }
+
+      System.out.println("Enter training duration in hours: ");
+      int trainingDurationInHours = Integer.parseInt(scanner.nextLine());
+
+      trainingService.createTraining(trainerUsername, traineeUsername, trainingName,
+          dateOfTraining,
+          trainingDurationInHours);
+
+    } catch (IllegalArgumentException e) {
+      System.out.println(e.getMessage());
+    } catch (Exception e) {
+
+      System.out.println("An unexpected error occurred: " + e.getMessage());
+    }
+  }
 
   public void deleteTraineeByUsername() {
-    System.out.println("Enter trainee's username to delete: ");
-    String username = scanner.nextLine();
-    trainerService.deleteTraineeByUsername(username);
+
+    try {
+      System.out.println("Enter trainee's username to delete: ");
+      String userName = scanner.nextLine();
+
+      System.out.println("Enter old paassword: ");
+      String oldPassword = scanner.nextLine();
+
+      userService.getUserByPasswordAndUsername(oldPassword, userName);
+
+      trainerService.deleteTraineeByUsername(userName);
+
+    } catch (NoSuchElementException e) {
+      System.out.println(e.getMessage());
+    }
 
   }
 
@@ -271,6 +324,13 @@ public class ConsoleInputHandler {
     try {
       System.out.println("Select existing user's username :");
       String username = scanner.nextLine();
+
+
+      System.out.println("Enter old password: ");
+      String oldPassword = scanner.nextLine();
+
+      userService.getUserByPasswordAndUsername(oldPassword, username);
+
 
       User user = userService.getUserByUsername(username);
 
@@ -295,6 +355,11 @@ public class ConsoleInputHandler {
 
       Trainee trainee = traineeService.getTraineeByUsername(userName);
 
+      System.out.println("Enter old paassword: ");
+      String oldPassword = scanner.nextLine();
+
+      userService.getUserByPasswordAndUsername(oldPassword, userName);
+
       System.out.println("Select trainee's new name : ");
       String newName = scanner.nextLine();
 
@@ -310,12 +375,10 @@ public class ConsoleInputHandler {
       System.out.print("Enter new Trainee's Date of Birth (YYYY-MM-DD): ");
       String newDate = scanner.nextLine();
 
-//      LocalDate dateOfBirth = DateTimeFormatter.getCorrectDateFormat(newDate);
-
 
       LocalDate dateOfBirth = DateTimeFormatter.getCorrectDateFormat(newDate);
       if (dateOfBirth == null) {
-        return; // Выход из метода, если пользователь решил вернуться в меню
+        return;
       }
 
       System.out.print("Enter new Trainee's Address: ");
@@ -342,7 +405,6 @@ public class ConsoleInputHandler {
     }
   }
 
-
   @Transactional
   public void updateTrainerProfile() {
 
@@ -351,6 +413,11 @@ public class ConsoleInputHandler {
       String userName = scanner.nextLine();
 
       Trainer trainer = trainerService.getTrainerByUsername(userName);
+
+      System.out.println("Enter old paassword: ");
+      String oldPassword = scanner.nextLine();
+
+      userService.getUserByPasswordAndUsername(oldPassword, userName);
 
       System.out.println("Enter trainer's new name : ");
       String newName = scanner.nextLine();
@@ -364,37 +431,30 @@ public class ConsoleInputHandler {
       String newPassword = profileService.generateRandomPassword();
       System.out.print("Auto-generated new Trainer's Password: " + newPassword);
 
-      //todo :  need to add a specialization check
-
       System.out.println("Enter new Trainer's Specialization (choose existing specialization):");
       String specialization = scanner.nextLine();
 
-      TrainingType trainingType = trainerService.checkSpecializationCorrectness(specialization);
+      trainerService.checkSpecializationCorrectness(specialization);
 
       System.out.println("Update activity status (false/true):");
       String activityStatus = scanner.nextLine().toLowerCase();
 
-     boolean activeStatus =  userService.setActivityStatusToUser(activityStatus, trainer.getUser());
+      boolean activeStatus = userService.setActivityStatusToUser(activityStatus,
+          trainer.getUser());
 
+      Trainer trainer1 = trainerService.updateTrainer(trainer, newName, newLastName, newUsername,
+          newPassword, activeStatus,
+          specialization);
+      System.out.println("Trainer updated successfully!");
+      System.out.println("This is new Trainer : " + trainer1);
 
-        Trainer trainer1 = trainerService.updateTrainer(trainer, newName, newLastName, newUsername,
-            newPassword, activeStatus,
-            specialization);
-        System.out.println("Trainer updated successfully!");
-        System.out.println("This is new Trainer : " + trainer1);
+      System.out.println(
+          "Trainer from DB: " + trainerService.getTrainerByUsername(trainer1.getUsername()));
+    } catch (IllegalArgumentException | NoSuchElementException e) {
+      System.out.println(e.getMessage());
 
-        System.out.println(
-            "Trainer from DB: " + trainerService.getTrainerByUsername(trainer1.getUsername()));
-      } catch (IllegalArgumentException | NoSuchElementException e) {
-        System.out.println(e.getMessage());
-
-      }
     }
-
-
-
-
-
+  }
 
   public void changeUserPassword() {
 
@@ -408,10 +468,9 @@ public class ConsoleInputHandler {
       // to get user by old password and username
       User user = userService.getUserByPasswordAndUsername(oldPassword, username);
 
-      // Сгенерировать новый пароль
       String newPassword = profileService.generateRandomPassword();
 
-      // Установить новый пароль пользователю тренера
+
       user.setPassword(newPassword);
       System.out.println("New password generated: " + newPassword);
 
@@ -424,33 +483,45 @@ public class ConsoleInputHandler {
     }
   }
 
-
   public void selectTraineeByUsername() {
-    System.out.println("Enter Trainee's username");
+    try {
+
+      System.out.println("Enter Trainee's username");
     String username = scanner.nextLine();
 
-    try {
+    System.out.println("Enter old password: ");
+    String oldPassword = scanner.nextLine();
+
+    userService.getUserByPasswordAndUsername(oldPassword, username);
+
+
       Trainee trainee = traineeService.getTraineeByUsername(username);
       System.out.println("You received trainee with username: " + trainee);
 
     } catch (NoSuchElementException e) {
-      System.out.println("NO such trainee!!! with name: " + username);
+      System.out.println(e.getMessage());
     }
   }
 
-
   public void selectTrainerByUsername() {
+
+    try {
     System.out.println("Enter Trainer's username");
     String username = scanner.nextLine();
-    try {
+
+      System.out.println("Enter old password: ");
+      String oldPassword = scanner.nextLine();
+
+      userService.getUserByPasswordAndUsername(oldPassword, username);
+
+
       Trainer trainer = trainerService.getTrainerByUsername(username);
       System.out.println("You received trainer with username: " + trainer);
 
     } catch (NoSuchElementException e) {
-      System.out.println("NO such trainer!!! with name: " + username);
+      System.out.println(e.getMessage());
     }
   }
-
 
   // Метод для создания тренера с вводом данных
   public void createTrainer() {

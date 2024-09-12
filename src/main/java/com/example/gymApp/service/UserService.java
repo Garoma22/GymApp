@@ -1,7 +1,6 @@
 package com.example.gymApp.service;
 
 
-import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.User;
 import com.example.gymApp.repository.UserRepository;
 import java.util.NoSuchElementException;

@@ -16,7 +16,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
   boolean existsByUsername(String username);
 
-//  List<String> findAllByUsernameStartingWith(String baseUsername);
+
 @Query("SELECT u.username FROM User u WHERE u.username LIKE :baseUsername%")
 List<String> findAllByUsernameStartingWith(@Param("baseUsername") String baseUsername);
 

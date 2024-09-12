@@ -8034,3 +8034,617 @@ Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No q
 2024-09-11 16:31:42 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
 2024-09-11 16:31:42 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2297ms
 2024-09-11 16:31:42 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-11 16:46:08 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-11 16:46:08 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-11 16:46:08 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 16:46:08 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 16:46:08 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-11 16:46:08 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 34 ms. Found 5 JPA repository interfaces.
+2024-09-11 16:46:08 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-11 16:46:08 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-11 16:46:08 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-11 16:46:08 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-11 16:46:09 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-11 16:46:09 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-11 16:46:09 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-11 16:46:10 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-11 16:46:10 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1898 ms
+2024-09-11 16:46:10 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@66596c4c{/,null,AVAILABLE}
+2024-09-11 16:46:10 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-11 16:46:10 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2643ms
+2024-09-11 16:46:10 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-11 16:46:20 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 23503
+2024-09-11 16:46:20 [main] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - ERROR: update or delete on table "trainees" violates foreign key constraint "fk4btmw0yu4tbogiw8qi0ewba74" on table "trainings"
+  Detail: Key (id)=(4) is still referenced from table "trainings".
+2024-09-11 16:46:20 [main] INFO  o.h.e.j.b.internal.AbstractBatchImpl - HHH000010: On release of batch it still contained JDBC statements
+2024-09-11 16:46:20 [main] ERROR com.example.gymApp.GymApplication - Server start error!
+2024-09-11 16:46:20 [main] ERROR com.example.gymApp.GymApplication - Server is stopped
+2024-09-11 16:46:20 [main] INFO  org.eclipse.jetty.server.Server - Stopped Server@11bd0f3b{STOPPING}[11.0.23,sto=0]
+2024-09-11 16:46:20 [main] INFO  o.e.jetty.server.AbstractConnector - Stopped ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-11 16:46:20 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Destroying Spring FrameworkServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 16:46:20 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-11 16:46:20 [main] INFO  o.e.j.server.handler.ContextHandler - Stopped o.e.j.s.ServletContextHandler@66596c4c{/,null,STOPPED}
+2024-09-11 16:47:28 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-11 16:47:28 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-11 16:47:28 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 16:47:28 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 16:47:28 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-11 16:47:28 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 31 ms. Found 5 JPA repository interfaces.
+2024-09-11 16:47:28 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-11 16:47:28 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-11 16:47:28 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-11 16:47:29 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-11 16:47:29 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-11 16:47:29 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-11 16:47:29 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-11 16:47:30 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-11 16:47:30 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1772 ms
+2024-09-11 16:47:30 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@66596c4c{/,null,AVAILABLE}
+2024-09-11 16:47:30 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-11 16:47:30 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2236ms
+2024-09-11 16:47:30 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-11 16:47:44 [main] WARN  o.h.e.jdbc.spi.SqlExceptionHelper - SQL Error: 0, SQLState: 23503
+2024-09-11 16:47:44 [main] ERROR o.h.e.jdbc.spi.SqlExceptionHelper - ERROR: update or delete on table "trainees" violates foreign key constraint "fk4btmw0yu4tbogiw8qi0ewba74" on table "trainings"
+  Detail: Key (id)=(4) is still referenced from table "trainings".
+2024-09-11 16:47:44 [main] INFO  o.h.e.j.b.internal.AbstractBatchImpl - HHH000010: On release of batch it still contained JDBC statements
+2024-09-11 16:47:44 [main] ERROR com.example.gymApp.GymApplication - Server start error!
+2024-09-11 16:47:44 [main] ERROR com.example.gymApp.GymApplication - Server is stopped
+2024-09-11 16:47:44 [main] INFO  org.eclipse.jetty.server.Server - Stopped Server@11bd0f3b{STOPPING}[11.0.23,sto=0]
+2024-09-11 16:47:44 [main] INFO  o.e.jetty.server.AbstractConnector - Stopped ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-11 16:47:44 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Destroying Spring FrameworkServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 16:47:44 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-11 16:47:44 [main] INFO  o.e.j.server.handler.ContextHandler - Stopped o.e.j.s.ServletContextHandler@66596c4c{/,null,STOPPED}
+2024-09-11 17:06:45 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-11 17:06:45 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-11 17:06:45 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 17:06:45 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 17:06:45 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-11 17:06:45 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 35 ms. Found 5 JPA repository interfaces.
+2024-09-11 17:06:45 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-11 17:06:45 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-11 17:06:45 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-11 17:06:46 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-11 17:06:46 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-11 17:06:46 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-11 17:06:46 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-11 17:06:47 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-11 17:06:47 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1835 ms
+2024-09-11 17:06:47 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@723b8eff{/,null,AVAILABLE}
+2024-09-11 17:06:47 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-11 17:06:47 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2321ms
+2024-09-11 17:06:47 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-11 17:09:48 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-11 17:09:48 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-11 17:09:48 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 17:09:48 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 17:09:48 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-11 17:09:48 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 38 ms. Found 5 JPA repository interfaces.
+2024-09-11 17:09:48 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-11 17:09:48 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-11 17:09:48 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-11 17:09:48 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-11 17:09:49 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-11 17:09:49 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-11 17:09:49 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-11 17:09:49 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-11 17:09:49 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1778 ms
+2024-09-11 17:09:49 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@723b8eff{/,null,AVAILABLE}
+2024-09-11 17:09:49 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-11 17:09:49 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2274ms
+2024-09-11 17:09:49 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-11 17:11:30 [main] INFO  c.e.gymApp.service.TrainingService - Trainee{id=1, user=User(id=2, firstName=Alex, lastName=Kipper, username=Alex.Kipper, password=ZOMyV5AL7i, isActive=true), dateOfBirth=2000-01-01, address='Moscow'}
+2024-09-11 17:11:30 [main] INFO  c.e.gymApp.service.TrainingService - Training Training{id=11, trainer=Olof.Lotte, trainee=Alex.Kipper, trainingType=cardio, trainingName='horsing', trainingDate=2001-11-11, trainingDuration=1} successfully saved
+2024-09-11 17:23:00 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-11 17:23:00 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-11 17:23:00 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 17:23:00 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 17:23:00 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-11 17:23:01 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 35 ms. Found 5 JPA repository interfaces.
+2024-09-11 17:23:01 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-11 17:23:01 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-11 17:23:01 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-11 17:23:01 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-11 17:23:01 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-11 17:23:01 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-11 17:23:02 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-11 17:23:02 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-11 17:23:02 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1827 ms
+2024-09-11 17:23:02 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@723b8eff{/,null,AVAILABLE}
+2024-09-11 17:23:02 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-11 17:23:02 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2767ms
+2024-09-11 17:23:02 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-11 22:57:43 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-11 22:57:43 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-11 22:57:43 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 22:57:43 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 22:57:43 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-11 22:57:43 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 37 ms. Found 5 JPA repository interfaces.
+2024-09-11 22:57:43 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-11 22:57:43 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-11 22:57:44 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-11 22:57:44 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-11 22:57:44 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-11 22:57:44 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-11 22:57:44 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-11 22:57:45 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-11 22:57:45 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1954 ms
+2024-09-11 22:57:45 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@141229f6{/,null,AVAILABLE}
+2024-09-11 22:57:45 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-11 22:57:45 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2501ms
+2024-09-11 22:57:45 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-11 22:58:46 [main] INFO  c.e.gymApp.service.TrainerService - Trainer created successfully: Pablo.Escobar
+2024-09-11 23:00:14 [main] INFO  c.e.gymApp.utils.ConsoleInputHandler - User password: User(id=17, firstName=Pablo, lastName=Escobar, username=Pablo.Escobar, password=m4Lp6KNETQ, isActive=true) is updated
+2024-09-11 23:07:30 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-11 23:07:30 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-11 23:07:30 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 23:07:30 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 23:07:30 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-11 23:07:30 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 33 ms. Found 5 JPA repository interfaces.
+2024-09-11 23:07:31 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-11 23:07:31 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-11 23:07:31 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-11 23:07:31 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-11 23:07:31 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-11 23:07:31 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-11 23:07:32 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-11 23:07:32 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-11 23:07:32 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1811 ms
+2024-09-11 23:07:32 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@723b8eff{/,null,AVAILABLE}
+2024-09-11 23:07:32 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-11 23:07:32 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2298ms
+2024-09-11 23:07:32 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-11 23:11:26 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-11 23:11:26 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-11 23:11:26 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 23:11:26 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 23:11:26 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-11 23:11:26 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 34 ms. Found 5 JPA repository interfaces.
+2024-09-11 23:11:26 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-11 23:11:26 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-11 23:11:27 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-11 23:11:27 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-11 23:11:27 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-11 23:11:27 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-11 23:11:27 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-11 23:11:28 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-11 23:11:28 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1758 ms
+2024-09-11 23:11:28 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@723b8eff{/,null,AVAILABLE}
+2024-09-11 23:11:28 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-11 23:11:28 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2234ms
+2024-09-11 23:11:28 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-11 23:14:40 [main] INFO  c.e.gymApp.service.TrainingService - Trainee{id=8, user=User(id=16, firstName=Daniel, lastName=Slapman, username=Daniel.Slapman1, password=2wCkfM3BLQ, isActive=true), dateOfBirth=1999-11-11, address='Novisad'}
+2024-09-11 23:14:40 [main] INFO  c.e.gymApp.service.TrainingService - Training Training{id=12, trainer=Hulio.Rames, trainee=Daniel.Slapman1, trainingType=cardio, trainingName='poker', trainingDate=2020-11-11, trainingDuration=1} successfully saved
+2024-09-11 23:21:49 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-11 23:21:49 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-11 23:21:49 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 23:21:49 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 23:21:49 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-11 23:21:49 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 37 ms. Found 5 JPA repository interfaces.
+2024-09-11 23:21:49 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-11 23:21:49 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-11 23:21:50 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-11 23:21:50 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-11 23:21:50 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-11 23:21:50 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-11 23:21:50 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-11 23:21:51 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-11 23:21:51 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1806 ms
+2024-09-11 23:21:51 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@141229f6{/,null,AVAILABLE}
+2024-09-11 23:21:51 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-11 23:21:51 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2294ms
+2024-09-11 23:21:51 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-11 23:22:32 [main] ERROR com.example.gymApp.GymApplication - Server start error!
+2024-09-11 23:22:32 [main] ERROR com.example.gymApp.GymApplication - Server is stopped
+2024-09-11 23:22:32 [main] INFO  org.eclipse.jetty.server.Server - Stopped Server@11bd0f3b{STOPPING}[11.0.23,sto=0]
+2024-09-11 23:22:32 [main] INFO  o.e.jetty.server.AbstractConnector - Stopped ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-11 23:22:32 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Destroying Spring FrameworkServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 23:22:32 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-11 23:22:32 [main] INFO  o.e.j.server.handler.ContextHandler - Stopped o.e.j.s.ServletContextHandler@141229f6{/,null,STOPPED}
+2024-09-11 23:24:54 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-11 23:24:54 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-11 23:24:54 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 23:24:54 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 23:24:54 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-11 23:24:54 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 36 ms. Found 5 JPA repository interfaces.
+2024-09-11 23:24:54 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-11 23:24:55 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-11 23:24:55 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-11 23:24:55 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-11 23:24:55 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-11 23:24:55 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-11 23:24:55 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-11 23:24:56 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-11 23:24:56 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1731 ms
+2024-09-11 23:24:56 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@141229f6{/,null,AVAILABLE}
+2024-09-11 23:24:56 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-11 23:24:56 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2167ms
+2024-09-11 23:24:56 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-11 23:25:27 [main] ERROR com.example.gymApp.GymApplication - Server start error!
+2024-09-11 23:25:27 [main] ERROR com.example.gymApp.GymApplication - Server is stopped
+2024-09-11 23:25:27 [main] INFO  org.eclipse.jetty.server.Server - Stopped Server@11bd0f3b{STOPPING}[11.0.23,sto=0]
+2024-09-11 23:25:27 [main] INFO  o.e.jetty.server.AbstractConnector - Stopped ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-11 23:25:27 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Destroying Spring FrameworkServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 23:25:27 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-11 23:25:27 [main] INFO  o.e.j.server.handler.ContextHandler - Stopped o.e.j.s.ServletContextHandler@141229f6{/,null,STOPPED}
+2024-09-11 23:33:32 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-11 23:33:32 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-11 23:33:32 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 23:33:32 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 23:33:32 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-11 23:33:32 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 33 ms. Found 5 JPA repository interfaces.
+2024-09-11 23:33:32 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-11 23:33:32 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-11 23:33:32 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-11 23:33:32 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-11 23:33:33 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-11 23:33:33 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-11 23:33:33 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-11 23:33:33 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-11 23:33:34 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1836 ms
+2024-09-11 23:33:34 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@723b8eff{/,null,AVAILABLE}
+2024-09-11 23:33:34 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-11 23:33:34 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2338ms
+2024-09-11 23:33:34 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-11 23:35:36 [main] INFO  c.e.gymApp.service.TrainingService - Trainee{id=8, user=User(id=16, firstName=Daniel, lastName=Slapman, username=Daniel.Slapman1, password=2wCkfM3BLQ, isActive=true), dateOfBirth=1999-11-11, address='Novisad'}
+2024-09-11 23:35:36 [main] INFO  c.e.gymApp.service.TrainingService - Training could not be created because of false status of trainee : Trainee{id=8, user=User(id=16, firstName=Daniel, lastName=Slapman, username=Daniel.Slapman1, password=2wCkfM3BLQ, isActive=true), dateOfBirth=1999-11-11, address='Novisad'} or trainer :Trainer{id=9, firstName=Hulio, lastName=Rames, username=Hulio.Rames, password=ggv8wp3ULj, active=false, specialization=cardio}
+2024-09-11 23:36:59 [main] INFO  c.e.gymApp.service.TrainingService - Trainee{id=8, user=User(id=16, firstName=Daniel, lastName=Slapman, username=Daniel.Slapman1, password=2wCkfM3BLQ, isActive=true), dateOfBirth=1999-11-11, address='Novisad'}
+2024-09-11 23:36:59 [main] INFO  c.e.gymApp.service.TrainingService - Training Training{id=13, trainer=Hulio.Rames, trainee=Daniel.Slapman1, trainingType=cardio, trainingName='polo', trainingDate=1999-11-11, trainingDuration=1} successfully saved
+2024-09-11 23:43:01 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-11 23:43:01 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-11 23:43:01 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 23:43:01 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 23:43:02 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-11 23:43:02 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 33 ms. Found 5 JPA repository interfaces.
+2024-09-11 23:43:02 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-11 23:43:02 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-11 23:43:02 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-11 23:43:02 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-11 23:43:02 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-11 23:43:02 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-11 23:43:03 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-11 23:43:03 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-11 23:43:03 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1788 ms
+2024-09-11 23:43:03 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@723b8eff{/,null,AVAILABLE}
+2024-09-11 23:43:03 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-11 23:43:03 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2284ms
+2024-09-11 23:43:03 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-11 23:44:42 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-11 23:44:42 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-11 23:44:42 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 23:44:42 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-11 23:44:42 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-11 23:44:42 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 32 ms. Found 5 JPA repository interfaces.
+2024-09-11 23:44:43 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-11 23:44:43 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-11 23:44:43 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-11 23:44:43 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-11 23:44:43 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-11 23:44:43 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-11 23:44:44 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-11 23:44:44 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-11 23:44:44 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1734 ms
+2024-09-11 23:44:44 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@141229f6{/,null,AVAILABLE}
+2024-09-11 23:44:44 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-11 23:44:44 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2168ms
+2024-09-11 23:44:44 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-12 10:02:10 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-12 10:02:11 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-12 10:02:11 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 10:02:11 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 10:02:11 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12 10:02:11 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 34 ms. Found 5 JPA repository interfaces.
+2024-09-12 10:02:11 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12 10:02:11 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-12 10:02:11 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-12 10:02:11 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-12 10:02:12 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-12 10:02:12 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12 10:02:12 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-12 10:02:13 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-12 10:02:13 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2005 ms
+2024-09-12 10:02:13 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@141229f6{/,null,AVAILABLE}
+2024-09-12 10:02:13 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-12 10:02:13 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @3411ms
+2024-09-12 10:02:13 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-12 10:06:23 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-12 10:06:23 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-12 10:06:23 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 10:06:23 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 10:06:23 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12 10:06:23 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 31 ms. Found 5 JPA repository interfaces.
+2024-09-12 10:06:23 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12 10:06:23 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-12 10:06:23 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-12 10:06:24 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-12 10:06:24 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-12 10:06:24 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12 10:06:24 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-12 10:06:25 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-12 10:06:25 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1756 ms
+2024-09-12 10:06:25 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@723b8eff{/,null,AVAILABLE}
+2024-09-12 10:06:25 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-12 10:06:25 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2235ms
+2024-09-12 10:06:25 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-12 10:06:37 [main] ERROR com.example.gymApp.GymApplication - Server start error!
+2024-09-12 10:06:37 [main] ERROR com.example.gymApp.GymApplication - Server is stopped
+2024-09-12 10:06:37 [main] INFO  org.eclipse.jetty.server.Server - Stopped Server@11bd0f3b{STOPPING}[11.0.23,sto=0]
+2024-09-12 10:06:37 [main] INFO  o.e.jetty.server.AbstractConnector - Stopped ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-12 10:06:37 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Destroying Spring FrameworkServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 10:06:37 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12 10:06:37 [main] INFO  o.e.j.server.handler.ContextHandler - Stopped o.e.j.s.ServletContextHandler@723b8eff{/,null,STOPPED}
+2024-09-12 10:07:43 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-12 10:07:43 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-12 10:07:43 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 10:07:43 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 10:07:44 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12 10:07:44 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 32 ms. Found 5 JPA repository interfaces.
+2024-09-12 10:07:44 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12 10:07:44 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-12 10:07:44 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-12 10:07:44 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-12 10:07:45 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-12 10:07:45 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12 10:07:45 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-12 10:07:45 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-12 10:07:45 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1716 ms
+2024-09-12 10:07:45 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@723b8eff{/,null,AVAILABLE}
+2024-09-12 10:07:45 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-12 10:07:45 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2205ms
+2024-09-12 10:07:45 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-12 10:20:34 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-12 10:20:34 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-12 10:20:34 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 10:20:34 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 10:20:34 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12 10:20:34 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 28 ms. Found 5 JPA repository interfaces.
+2024-09-12 10:20:35 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12 10:20:35 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-12 10:20:35 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-12 10:20:35 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-12 10:20:35 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-12 10:20:35 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12 10:20:36 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-12 10:20:36 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-12 10:20:36 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1799 ms
+2024-09-12 10:20:36 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@141229f6{/,null,AVAILABLE}
+2024-09-12 10:20:36 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-12 10:20:36 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2273ms
+2024-09-12 10:20:36 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-12 10:24:12 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-12 10:24:12 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-12 10:24:12 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 10:24:12 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 10:24:12 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12 10:24:12 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 30 ms. Found 5 JPA repository interfaces.
+2024-09-12 10:24:12 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12 10:24:12 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-12 10:24:12 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-12 10:24:12 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-12 10:24:13 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-12 10:24:13 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12 10:24:13 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-12 10:24:13 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-12 10:24:13 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1735 ms
+2024-09-12 10:24:13 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@141229f6{/,null,AVAILABLE}
+2024-09-12 10:24:13 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-12 10:24:13 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2183ms
+2024-09-12 10:24:13 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-12 10:27:17 [main] INFO  c.e.gymApp.service.TrainingService - Trainee{id=9, user=User(id=18, firstName=Boris, lastName=Nemctsov, username=Boris.Nemctsov, password=qdQq3zlTDl, isActive=true), dateOfBirth=1992-11-11, address='Novgorod'}
+2024-09-12 10:27:17 [main] INFO  c.e.gymApp.service.TrainingService - Training Training{id=14, trainer=Hulio.Rames, trainee=Boris.Nemctsov, trainingType=cardio, trainingName='Loto', trainingDate=1999-11-11, trainingDuration=1} successfully saved
+2024-09-12 10:41:45 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-12 10:41:45 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-12 10:41:45 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 10:41:45 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 10:41:45 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12 10:41:45 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 33 ms. Found 5 JPA repository interfaces.
+2024-09-12 10:41:45 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12 10:41:46 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-12 10:41:46 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-12 10:41:46 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-12 10:41:46 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-12 10:41:46 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12 10:41:46 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-12 10:41:47 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-12 10:41:47 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1785 ms
+2024-09-12 10:41:47 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@141229f6{/,null,AVAILABLE}
+2024-09-12 10:41:47 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-12 10:41:47 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2266ms
+2024-09-12 10:41:47 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-12 10:42:42 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-12 10:42:42 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-12 10:42:42 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 10:42:42 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 10:42:43 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12 10:42:43 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 38 ms. Found 5 JPA repository interfaces.
+2024-09-12 10:42:43 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12 10:42:43 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-12 10:42:43 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-12 10:42:43 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-12 10:42:43 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-12 10:42:43 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12 10:42:44 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-12 10:42:44 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-12 10:42:44 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1966 ms
+2024-09-12 10:42:44 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@141229f6{/,null,AVAILABLE}
+2024-09-12 10:42:44 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-12 10:42:44 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2615ms
+2024-09-12 10:42:44 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-12 10:46:57 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-12 10:46:57 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-12 10:46:57 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 10:46:57 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 10:46:57 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12 10:46:57 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 34 ms. Found 5 JPA repository interfaces.
+2024-09-12 10:46:57 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12 10:46:57 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-12 10:46:57 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-12 10:46:57 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-12 10:46:58 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-12 10:46:58 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12 10:46:58 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-12 10:46:59 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-12 10:46:59 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1760 ms
+2024-09-12 10:46:59 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@723b8eff{/,null,AVAILABLE}
+2024-09-12 10:46:59 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-12 10:46:59 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2208ms
+2024-09-12 10:46:59 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-12 10:52:25 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-12 10:52:25 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-12 10:52:25 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 10:52:25 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 10:52:26 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12 10:52:26 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 40 ms. Found 5 JPA repository interfaces.
+2024-09-12 10:52:26 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12 10:52:26 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-12 10:52:26 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-12 10:52:26 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-12 10:52:27 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-12 10:52:27 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12 10:52:27 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-12 10:52:27 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-12 10:52:27 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1773 ms
+2024-09-12 10:52:27 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@141229f6{/,null,AVAILABLE}
+2024-09-12 10:52:27 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-12 10:52:27 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2213ms
+2024-09-12 10:52:27 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-12 11:01:27 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-12 11:01:27 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-12 11:01:27 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 11:01:27 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 11:01:27 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12 11:01:27 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 29 ms. Found 5 JPA repository interfaces.
+2024-09-12 11:01:28 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12 11:01:28 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-12 11:01:28 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-12 11:01:28 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-12 11:01:28 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-12 11:01:28 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12 11:01:28 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-12 11:01:29 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-12 11:01:29 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1803 ms
+2024-09-12 11:01:29 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@723b8eff{/,null,AVAILABLE}
+2024-09-12 11:01:29 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-12 11:01:29 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2286ms
+2024-09-12 11:01:29 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-12 11:07:07 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-12 11:07:07 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-12 11:07:07 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 11:07:07 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 11:07:07 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12 11:07:08 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 32 ms. Found 5 JPA repository interfaces.
+2024-09-12 11:07:08 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12 11:07:08 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-12 11:07:08 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-12 11:07:08 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-12 11:07:08 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-12 11:07:08 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12 11:07:09 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-12 11:07:09 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-12 11:07:09 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1804 ms
+2024-09-12 11:07:09 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@141229f6{/,null,AVAILABLE}
+2024-09-12 11:07:09 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-12 11:07:09 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2268ms
+2024-09-12 11:07:09 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-12 11:14:45 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-12 11:14:45 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-12 11:14:45 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 11:14:45 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 11:14:45 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12 11:14:45 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 38 ms. Found 5 JPA repository interfaces.
+2024-09-12 11:14:45 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12 11:14:45 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-12 11:14:45 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-12 11:14:45 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-12 11:14:46 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-12 11:14:46 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12 11:14:46 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-12 11:14:46 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-12 11:14:46 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1788 ms
+2024-09-12 11:14:46 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@723b8eff{/,null,AVAILABLE}
+2024-09-12 11:14:46 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-12 11:14:46 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2275ms
+2024-09-12 11:14:46 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-12 12:40:08 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-12 12:40:08 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-12 12:40:08 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 12:40:08 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 12:40:08 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12 12:40:08 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 34 ms. Found 5 JPA repository interfaces.
+2024-09-12 12:40:08 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12 12:40:08 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-12 12:40:08 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-12 12:40:08 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-12 12:40:09 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-12 12:40:09 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12 12:40:09 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-12 12:40:10 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-12 12:40:10 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1915 ms
+2024-09-12 12:40:10 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@141229f6{/,null,AVAILABLE}
+2024-09-12 12:40:10 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-12 12:40:10 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2623ms
+2024-09-12 12:40:10 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-12 12:40:35 [main] INFO  c.e.gymApp.service.TrainerService - Trainer created successfully: Vaho.Agaridze
+2024-09-12 12:47:05 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-12 12:47:05 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-12 12:47:05 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 12:47:05 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 12:47:06 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12 12:47:06 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 34 ms. Found 5 JPA repository interfaces.
+2024-09-12 12:47:06 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12 12:47:06 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-12 12:47:06 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-12 12:47:06 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-12 12:47:06 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-12 12:47:06 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12 12:47:07 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-12 12:47:07 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-12 12:47:07 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1766 ms
+2024-09-12 12:47:07 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@723b8eff{/,null,AVAILABLE}
+2024-09-12 12:47:07 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-12 12:47:07 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2261ms
+2024-09-12 12:47:07 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-12 12:48:53 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-12 12:48:54 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-12 12:48:54 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 12:48:54 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 12:48:54 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12 12:48:54 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 44 ms. Found 5 JPA repository interfaces.
+2024-09-12 12:48:54 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12 12:48:54 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-12 12:48:54 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-12 12:48:55 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-12 12:48:55 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-12 12:48:55 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12 12:48:55 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-12 12:48:56 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-12 12:48:56 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2109 ms
+2024-09-12 12:48:56 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@141229f6{/,null,AVAILABLE}
+2024-09-12 12:48:56 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-12 12:48:56 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @3408ms
+2024-09-12 12:48:56 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-12 12:49:40 [main] INFO  c.e.gymApp.service.TrainerService - Trainer created successfully: Lasha.Zaalishvili
+2024-09-12 12:50:32 [main] INFO  c.e.gymApp.utils.ConsoleInputHandler - User password: User(id=20, firstName=Lasha, lastName=Zaalishvili, username=Lasha.Zaalishvili, password=XPQII3fdXv, isActive=true) is updated
+2024-09-12 12:52:50 [main] INFO  org.eclipse.jetty.server.Server - jetty-11.0.23; built: 2024-08-14T01:40:17.906Z; git: 6fcf5ccaebd7ca13a0cb96c96adca699a24080a0; jvm 22.0.2+9-70
+2024-09-12 12:52:50 [main] INFO  o.e.j.s.s.DefaultSessionIdManager - Session workerName=node0
+2024-09-12 12:52:50 [main] INFO  o.e.j.s.handler.ContextHandler.ROOT - Initializing Spring DispatcherServlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 12:52:50 [main] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'org.springframework.web.servlet.DispatcherServlet-73ee04c8'
+2024-09-12 12:52:50 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-09-12 12:52:50 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 31 ms. Found 5 JPA repository interfaces.
+2024-09-12 12:52:50 [main] INFO  o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-09-12 12:52:50 [main] INFO  org.hibernate.Version - HHH000412: Hibernate ORM core version 5.6.15.Final
+2024-09-12 12:52:50 [main] INFO  o.h.annotations.common.Version - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-09-12 12:52:51 [main] INFO  org.hibernate.dialect.Dialect - HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2024-09-12 12:52:51 [main] INFO  o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-09-12 12:52:51 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-09-12 12:52:51 [main] INFO  o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-09-12 12:52:52 [main] INFO  c.e.gymApp.utils.DataInitializer - Created traineeDataList : [TraineeData(id=1, firstName=John, lastName=Doe, dateOfBirth=1990-01-01, address=1234)]
+2024-09-12 12:52:52 [main] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1742 ms
+2024-09-12 12:52:52 [main] INFO  o.e.j.server.handler.ContextHandler - Started o.e.j.s.ServletContextHandler@141229f6{/,null,AVAILABLE}
+2024-09-12 12:52:52 [main] INFO  o.e.jetty.server.AbstractConnector - Started ServerConnector@43195e57{HTTP/1.1, (http/1.1)}{0.0.0.0:8081}
+2024-09-12 12:52:52 [main] INFO  org.eclipse.jetty.server.Server - Started Server@11bd0f3b{STARTING}[11.0.23,sto=0] @2169ms
+2024-09-12 12:52:52 [main] INFO  com.example.gymApp.GymApplication - Server started at Server@11bd0f3b{STARTED}[11.0.23,sto=0]
+2024-09-12 12:58:12 [main] INFO  c.e.gymApp.utils.ConsoleInputHandler - User password: User(id=4, firstName=Rob, lastName=Jones, username=Rob.Jones, password=rtC7uRfiNk, isActive=true) is updated
+2024-09-12 13:03:47 [main] INFO  c.e.gymApp.service.TrainingService - Trainee{id=10, user=User(id=21, firstName=Kirill, lastName=Popov, username=Kirill.Popov, password=3MHDLLPai2, isActive=true), dateOfBirth=1999-11-11, address='Paris'}
+2024-09-12 13:03:47 [main] INFO  c.e.gymApp.service.TrainingService - Training Training{id=15, trainer=Lasha.Zaala, trainee=Kirill.Popov, trainingType=yoga, trainingName='fishing', trainingDate=1999-11-11, trainingDuration=1} successfully saved
+2024-09-12 13:06:57 [main] INFO  c.e.gymApp.service.TrainingService - Trainee{id=10, user=User(id=21, firstName=Kirill, lastName=Popov, username=Kirill.Popov, password=3MHDLLPai2, isActive=false), dateOfBirth=1999-11-11, address='Paris'}
+2024-09-12 13:06:57 [main] INFO  c.e.gymApp.service.TrainingService - Training could not be created because of false status of trainee : Trainee{id=10, user=User(id=21, firstName=Kirill, lastName=Popov, username=Kirill.Popov, password=3MHDLLPai2, isActive=false), dateOfBirth=1999-11-11, address='Paris'} or trainer :Trainer{id=11, firstName=Lasha, lastName=Zaala, username=Lasha.Zaala, password=bC7vKNwDPO, active=true, specialization=yoga}

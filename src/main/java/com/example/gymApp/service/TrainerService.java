@@ -1,139 +1,8 @@
-//package com.example.gymApp.service;
-//
-//import com.example.gymApp.dao.TrainerDAO;
-//import com.example.gymApp.model.Trainer;
-//import java.util.List;
-//import java.util.NoSuchElementException;
-//import lombok.extern.slf4j.Slf4j;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//
-//@Slf4j
-//@Service
-//public class TrainerService {
-//
-//  private final TrainerDAO trainerDAO;
-//
-//  @Autowired
-//  public TrainerService(TrainerDAO trainerDAO) {
-//    this.trainerDAO = trainerDAO;
-//  }
-//
-//  public boolean createTrainer(Long id, String firstName, String lastName, String specialization) {
-//    try {
-//      Trainer trainer = new Trainer();
-//      trainer.setId(id);
-//      trainer.setFirstName(firstName);
-//      trainer.setLastName(lastName);
-//      trainer.setSpecialization(specialization);
-//
-//      validateTrainer(trainer);
-//
-//      if (trainer.getUsername() == null || trainer.getUsername().isEmpty()) {
-//        String generatedUsername = ProfileService.generateUsername(firstName, lastName);
-//        trainer.setUsername(generatedUsername);
-//        log.info("Generated username for trainer {}: {}", id, generatedUsername);
-//      }
-//      try {
-//        if (trainer.getPassword() == null || trainer.getPassword().isEmpty()) {
-//          String generatedPassword = ProfileService.generateRandomPassword();
-//          trainer.setPassword(generatedPassword);
-//          log.info("Generated password for trainer {}: {}", id, generatedPassword);
-//        }
-//      } catch (Exception e) {
-//        log.error("Error generating password for trainer {}: {}", id, e.getMessage());
-//        throw new RuntimeException("Failed to generate password for trainer.");
-//      }
-//
-//
-//      if (!trainerDAO.createTrainer(trainer)) {
-//        throw new NoSuchElementException("Trainer with ID " + id + " could not be created.");
-//      }
-//      log.info("Trainer {} has been created successfully.", id);
-//      return true;
-//
-//    } catch (IllegalArgumentException e) {
-//      log.error("Error creating trainer: {}", e.getMessage());
-//      return false;
-//    }
-//  }
-//
-//  public boolean updateTrainer(Long id, String firstName, String lastName, String specialization) {
-//    try {
-//
-//      Trainer trainer = getTrainerById(id);
-//
-//      trainer.setFirstName(firstName);
-//      trainer.setLastName(lastName);
-//      trainer.setSpecialization(specialization);
-//
-//      validateTrainer(trainer);
-//
-//      // Сохраняем изменения
-//      if (!trainerDAO.updateTrainer(trainer)) {
-//        throw new NoSuchElementException("Trainer with ID " + id + " could not be updated.");
-//      }
-//      log.info("Trainer {} has been updated successfully.", id);
-//      return true;
-//
-//    } catch (IllegalArgumentException e) {
-//      log.error("Error updating trainer: {}", e.getMessage());
-//      return false;
-//    }
-//  }
-//
-//  public boolean deleteTrainer(Long id) {
-//    try {
-//      if (!trainerDAO.deleteTrainer(id)) {
-//        throw new NoSuchElementException("Trainer with ID " + id + " not found.");
-//      }
-//      log.info("Trainer {} has been deleted successfully.", id);
-//      return true;
-//    } catch (NoSuchElementException e) {
-//      log.error("Error deleting trainer: {}", e.getMessage());
-//      return false;
-//    }
-//  }
-//
-//  public Trainer getTrainerById(Long id) {
-//    Trainer trainer = trainerDAO.getTrainerById(id);
-//    if (trainer == null) {
-//      throw new NoSuchElementException("Trainer with ID " + id + " not found.");
-//    }
-//    return trainer;
-//  }
-//
-//  public List<Trainer> getAllTrainers() {
-//    try {
-//      List<Trainer> trainers = trainerDAO.getAllTrainers();
-//      log.info("Successfully retrieved list of trainers.");
-//      return trainers;
-//    } catch (Exception e) {
-//      log.error("Error fetching all trainers: {}", e.getMessage());
-//      throw new RuntimeException("Unable to retrieve trainers.");
-//    }
-//  }
-//
-//  private void validateTrainer(Trainer trainer) {
-//    if (trainer.getId() == null || trainer.getId() <= 0) {
-//      throw new IllegalArgumentException("Invalid ID: " + trainer.getId());
-//    }
-//    if (trainer.getFirstName() == null || trainer.getFirstName().trim().isEmpty()) {
-//      throw new IllegalArgumentException("First name cannot be empty.");
-//    }
-//    if (trainer.getLastName() == null || trainer.getLastName().trim().isEmpty()) {
-//      throw new IllegalArgumentException("Last name cannot be empty.");
-//    }
-//    if (trainer.getSpecialization() == null || trainer.getSpecialization().trim().isEmpty()) {
-//      throw new IllegalArgumentException("Specialization cannot be empty.");
-//    }
-//  }
-//}
-
 package com.example.gymApp.service;
 
 import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.Trainer;
+import com.example.gymApp.model.Training;
 import com.example.gymApp.model.TrainingType;
 import com.example.gymApp.model.User;
 import com.example.gymApp.repository.TraineeRepository;
@@ -176,16 +45,14 @@ public class TrainerService {
 
   @Transactional
   public Trainer updateTrainer(Trainer trainer, String name, String lastName, String username,
-      String password, Boolean activeStatus, String  specialization) {
+      String password, Boolean activeStatus, String specialization) {
 
-    // Поиск специализации в базе данных
     Optional<TrainingType> trainingTypeOptional = trainingTypeRepository.findByName(specialization);
     if (trainingTypeOptional.isEmpty()) {
       throw new IllegalArgumentException("Specialization not found in the database");
     }
 
     TrainingType trainingType = trainingTypeOptional.get();
-
 
     trainer.getUser().setFirstName(name);
     trainer.getUser().setLastName(lastName);
@@ -196,19 +63,16 @@ public class TrainerService {
 
     trainerRepository.save(trainer);
 
-
-
     return trainer;
   }
 
-  public TrainingType checkSpecializationCorrectness(String specialization){
+  public TrainingType checkSpecializationCorrectness(String specialization) {
     Optional<TrainingType> trainingType = trainingTypeRepository.findByName(specialization);
     if (trainingType.isEmpty()) {
       throw new IllegalArgumentException("Specialization not found in the database");
     }
     return trainingType.get(); //get clear TrainingType object;
   }
-
 
 
   public Trainer createTrainer(String firstName, String lastName, String username, String password,
@@ -230,8 +94,8 @@ public class TrainerService {
 
     trainerRepository.save(trainer);
 
-  log.info("Trainer created successfully: {}", trainer.getUser().getUsername());
-  return trainer;
+    log.info("Trainer created successfully: {}", trainer.getUser().getUsername());
+    return trainer;
   }
 
 
@@ -242,7 +106,7 @@ public class TrainerService {
   }
 
   public User getTrainerByPassword(String password) {
-    // Найти пользователя по паролю
+
     Optional<User> userOpt = userRepository.findByPassword(password);
 
     if (userOpt.isEmpty()) {
@@ -256,10 +120,10 @@ public class TrainerService {
 
   }
 
+  @Transactional
   public void deleteTraineeByUsername(String username) {
 
     Optional<User> userOpt = userRepository.findByUsername(username);
-
 
     if (userOpt.isEmpty()) {
       throw new NoSuchElementException("No user found with the provided username");
@@ -267,14 +131,17 @@ public class TrainerService {
 
     User user = userOpt.get();
 
-
     Optional<Trainee> traineeOpt = traineeRepository.findByUser(user);
-
 
     if (traineeOpt.isEmpty()) {
       throw new NoSuchElementException("No trainee found for the provided user");
     }
     Trainee trainee = traineeOpt.get();
+
+    //deleting connected entities manually!!!
+    List<Training> trainings = trainingRepository.findByTrainee(trainee);
+    trainingRepository.deleteAll(trainings);
+
     traineeRepository.delete(trainee);
     System.out.println("Trainee and related entities deleted successfully.");
   }
@@ -290,17 +157,12 @@ public class TrainerService {
 
     Optional<Trainee> traineeOpt = traineeRepository.findByUserUsername(traineeUsername);
 
-    if(traineeOpt.isEmpty()){
+    if (traineeOpt.isEmpty()) {
       throw new NoSuchElementException("No trainee found for the provided user");
     }
     Trainee trainee = traineeOpt.get();
 
-   return trainingRepository.findDistinctTrainersByTrainee(trainee);
-
-
-
-
-
+    return trainingRepository.findDistinctTrainersByTrainee(trainee);
   }
 }
 

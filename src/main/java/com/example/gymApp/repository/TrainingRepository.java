@@ -41,6 +41,8 @@ public interface TrainingRepository extends JpaRepository<Training, Long> {
   @Query("SELECT DISTINCT t.trainer FROM Training t WHERE t.trainee = :trainee")
   List<Trainer> findDistinctTrainersByTrainee(@Param("trainee") Trainee trainee);
 
+
+  List<Training> findByTrainee(Trainee trainee);
 }
 
 

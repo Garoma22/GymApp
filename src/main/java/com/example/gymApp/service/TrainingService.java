@@ -14,6 +14,7 @@ import java.util.NoSuchElementException;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Data
@@ -38,6 +39,8 @@ public class TrainingService {
     this.trainingRepository = trainingRepository;
   }
 
+
+@Transactional
   public void createTraining(String trainerUsername, String traineeUsername, String trainingName,
       LocalDate dateOfTraining, int durationInHours) {
 
@@ -50,6 +53,12 @@ public class TrainingService {
             "Trainee with username " + traineeUsername + " not found"));
 
     log.info(trainee.toString());
+
+
+  if (!trainee.getUser().isActive() || !trainer.getUser().isActive()) {
+    log.info("Training could not be created because of false status of trainee : " + trainee + " or trainer :" + trainer);
+    throw new IllegalArgumentException("Training could not be created due to inactive trainee or trainer.");
+  }
 
     Training training = new Training();
     training.setTrainer(trainer);

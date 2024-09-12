@@ -35,33 +35,4 @@ public class AppConfig {
   }
 }
 
-//  @Bean
-//  public InMemoryStorage inMemoryStorage() {
-//    return new InMemoryStorage();
-//  }
 
-//  @Bean
-//  public TrainingService trainingService() {
-//    return new TrainingService();
-//  }
-
-//  @Bean
-//  public TrainerService trainerService() {
-//    return new TrainerService();
-//  }
-
-//  @Bean
-//  public TraineeDAO traineeDAO() {
-//    return new TraineeDAO(inMemoryStorage());
-//  }
-//
-//  @Bean
-//  public TrainerDAO trainerDAO() {
-//    return new TrainerDAO(inMemoryStorage());
-//  }
-//
-//  @Bean
-//  public TrainingDAO trainingDAO() {
-//    return new TrainingDAO(inMemoryStorage());
-//  }
-//}
