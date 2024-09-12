@@ -1,6 +1,7 @@
 package com.example.gymApp;
 
 import com.example.gymApp.utils.ConsoleInputHandler;
+import com.example.gymApp.utils.ConsoleInputHandler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;

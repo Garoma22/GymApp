@@ -20,7 +20,10 @@
     <appender-ref ref="FILE"/>
   </root>
 
-  <!-- Логирование для конкретного пакета или класса -->
+
   <logger name="com.example.gymApp.service" level="info"/>
   <logger name="com.example.gymApp.dao" level="info"/>
+
+
+
 </configuration>

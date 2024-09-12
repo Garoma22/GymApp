@@ -1,37 +1,82 @@
-//package com.example.gymApp.service;
-//
-//
-//import org.junit.jupiter.api.Test;
-//
-//import static org.junit.jupiter.api.Assertions.assertEquals;
-//import static org.junit.jupiter.api.Assertions.assertNotNull;
-//import static org.junit.jupiter.api.Assertions.assertTrue;
-//
-//public class ProfileServiceTest {
-//
-//  @Test
-//  public void testGenerateUsername() {
-//    String firstName = "John";
-//    String lastName = "Doe";
-//
-//    String expectedUsername = "John.Doe";
-//    String actualUsername = ProfileService.generateUsername(firstName, lastName);
-//
-//    assertEquals(expectedUsername, actualUsername, "Username should be generated correctly");
-//  }
-//
-//  @Test
-//  public void testGenerateRandomPassword() {
-//    String password = ProfileService.generateRandomPassword();
-//
-//    assertNotNull(password, "Password should not be null");
-//    assertEquals(10, password.length(), "Password should be 10 characters long");
-//
-//    boolean hasLetter = password.chars().anyMatch(Character::isLetter);
-//    boolean hasDigit = password.chars().anyMatch(Character::isDigit);
-//
-//    assertTrue(hasLetter, "Password should contain at least one letter");
-//    assertTrue(hasDigit, "Password should contain at least one digit");
-//  }
-//}
-//
+package com.example.gymApp.service;
+
+
+import com.example.gymApp.repository.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import org.springframework.test.annotation.DirtiesContext;
+
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+class ProfileServiceTest {
+
+  @Mock
+  private UserRepository userRepository;
+
+  @InjectMocks
+  private ProfileService profileService;
+
+  @BeforeEach
+  void setUp() {
+
+    MockitoAnnotations.openMocks(this);
+  }
+
+
+  @Test
+  void generateUsername_ShouldReturnBaseUsername_WhenNoSimilarUsernamesExist() {
+
+    String firstName = "John";
+    String lastName = "Doe";
+    String baseUsername = "John.Doe";
+
+    when(userRepository.findAllByUsernameStartingWith(baseUsername + "%"))
+        .thenReturn(Collections.emptyList());
+
+
+    String generatedUsername = profileService.generateUsername(firstName, lastName);
+
+
+    assertEquals(baseUsername, generatedUsername);
+    verify(userRepository).findAllByUsernameStartingWith(baseUsername + "%");
+  }
+
+  @Test
+  void generateUsername_ShouldReturnBaseUsernameWithIncrementedSuffix_WhenSimilarUsernamesExist() {
+
+    String firstName = "John";
+    String lastName = "Doe";
+    String baseUsername = "John.Doe";
+
+    List<String> existingUsernames = Arrays.asList("John.Doe", "John.Doe1", "John.Doe2");
+    when(userRepository.findAllByUsernameStartingWith(baseUsername + "%"))
+        .thenReturn(existingUsernames);
+
+
+    String generatedUsername = profileService.generateUsername(firstName, lastName);
+
+    assertEquals("John.Doe3", generatedUsername);
+    verify(userRepository).findAllByUsernameStartingWith(baseUsername + "%");
+  }
+
+  @Test
+  void generateRandomPassword_ShouldReturnPasswordOfCorrectLengthAndCharacters() {
+
+    String password = profileService.generateRandomPassword();
+
+    assertNotNull(password);
+    assertEquals(10, password.length());
+    assertTrue(password.matches("[A-Za-z0-9]+"));  // Проверяем, что пароль состоит только из разрешенных символов
+  }
+}

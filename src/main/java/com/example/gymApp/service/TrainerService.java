@@ -10,7 +10,6 @@ import com.example.gymApp.repository.TrainerRepository;
 import com.example.gymApp.repository.TrainingRepository;
 import com.example.gymApp.repository.TrainingTypeRepository;
 import com.example.gymApp.repository.UserRepository;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import lombok.extern.slf4j.Slf4j;
