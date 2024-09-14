@@ -40,3 +40,9 @@ build/
 
 logs/application.log
 
+# Ignore IDE config files
+.idea/
+
+# Ignore log files
+logs/
+*.log
