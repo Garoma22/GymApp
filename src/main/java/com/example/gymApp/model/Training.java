@@ -47,6 +47,7 @@ public class Training {
     this.trainingDuration = trainingDuration;
   }
 
+
   @Override
   public String toString() {
     return "Training{" +

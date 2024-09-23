@@ -22,4 +22,11 @@ List<String> findAllByUsernameStartingWith(@Param("baseUsername") String baseUse
 
 
   Optional<User> findByPassword(String password);
+
+
+
+
+
+
+
 }

@@ -103,6 +103,33 @@ public class TrainingService {
   }
 
 
+  @Transactional
+  public Training createTraining5args(Trainer trainer, Trainee trainee, String trainingName,
+      LocalDate trainingDate, Integer trainingDuration) {
+
+    //todo : add some logic for isActive status of users
+    //todo : add some logic for uniques of trainings
+
+    Training training = new Training();
+
+    training.setTrainer(trainer);
+    training.setTrainee(trainee);
+    training.setTrainingType(trainer.getSpecialization());
+    training.setTrainingName(trainer.getUsername() + " - " + trainee.getUsername() + " - "
+        + trainingName);
+    training.setTrainingDate(trainingDate); //hardcode here!
+    training.setTrainingDuration(trainingDuration);  //hardcode!
+    trainingRepository.save(training);
+    System.out.println("New training is created: " + training);
+
+  return training;
+  }
+
+
+
+
+
+
   public List<Training> getTrainingsByUserUsername(String traineeUsername, LocalDate startDate,
       LocalDate finishDate, String trainerName, String specialization) {
 

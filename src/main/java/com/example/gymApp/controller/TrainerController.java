@@ -196,8 +196,11 @@ VI. Trainees List
 
   // Request example: http://localhost:8081/trainer/getTrainerTrainingsListByDynamicCriteria?username=Pol.Mark&periodFrom=2221-11-11&periodTo=2226-11-11&traineeFirstName=Roman
 
-  // This method retrieves a trainer's training sessions with optional
-  // filtering by date range and trainee's first name.
+  /* This method retrieves a trainer's training sessions with optional
+   filtering by date range and trainee's first name.
+
+   */
+
   @GetMapping("/getTrainerTrainingsListByDynamicCriteria")
   public ResponseEntity<?> getTrainerTrainingsListByDynamicCriteria(
       @RequestParam String username,
@@ -228,15 +231,13 @@ VI. Trainees List
 
       List<TrainingForTrainerResponseDto> dtoList = TrainingForTrainerMapper.INSTANCE.toDtoList(trainings);
 
-
       return ResponseEntity.ok(dtoList);
-
 
     } catch (NoSuchElementException e) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Trainer not found");
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .body("An error occurred while updating the profile");
+          .body("An error occurred ");
     }
   }
 }

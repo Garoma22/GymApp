@@ -30,6 +30,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -321,8 +322,6 @@ Trainer's specialization: If specializationName is provided, it filters training
     try {
       List<Training> trainings = trainingService.findTraineeTrainingsByUsername(username);
 
-
-
       //works!
       if (periodFrom != null && periodTo != null) {
         trainings = trainings.stream()
@@ -331,7 +330,6 @@ Trainer's specialization: If specializationName is provided, it filters training
                 .isAfter(traineeTrainingRequestDto.getPeriodTo()))
             .collect(Collectors.toList());
       }
-
 
       if (trainerFirstName != null) {
         trainings = trainings.stream()
@@ -345,11 +343,10 @@ Trainer's specialization: If specializationName is provided, it filters training
             .collect(Collectors.toList());
       }
 
-      List<TrainingForTraineeResponseDto> responseDtos = TrainingForTraineeMapper.INSTANCE.toDtoList(trainings);
+      List<TrainingForTraineeResponseDto> responseDtos = TrainingForTraineeMapper.INSTANCE.toDtoList(
+          trainings);
 
       return ResponseEntity.ok(responseDtos);
-
-
 
 
     } catch (NoSuchElementException e) {
@@ -359,6 +356,10 @@ Trainer's specialization: If specializationName is provided, it filters training
           .body("An error occurred");
     }
   }
+
+
+
+
 }
 
 
