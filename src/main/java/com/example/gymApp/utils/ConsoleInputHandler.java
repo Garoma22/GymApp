@@ -262,7 +262,7 @@ public class ConsoleInputHandler {
       System.out.println("Enter trainer's username: ");
       String trainerUsername = scanner.nextLine();
 
-      System.out.println("Enter trainer old paassword: ");
+      System.out.println("Enter trainer old password: ");
       String trainerOldPassword = scanner.nextLine();
 
       userService.getUserByPasswordAndUsername(trainerOldPassword, trainerUsername);
@@ -270,7 +270,7 @@ public class ConsoleInputHandler {
       System.out.println("Enter trainee's username: ");
       String traineeUsername = scanner.nextLine();
 
-      System.out.println("Enter trainee old paassword: ");
+      System.out.println("Enter trainee old password: ");
       String traineeOldPassword = scanner.nextLine();
 
       userService.getUserByPasswordAndUsername(traineeOldPassword, traineeUsername);
@@ -312,7 +312,9 @@ public class ConsoleInputHandler {
 
       userService.getUserByPasswordAndUsername(oldPassword, userName);
 
-      trainerService.deleteTraineeByUsername(userName);
+
+      //todo rewrite from trainer to trainee
+      traineeService.deleteTraineeByUsername(userName);
 
     } catch (NoSuchElementException e) {
       System.out.println(e.getMessage());

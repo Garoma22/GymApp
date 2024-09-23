@@ -17,6 +17,7 @@ public class UserService {
     this.userRepository = userRepository;
   }
 
+
   public User getUserByPasswordAndUsername(String password, String username) {
 
     Optional<User> user = userRepository.findByPassword(password);
@@ -52,7 +53,7 @@ public class UserService {
         newActiveStatus = Boolean.parseBoolean(activityStatus);
         System.out.println("Success! Activity status set to user : "  + user.getUsername() + " is : "  + newActiveStatus);
 
-        return newActiveStatus; //returns true or false
+        return newActiveStatus;
       } else {
         throw new IllegalArgumentException("Invalid input. Please enter 'true' or 'false'.");
       }

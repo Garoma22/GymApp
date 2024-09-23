@@ -2,8 +2,12 @@ package com.example.gymApp.service;
 
 import com.example.gymApp.model.Trainee;
 
+import com.example.gymApp.model.Trainer;
+import com.example.gymApp.model.Training;
 import com.example.gymApp.model.User;
 import com.example.gymApp.repository.TraineeRepository;
+import com.example.gymApp.repository.TrainerRepository;
+import com.example.gymApp.repository.TrainingRepository;
 import com.example.gymApp.repository.UserRepository;
 import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +23,16 @@ public class TraineeService {
 
   private final TraineeRepository traineeRepository;
   private final UserRepository userRepository;
+  private final TrainingRepository trainingRepository;
+  private final TrainerRepository trainerRepository;
 
   @Autowired
-  public TraineeService(TraineeRepository traineeRepository, UserRepository userRepository) {
+  public TraineeService(TraineeRepository traineeRepository, UserRepository userRepository,
+      TrainingRepository trainingRepository, TrainerRepository trainerRepository) {
     this.traineeRepository = traineeRepository;
     this.userRepository = userRepository;
+    this.trainingRepository = trainingRepository;
+    this.trainerRepository = trainerRepository;
   }
 
   @Transactional
@@ -32,7 +41,6 @@ public class TraineeService {
     if (userRepository.findByUsername(username).isPresent()) {
       throw new IllegalArgumentException("Username already exists.");
     }
-
 
     User user = new User();
     user.setFirstName(firstName);
@@ -98,6 +106,44 @@ public class TraineeService {
     return trainee;
 
 
+  }
+
+  @Transactional
+  public void deleteTraineeByUsername(String username) {
+
+    Optional<User> userOpt = userRepository.findByUsername(username);
+
+    if (userOpt.isEmpty()) {
+      throw new NoSuchElementException("No user found with the provided username");
+    }
+
+    User user = userOpt.get();
+
+    Optional<Trainee> traineeOpt = traineeRepository.findByUser(user);
+
+    if (traineeOpt.isEmpty()) {
+      throw new NoSuchElementException("No trainee found for the provided user");
+    }
+    Trainee trainee = traineeOpt.get();
+
+    //deleting connected entities manually!!!
+    List<Training> trainings = trainingRepository.findByTrainee(trainee);
+    trainingRepository.deleteAll(trainings);
+
+    traineeRepository.delete(trainee);
+    System.out.println("Trainee and related entities deleted successfully.");
+  }
+
+  public List<Trainee> getAllTraineesByTrainerUsername(String trainerUsername) {
+
+    Optional<Trainer> trainerOpt = trainerRepository.findByUserUsername(trainerUsername);
+
+    if (trainerOpt.isEmpty()) {
+      throw new NoSuchElementException("No trainee found for the provided user");
+    }
+    Trainer trainer = trainerOpt.get();
+
+    return trainingRepository.findDistinctTraineeByTrainer(trainer);
   }
 }
 

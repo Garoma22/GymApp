@@ -40,7 +40,7 @@ public class TrainingService {
   }
 
 
-@Transactional
+  @Transactional
   public void createTraining(String trainerUsername, String traineeUsername, String trainingName,
       LocalDate dateOfTraining, int durationInHours) {
 
@@ -54,11 +54,12 @@ public class TrainingService {
 
     log.info(trainee.toString());
 
-
-  if (!trainee.getUser().isActive() || !trainer.getUser().isActive()) {
-    log.info("Training could not be created because of false status of trainee : " + trainee + " or trainer :" + trainer);
-    throw new IllegalArgumentException("Training could not be created due to inactive trainee or trainer.");
-  }
+    if (!trainee.getUser().isActive() || !trainer.getUser().isActive()) {
+      log.info("Training could not be created because of false status of trainee : " + trainee
+          + " or trainer :" + trainer);
+      throw new IllegalArgumentException(
+          "Training could not be created due to inactive trainee or trainer.");
+    }
 
     Training training = new Training();
     training.setTrainer(trainer);
@@ -73,12 +74,40 @@ public class TrainingService {
     log.info("Training " + training + " successfully saved");
   }
 
+
+  @Transactional
+  public void createTraining2args(List<Trainer> trainers, Trainee trainee) {
+
+    for (Trainer trainer : trainers) {
+
+      List<Training> existingTrainings = trainingRepository.findTrainings(trainer, trainee,
+          LocalDate.parse("2222-11-11"));
+
+      if (existingTrainings.isEmpty()) {
+
+        //todo : add some logic for isActive status of users
+
+        Training training = new Training();
+
+        training.setTrainer(trainer);
+        training.setTrainee(trainee);
+        training.setTrainingType(trainer.getSpecialization());
+        training.setTrainingName(trainer.getUsername() + " - " + trainee.getUsername()
+            + " test training with hardcode data");
+        training.setTrainingDate(LocalDate.parse("2222-11-11")); //hardcode here!
+        training.setTrainingDuration(1);  //hardcode!
+        trainingRepository.save(training);
+        System.out.println("New training is created: " + training);
+      }
+    }
+  }
+
+
   public List<Training> getTrainingsByUserUsername(String traineeUsername, LocalDate startDate,
       LocalDate finishDate, String trainerName, String specialization) {
 
     return trainingRepository.getAllTrainingsByTraineeAndCriteria(traineeUsername, startDate,
         finishDate, trainerName, specialization);
-
   }
 
   public List<Training> getTraineesList(String trainerUsername, String traineeName,
@@ -87,7 +116,22 @@ public class TrainingService {
     return trainingRepository.getAllTrainingsByTrainerAndCriteria(trainerUsername, traineeName,
         startDate, finishDate);
   }
+
+  public List<Trainer> getAllTrainersByTraineeUsername(String traineeUsername) {
+    return trainingRepository.getAllTrainersByTrainee(traineeUsername);
+  }
+
+
+  public List<Training> findTraineeTrainingsByUsername(String traineeUsername) {
+
+    return trainingRepository.findTraineeTrainingsByUsername(traineeUsername);
+  }
+
+  public List<Training> findTrainerTrainingsByUsername(String trainerUsername) {
+    return trainingRepository.findTrainerTrainingsByUsername(trainerUsername);
+  }
 }
+
 
 
 
