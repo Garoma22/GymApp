@@ -18,6 +18,10 @@ import com.example.gymApp.service.TraineeService;
 import com.example.gymApp.service.TrainerService;
 import com.example.gymApp.service.TrainingService;
 import com.example.gymApp.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -67,8 +71,7 @@ public class TraineeController {
     this.trainingService = trainingService;
   }
 
-
-  @GetMapping("/getAll")
+@GetMapping("/getAll")
   public List<Trainee> getAllTrainees() {
     return traineeService.getAllTrainees();
   }
