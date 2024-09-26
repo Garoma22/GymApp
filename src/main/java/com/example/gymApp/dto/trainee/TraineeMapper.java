@@ -49,14 +49,7 @@ public interface TraineeMapper {
 
     return dto;
   }
-//
-//  //наделеям поля ущности TraineeDto значениями из трейни
-//  @Named("toTraineeDtoWith3Fields")
-//  @Mapping(source = "user.username", target = "username")
-//  @Mapping(source = "user.firstName", target = "firstName")
-//  @Mapping(source = "user.lastName", target = "lastName")
 
-//  TraineeDto toTraineeDtoWith3Fields(Trainee trainee);
 
   @IterableMapping(qualifiedByName = "toTraineeDtoWith3Fields")
   List<TraineeDto> toTraineeDto3List(List<Trainee> trainees);

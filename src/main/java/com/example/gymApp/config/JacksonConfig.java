@@ -12,8 +12,6 @@ public class JacksonConfig {
   @Bean
   public ObjectMapper objectMapper() {
     ObjectMapper objectMapper = new ObjectMapper();
-
-//    objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
     objectMapper.registerModule(new JavaTimeModule()); // Регистрация модуля для работы с Java 8 датами
     return objectMapper;
   }

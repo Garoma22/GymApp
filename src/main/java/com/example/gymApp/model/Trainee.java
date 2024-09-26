@@ -32,8 +32,6 @@ public class Trainee {
 
   }
 
-
-
   @Override
   public String toString() {
     return "Trainee{" +

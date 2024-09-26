@@ -24,25 +24,23 @@ public class TransactionIdFilter implements Filter {
   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
       throws IOException, ServletException {
     log.info("Entering TransactionIdFilter");
-    // Генерируем уникальный идентификатор для каждого запроса
-    String transactionId = UUID.randomUUID().toString();
-    System.out.println("Generated transactionId: " + transactionId);  // Логирование в консоль
 
-    // Сохраняем его в MDC (Mapped Diagnostic Context), чтобы он был доступен в логах
+    String transactionId = UUID.randomUUID().toString();
+    System.out.println("Generated transactionId: " + transactionId);
     MDC.put("transactionId", transactionId);
 
     try {
-      // Продолжаем выполнение запроса
+
       chain.doFilter(request, response);
     } finally {
-      // Удаляем transactionId из MDC после завершения обработки запроса
+
       MDC.remove("transactionId");
     }
   }
 
   @Override
   public void destroy() {
-    // Clean up (optional)
+
   }
 
 

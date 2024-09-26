@@ -13,6 +13,7 @@ import com.example.gymApp.dto.trainingType.TrainingForTraineeMapper;
 import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.Trainer;
 import com.example.gymApp.model.Training;
+import com.example.gymApp.model.User;
 import com.example.gymApp.service.ProfileService;
 import com.example.gymApp.service.TraineeService;
 import com.example.gymApp.service.TrainerService;
@@ -22,6 +23,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import jakarta.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -43,7 +45,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/trainee")
+@RequestMapping("/protected/trainee")
 public class TraineeController {
 
   private static final Logger log = LoggerFactory.getLogger(TraineeController.class);
@@ -71,146 +73,143 @@ public class TraineeController {
     this.trainingService = trainingService;
   }
 
-@GetMapping("/getAll")
+  @GetMapping("/getAll")
   public List<Trainee> getAllTrainees() {
     return traineeService.getAllTrainees();
   }
 
 
-  @PostMapping("/registerTrainee")
-  public ResponseEntity<?> registerTrainee(@RequestBody TraineeDto traineeDto) {
-    try {
 
-      String username = profileService.generateUsername(traineeDto.getFirstName(),
-          traineeDto.getLastName());
-      String password = profileService.generateRandomPassword();
+  /*
 
-      Trainee trainee = traineeMapper.toTrainee(traineeDto);
-      trainee.getUser().setUsername(username);
-      trainee.getUser().setPassword(password);
-
-      traineeService.createTrainee(
-          trainee.getUser().getFirstName(),
-          trainee.getUser().getLastName(),
-          username,
-          password,
-          trainee.getDateOfBirth(),
-          trainee.getAddress()
-      );
-
-      Map<String, String> response = new HashMap<>();
-      response.put("username", username);
-      response.put("password", password);
-
-      return ResponseEntity.ok(response);
-    } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .body("Error: " + e.getMessage());
-    }
-  }
-
+  5. Get Trainee Profile (GET method)
+a. Request
+I. Username (required)
+b. Response
+I. First Name
+II. Last Name
+III. Date of Birth
+IV. Address
+V. Is Active
+VI. Trainers List
+1. Trainer Username
+2. Trainer First Name
+3. Trainer Last Name
+4. Trainer Specialization (Training type reference)
+   */
 
   @GetMapping("/getTraineeWithTrainersList")
   public ResponseEntity<?> getTraineeProfileWithTrainersList(@RequestParam String username) {
-    try {
-      Trainee trainee = traineeService.getTraineeByUsername(username);
 
-      List<TrainerDto> trainersList = trainerService.getAlltrainersByTrainee(username).stream()
-          .map(trainer -> new TrainerDto(
-              trainer.getUser().getUsername(),
-              trainer.getUser().getFirstName(),
-              trainer.getUser().getLastName(),
-              trainer.getSpecialization().getName()))
-          .collect(Collectors.toList());
+    Trainee trainee = traineeService.getTraineeByUsername(username);
 
-      TraineeWithTrainerListDto responseDTO = new TraineeWithTrainerListDto(
-          trainee.getUser().getUsername(),
-          trainee.getUser().getFirstName(),
-          trainee.getUser().getLastName(),
-          trainee.getDateOfBirth(),
-          trainee.getAddress(),
-          trainee.getUser().isActive(),
-          trainersList
-      );
+    List<TrainerDto> trainersList = trainerService.getAlltrainersByTrainee(username).stream()
+        .map(trainer -> new TrainerDto(
+            trainer.getUser().getUsername(),
+            trainer.getUser().getFirstName(),
+            trainer.getUser().getLastName(),
+            trainer.getSpecialization().getName()))
+        .collect(Collectors.toList());
 
-      return ResponseEntity.ok(responseDTO);
-    } catch (NoSuchElementException e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Trainee not found");
-    } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .body("An error occurred while retrieving the profile");
-    }
+    TraineeWithTrainerListDto responseDTO = new TraineeWithTrainerListDto(
+        trainee.getUser().getUsername(),
+        trainee.getUser().getFirstName(),
+        trainee.getUser().getLastName(),
+        trainee.getDateOfBirth(),
+        trainee.getAddress(),
+        trainee.getUser().isActive(),
+        trainersList
+    );
+
+    return ResponseEntity.ok(responseDTO);
   }
+
+
+
+/*
+6. Update Trainee Profile (PUT method)
+a. Request
+I. Username (required)
+II. First Name (required)
+III. Last Name (required)
+IV. Date of Birth (optional)
+V. Address (optional)
+VI. Is Active (required)
+
+
+b. Response
+I. Username
+II. First Name
+III. Last Name
+IV. Date of Birth
+V. Address
+VI. Is Active
+VII. Trainers List
+1. Trainer Username
+2. Trainer First Name
+3. Trainer Last Name
+4. Trainer Specialization (Training type reference)
+ */
 
 
   @PutMapping("/updateTrainee")
   public ResponseEntity<?> updateTraineeProfile(@RequestBody TraineeDto traineeDto,
       @RequestParam String username) {
-    try {
-      Trainee trainee = traineeService.getTraineeByUsername(username);
-      System.out.println("Before Update: " + trainee);
+    Trainee trainee = traineeService.getTraineeByUsername(username);
+    System.out.println("Before Update: " + trainee);
 
-      trainee.getUser().setFirstName(traineeDto.getFirstName());
-      trainee.getUser().setLastName(traineeDto.getLastName());
-      trainee.getUser().setActive(traineeDto.isActive());
-      trainee.setDateOfBirth(LocalDate.parse(traineeDto.getDateOfBirth()));
-      trainee.setAddress(traineeDto.getAddress());
+    trainee.getUser().setFirstName(traineeDto.getFirstName());
+    trainee.getUser().setLastName(traineeDto.getLastName());
+    trainee.getUser().setActive(traineeDto.isActive());
+    trainee.setDateOfBirth(LocalDate.parse(traineeDto.getDateOfBirth()));
+    trainee.setAddress(traineeDto.getAddress());
 
-      Trainee updatedTrainee = traineeService.updateTrainee(trainee,
-          traineeDto.getFirstName(),
-          traineeDto.getLastName(),
-          trainee.getUsername(),
+    Trainee updatedTrainee = traineeService.updateTrainee(trainee,
+        traineeDto.getFirstName(),
+        traineeDto.getLastName(),
+        trainee.getUsername(),
 
-          trainee.getUser().getPassword(),
-          traineeDto.isActive(),
-          traineeDto.getAddress(),
-          LocalDate.parse(traineeDto.getDateOfBirth()));
+        trainee.getUser().getPassword(),
+        traineeDto.isActive(),
+        traineeDto.getAddress(),
+        LocalDate.parse(traineeDto.getDateOfBirth()));
 
-      List<TrainerDto> trainersList = trainerService.getAlltrainersByTrainee(username).stream()
-          .map(trainer -> new TrainerDto(
-              trainer.getUser().getUsername(),
-              trainer.getUser().getFirstName(),
-              trainer.getUser().getLastName(),
-              trainer.getSpecialization().getName()))
-          .collect(Collectors.toList());
+    List<TrainerDto> trainersList = trainerService.getAlltrainersByTrainee(username).stream()
+        .map(trainer -> new TrainerDto(
+            trainer.getUser().getUsername(),
+            trainer.getUser().getFirstName(),
+            trainer.getUser().getLastName(),
+            trainer.getSpecialization().getName()))
+        .collect(Collectors.toList());
 
-      TraineeWithTrainerListDto responseDto = new TraineeWithTrainerListDto(
-          updatedTrainee.getUser().getUsername(),
-          updatedTrainee.getUser().getFirstName(),
-          updatedTrainee.getUser().getLastName(),
-          updatedTrainee.getDateOfBirth(),
-          updatedTrainee.getAddress(),
-          updatedTrainee.getUser().isActive(),
-          trainersList
-      );
+    TraineeWithTrainerListDto responseDto = new TraineeWithTrainerListDto(
+        updatedTrainee.getUser().getUsername(),
+        updatedTrainee.getUser().getFirstName(),
+        updatedTrainee.getUser().getLastName(),
+        updatedTrainee.getDateOfBirth(),
+        updatedTrainee.getAddress(),
+        updatedTrainee.getUser().isActive(),
+        trainersList
+    );
 
-      return ResponseEntity.ok(responseDto);
-    } catch (NoSuchElementException e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Trainee not found");
-    } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .body("An error occurred while updating the profile");
-    }
+    return ResponseEntity.ok(responseDto);
   }
 
+/*
+7. Delete Trainee Profile (DELETE method)
+a. Request
+I. Username (required)
+b. Response
+I. 200 OK0
+ */
 
   @DeleteMapping("/deleteTrainee")
   public ResponseEntity<String> deleteTraineeProfile(@RequestParam String username) {
-    try {
-      Trainee trainee = traineeService.getTraineeByUsername(username);
-      if (trainee != null) {
-        traineeService.deleteTraineeByUsername(username);
-        return ResponseEntity.ok("Trainee profile deleted successfully");
-      } else {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Trainee not found");
-      }
-    } catch (NoSuchElementException e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Trainee not found");
-    } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .body("An error occurred while deleting the trainee profile");
-    }
+    Trainee trainee = traineeService.getTraineeByUsername(username);
+    traineeService.deleteTraineeByUsername(trainee.getUsername());
+    return ResponseEntity.ok("Trainee profile deleted successfully");
   }
+
 
 
   /*
@@ -227,21 +226,13 @@ IV. Trainer Specialization (Training type reference)
   @GetMapping("/getNotAssignedActiveTrainersOnTrainee")
   public ResponseEntity<?> getNotAssignedActiveTrainersOnTrainee(
       @RequestParam String traineeUsername) {
-    try {
+
       Trainee trainee = traineeService.getTraineeByUsername(traineeUsername);
       List<Trainer> trainers = trainerService.getAllActiveTrainersNotAssignedToTrainee(trainee);
       List<TrainerDto4fields> trainerDtos = TrainerMapper.INSTANCE.toTrainerDto4fieldsList(
           trainers);
-
       return ResponseEntity.ok(trainerDtos);
-    } catch (NoSuchElementException e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Trainers are not found");
-    } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .body("An error occurred while deleting the trainee profile");
     }
-  }
-
 
   /*
   11. Update Trainee's Trainer List (PUT method)
@@ -260,7 +251,7 @@ I. Trainers List
   @PutMapping("/updateTraineeTrainersList")
   public ResponseEntity<?> updateTraineeTrainersList
       (@RequestParam String traineeUsername, @RequestBody List<String> newTrainersNames) {
-    try {
+
       List<Trainer> foundedTrainers = trainerService.findByUsernameIn(newTrainersNames);
       Trainee trainee = traineeService.getTraineeByUsername(traineeUsername);
       trainingService.createTraining2args(foundedTrainers, trainee);
@@ -273,15 +264,7 @@ I. Trainers List
           trainers);
 
       return ResponseEntity.ok(trainerDtos);
-    } catch (NoSuchElementException e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Trainers are not found");
-    } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .body("An error occurred");
-    }
   }
-
-
 
 
   /*
@@ -317,12 +300,25 @@ Trainer's specialization: If specializationName is provided, it filters training
       @RequestParam(required = false) String periodFrom,
       @RequestParam(required = false) String periodTo,
       @RequestParam(required = false) String trainerFirstName,
-      @RequestParam(required = false) String specializationName) {
+      @RequestParam(required = false) String specializationName,
+      HttpServletRequest request) {
+
+    String authenticatedUsername = (String) request.getAttribute("username");
+
+    User authenticatedUser = userService.getUserByUsername(authenticatedUsername);
+    if (authenticatedUser == null) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token or user not found.");
+    }
+
+    if (!authenticatedUsername.equals(username)) {
+      return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied.");
+    }
+
 
     TraineeTrainingRequestDto traineeTrainingRequestDto =
         traineeMapper.toDto(username, periodFrom, periodTo, trainerFirstName, specializationName);
 
-    try {
+
       List<Training> trainings = trainingService.findTraineeTrainingsByUsername(username);
 
       //works!
@@ -352,18 +348,9 @@ Trainer's specialization: If specializationName is provided, it filters training
       return ResponseEntity.ok(responseDtos);
 
 
-    } catch (NoSuchElementException e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Trainers are not found");
-    } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .body("An error occurred");
     }
   }
 
-
-
-
-}
 
 
 

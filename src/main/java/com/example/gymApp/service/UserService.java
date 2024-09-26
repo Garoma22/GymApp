@@ -1,7 +1,6 @@
 package com.example.gymApp.service;
 
 
-import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.User;
 import com.example.gymApp.repository.UserRepository;
 import java.util.NoSuchElementException;
@@ -19,7 +18,13 @@ public class UserService {
   }
 
 
-  public User getUserByPasswordAndUsername(String password, String username) {
+  public User getUserByPasswordAndUsername(String username, String password) {
+    return userRepository.findByUsernameAndPassword(username, password)
+        .orElseThrow(() -> new NoSuchElementException("No user with such username and password"));
+  }
+
+
+  public User getUserByPasswordAndCheckUsername(String password, String username) {
 
     Optional<User> user = userRepository.findByPassword(password);
     if (user.isPresent() && user.get().getUsername().equals(username)) {
@@ -57,6 +62,7 @@ public class UserService {
       throw new IllegalArgumentException("Invalid input. Please enter 'true' or 'false'.");
     }
   }
+
 
 
 }

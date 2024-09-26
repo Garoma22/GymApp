@@ -24,7 +24,7 @@ public class RestLoggingAspect {
   public void logBefore(JoinPoint joinPoint) {
     HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
-    // Логируем информацию о вызове конечной точки и параметрах запроса
+
     logger.info("Incoming request: {} {} from IP: {}",
         request.getMethod(),
         request.getRequestURI(),
@@ -35,7 +35,7 @@ public class RestLoggingAspect {
   public void logAfterReturning(JoinPoint joinPoint, ResponseEntity<?> response) {
     HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
-    // Логируем успешный ответ
+
     logger.info("Request to {} completed successfully with status: {} and response: {}",
         request.getRequestURI(),
         response.getStatusCode(),
@@ -46,7 +46,7 @@ public class RestLoggingAspect {
   public void logAfterThrowing(JoinPoint joinPoint, Throwable error) {
     HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
-    // Логируем ошибку, которая произошла при обработке запроса
+
     logger.error("Request to {} failed with error: {}",
         request.getRequestURI(),
         error.getMessage());

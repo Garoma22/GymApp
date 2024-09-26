@@ -60,8 +60,9 @@
 //
 //
 
-package com.example.gymApp;
+package com.example.gymApp.config;
 
+import com.example.gymApp.authentification.SessionAuthenticationFilter;
 import com.example.gymApp.loggingAOP.TransactionIdFilter;
 import com.example.gymApp.utils.ConsoleInputHandler;
 import org.eclipse.jetty.server.Server;
@@ -88,14 +89,19 @@ public class GymApplication {
     AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
     context.register(AppConfig.class);
 
-    // Регистрируем DispatcherServlet
+
     DispatcherServlet dispatcherServlet = new DispatcherServlet(context);
     ServletHolder servletHolder = new ServletHolder(dispatcherServlet);
     handler.addServlet(servletHolder, "/");
 
-    // Регистрируем фильтр вручную через Jetty
+
     FilterHolder transactionFilterHolder = new FilterHolder(new TransactionIdFilter());
     handler.addFilter(transactionFilterHolder, "/*", null);
+
+
+    FilterHolder sessionFilterHolder = new FilterHolder(new SessionAuthenticationFilter());
+    handler.addFilter(sessionFilterHolder, "/protected/*", null); // Добавляем фильтр на маршруты с /protected
+
 
     try {
       server.start();

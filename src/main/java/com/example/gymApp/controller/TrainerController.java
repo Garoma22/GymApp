@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 @RequestMapping("/trainer")
 public class TrainerController {
@@ -60,60 +62,36 @@ public class TrainerController {
     this.trainingService = trainingService;
   }
 
-  @PostMapping("/registerTrainer")
-  public ResponseEntity<?> registerTrainer(@RequestBody TrainerDto trainerDto) {
-    try {
-      String username = profileService.generateUsername(trainerDto.getFirstName(),
-          trainerDto.getLastName());
-      String password = profileService.generateRandomPassword();
 
-      TrainingType trainingType = trainerService.checkSpecializationCorrectness(
-          trainerDto.getSpecialization());
 
-      Trainer trainer = trainerMapper.toTrainer(trainerDto);
-      trainer.getUser().setUsername(username);
-      trainer.getUser().setPassword(password);
-
-      trainerService.createTrainer(
-          trainer.getUser().getFirstName(),
-          trainer.getUser().getLastName(),
-          trainer.getUser().getUsername(),
-          trainer.getUser().getPassword(),
-          trainer.getSpecialization().getName()
-      );
-
-      Map<String, String> response = new HashMap<>();
-      response.put("username", username);
-      response.put("password", password);
-
-      return ResponseEntity.ok(response);
-    } catch (IllegalArgumentException e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .body("Error: " + e.getMessage());
-    }
-  }
-
+  /*
+  8. Get Trainer Profile (GET method)
+a. Request
+I. Username (required)
+b. Response
+I. First Name
+II. Last Name
+III. Specialization (Training type reference)
+IV. Is Active
+V. Trainees List
+   1. Trainee Username
+   2. Trainee First Name
+   3. Trainee Last Name
+   */
 
   @GetMapping("/getTrainerWithTraineesList")
   public ResponseEntity<?> getTrainerProfileWithTraineeList(@RequestParam String username) {
-    try {
-      Trainer trainer = trainerService.getTrainerByUsername(username);
+    Trainer trainer = trainerService.getTrainerByUsername(username);
 
-      List<Trainee> trainees = traineeService.getAllTraineesByTrainerUsername(username);
+    List<Trainee> trainees = traineeService.getAllTraineesByTrainerUsername(username);
 
-      List<TraineeDto> traineeDtosList = traineeMapper.toTraineeDto3List(trainees);
+    List<TraineeDto> traineeDtosList = traineeMapper.toTraineeDto3List(trainees);
 
-      TrainerWithTraineeListDto responseDto = trainerMapper.toTrainerWithTraineeListDto(trainer,
-          traineeDtosList
-      );
+    TrainerWithTraineeListDto responseDto = trainerMapper.toTrainerWithTraineeListDto(trainer,
+        traineeDtosList
+    );
 
-      return ResponseEntity.ok(responseDto);
-    } catch (NoSuchElementException e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Trainer not found");
-    } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .body("An error occurred while retrieving the profile");
-    }
+    return ResponseEntity.ok(responseDto);
   }
 
 
@@ -138,45 +116,38 @@ VI. Trainees List
 3. Trainee Last Name
    */
 
-
+//HERE WE UPDATING FIRST AND SECOND NAME + MAKE A CUSTOM RESPONSE
   @PutMapping("/updateTrainerWithTraineesList")
   public ResponseEntity<?> updateTrainerProfile(@RequestBody TrainerDto trainerDto) {
 
-    try {
+    Trainer trainer = trainerService.getTrainerByUsername(trainerDto.getUsername());
 
-      Trainer trainer = trainerService.getTrainerByUsername(trainerDto.getUsername());
+    log.info("THIS IS TRAINER FROM DB : " + trainer);
 
-      System.out.println("THIS IS TRAINER FROM DB : " + trainer);
+    List<Trainee> trainees = traineeService.getAllTraineesByTrainerUsername(
+        trainer.getUsername());
 
-      List<Trainee> trainees = traineeService.getAllTraineesByTrainerUsername(
-          trainer.getUsername());
+    log.info("THIS ARE HIS TRAINEES: " + trainees);
 
-      System.out.println("THIS ARE HIS TRAINEES: " + trainees);
+    List<TraineeDto3fields> traineeDtosList = traineeMapper.toTraineeDto3ListNew(
+        trainees); //works!
 
-      List<TraineeDto3fields> traineeDtosList = traineeMapper.toTraineeDto3ListNew(
-          trainees); //works!
+    log.info("THIS are TRAINEE_DTO LIST: " + traineeDtosList);
 
-      System.out.println("THIS are TRAINEE_DTO LIST: " + traineeDtosList);
+    //updating trainer from DTO
+    Trainer updatedTrainerFromDto = trainerMapper.updateTrainerFromDto(trainerDto, trainer);
+    trainerService.saveTrainer(updatedTrainerFromDto);
 
-      //updating trainer from DTO
-      Trainer updatedTrainerFromDto = trainerMapper.updateTrainerFromDto(trainerDto, trainer);
-      trainerService.saveTrainer(updatedTrainerFromDto);
+    log.info("UPDATED trainer is SAVED :  " + updatedTrainerFromDto);
 
-      System.out.println("UPDATED trainer is SAVED :  " + updatedTrainerFromDto);
+    TrainerWithTraineeListDto responseDto = trainerMapper.toUpdatedTrainerWithTraineeListDtoNew(
+        trainer, traineeDtosList);
 
-      TrainerWithTraineeListDto responseDto = trainerMapper.toUpdatedTrainerWithTraineeListDtoNew(
-          trainer, traineeDtosList);
+    log.info("THIS IS RESPONSE_DTO : " + responseDto);
 
-      System.out.println("THIS IS RESPONSE_DTO : " + responseDto);
+    return ResponseEntity.ok(responseDto);
 
-      return ResponseEntity.ok(responseDto);
 
-    } catch (NoSuchElementException e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Trainer not found");
-    } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .body("An error occurred while updating the profile");
-    }
   }
 
     /*
@@ -211,9 +182,7 @@ VI. Trainees List
     TrainerTrainingRequestDto trainerTrainingRequestDto
         = trainerMapper.toDto(username, periodFrom, periodTo, traineeFirstName);
 
-    try {
       List<Training> trainings = trainingService.findTrainerTrainingsByUsername(username);
-
 
       if (periodFrom != null && periodTo != null) {
         trainings = trainings.stream()
@@ -229,15 +198,9 @@ VI. Trainees List
             .collect(Collectors.toList());
       }
 
-      List<TrainingForTrainerResponseDto> dtoList = TrainingForTrainerMapper.INSTANCE.toDtoList(trainings);
+      List<TrainingForTrainerResponseDto> dtoList = TrainingForTrainerMapper.INSTANCE.toDtoList(
+          trainings);
 
       return ResponseEntity.ok(dtoList);
-
-    } catch (NoSuchElementException e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Trainer not found");
-    } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .body("An error occurred ");
-    }
   }
 }

@@ -14,12 +14,12 @@ public class LoggingAspect {
 
   @Before("execution(* com.example.gymApp.controller.*.*(..)) || execution(* com.example.gymApp.service.*.*(..))")
   public void logBeforeMethod(JoinPoint joinPoint) {
-    String transactionId = MDC.get("transactionId"); // Получаем transactionId из MDC
+    String transactionId = MDC.get("transactionId");
     if (transactionId == null) {
-      transactionId = "N/A"; // Если транзакции нет, добавляем значение по умолчанию
+      transactionId = "N/A";
     }
 
-    // Логируем информацию о методе и транзакции
+
     System.out.println("Executing method: " + joinPoint.getSignature().getName() +
         " in class: " + joinPoint.getTarget().getClass().getSimpleName() +
         " [transactionId=" + transactionId + "]");

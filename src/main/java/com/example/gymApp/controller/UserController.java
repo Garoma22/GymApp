@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/protected/user")
 public class UserController {
 
   private final UserService userService;
@@ -27,20 +27,31 @@ public class UserController {
     this.userService = userService;
   }
 
-  @GetMapping("/login")
-  public ResponseEntity<String> login(@RequestParam String username,
-      @RequestParam String password) {
-    if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .body("Username or password cannot be empty");
-    }
-    try {
-      User isAuthenticated = userService.getUserByPasswordAndUsername(password, username);
-      return ResponseEntity.ok("Login successful!");
-    } catch (NoSuchElementException e) {
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
-    }
-  }
+
+  // 3 - this method moved to AuthController
+
+//  @GetMapping("/login")
+//  public ResponseEntity<String> login(@RequestParam String username,
+//      @RequestParam String password) {
+//    if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
+//      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+//          .body("Username or password cannot be empty");
+//    }
+//      userService.getUserByPasswordAndUsername(password, username);
+//      return ResponseEntity.ok("Login successful!");
+//  }
+
+
+  /* 4
+  Change Login (PUT method)
+a. Request
+I. Username (required)
+II. Old Password (required)
+III. New Password (required)
+b. Response
+I. 200 OK
+   */
+
 
 
   @PutMapping("/change-password")
@@ -55,48 +66,29 @@ public class UserController {
           .body("Username, old password, and new password are required");
     }
 
-    try {
-      User user = userService.getUserByPasswordAndUsername(oldPassword, username);
+      User user = userService.getUserByPasswordAndCheckUsername(oldPassword, username);
 
       user.setPassword(newPassword);
       userService.saveUpdatedUser(user);
 
       return ResponseEntity.ok("Password changed successfully!");
-    } catch (NoSuchElementException e) {
-
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-          .body("Invalid username or old password");
-    } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .body("An error occurred while changing the password");
-    }
   }
 
   //15+16 - the joint method for trainee and trainer
   @PatchMapping("/activateUser")
   public ResponseEntity<?> activateTrainee(@RequestParam String username, String isActiveStatus) {
-    try {
-      User user = userService.getUserByUsername(username);
 
-      boolean activityStatus = userService.setActivityStatusToUser(isActiveStatus,user);
+    User user = userService.getUserByUsername(username);
 
-      user.setActive(activityStatus);
+    boolean activityStatus = userService.setActivityStatusToUser(isActiveStatus, user);
 
-      userService.saveUpdatedUser(user);
+    user.setActive(activityStatus);
 
-      return ResponseEntity.ok(user);
+    userService.saveUpdatedUser(user);
+
+    return ResponseEntity.ok(user);
 
 //      return ResponseEntity.ok().build();
-    } catch (NoSuchElementException e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Trainee not found");
-
-    } catch (IllegalArgumentException e) {
-      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Wring boolean var!!!");
-    }
-
-    catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
-    }
   }
 }
 

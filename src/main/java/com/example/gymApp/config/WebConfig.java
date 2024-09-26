@@ -1,5 +1,8 @@
-package com.example.gymApp;
+package com.example.gymApp.config;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -20,16 +23,26 @@ public class WebConfig implements WebMvcConfigurer {
 
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    // Указываем путь к swagger-ui.html
+
     registry.addResourceHandler("/swagger-ui.html")
         .addResourceLocations("classpath:/META-INF/resources/");
 
-    // Указываем путь к webjars (JS, CSS файлы для Swagger)
+
     registry.addResourceHandler("/webjars/**")
         .addResourceLocations("classpath:/META-INF/resources/webjars/");
   }
 
   //todo:add the way to api dock
+
+  @Bean
+  public OpenAPI customOpenAPI() {
+    return new OpenAPI()
+        .info(new Info()
+            .title("API Documentation")
+            .version("v1")
+            .description("OpenAPI documentation for the application"));
+  }
+
 
 
 }

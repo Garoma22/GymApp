@@ -14,13 +14,8 @@ import com.example.gymApp.service.TrainerService;
 import com.example.gymApp.service.TrainingService;
 import com.example.gymApp.service.TrainingTypeService;
 import com.example.gymApp.service.UserService;
-//import io.swagger.annotations.Api;
-//import io.swagger.annotations.ApiOperation;
-import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
-import java.util.NoSuchElementException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/training")
+@RequestMapping("/protected/training")
 public class TrainingController {
 
 
@@ -83,7 +78,7 @@ b. Response
 
   {
 
-    try {
+
       Trainee trainee = traineeService.getTraineeByUsername(request.getTraineeUsername());
 
       Trainer trainer = trainerService.getTrainerByUsername(request.getTrainerUsername());
@@ -95,12 +90,6 @@ b. Response
 //      return ResponseEntity.ok(training);  // useful for checking
 
       return ResponseEntity.ok().build();
-    } catch (NoSuchElementException e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Training not found");
-    } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .body("An error occurred ");
-    }
   }
 
 /*
@@ -122,9 +111,5 @@ Get Training types (GET method)
     log.info("Successfully retrieved {} training types", list.size());
    return ResponseEntity.ok(list);
 
-
-
   }
-
-
 }
