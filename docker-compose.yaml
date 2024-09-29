@@ -1,3 +1,31 @@
+#version: '3.8'
+#
+#services:
+#  postgres:
+#    image: postgres:latest
+#    container_name: gym_db_container
+#    environment:
+#      POSTGRES_USER: user
+#      POSTGRES_PASSWORD: user
+#      POSTGRES_DB: gym_db
+#    ports:
+#      - "5432:5432"
+#    networks:
+#      - app-network
+#
+#
+#
+#
+#networks:
+#  app-network:
+#    driver: bridge
+#
+#
+#
+#
+#
+
+
 version: '3.8'
 
 services:
@@ -13,21 +41,26 @@ services:
     networks:
       - app-network
 
-#  app:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    container_name: gym_app
-#    depends_on:
-#      - postgres
-#    ports:
-#      - "8081:8080"
-#    networks:
-#      - app-network
-#    environment:
-#      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/gym_db
-#      SPRING_DATASOURCE_USERNAME: user
-#      SPRING_DATASOURCE_PASSWORD: user
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - app-network
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yaml
+    networks:
+      - app-network
 
 networks:
   app-network:

@@ -25,19 +25,31 @@ public class AuthController {
   }
   @PostMapping("/login")
   public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password, HttpServletRequest request) {
-    // Check credentials
+    System.out.println("Attempting login for: " + username);
+
+
     User user = userService.getUserByPasswordAndUsername(username, password);
 
     if (user != null) {
-      // Create session and store user info
+      System.out.println("User found: " + user.getUsername());
       HttpSession session = request.getSession();
       session.setAttribute("user", user);
 
       return ResponseEntity.ok("Login successful!");
     } else {
+      System.out.println("Invalid credentials for: " + username);
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
     }
   }
+
+
+
+
+
+
+
+
+
 
   @PostMapping("/logout")
   public ResponseEntity<String> logout(HttpServletRequest request) {
