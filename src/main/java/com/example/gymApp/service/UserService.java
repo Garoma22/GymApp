@@ -17,25 +17,31 @@ public class UserService {
     this.userRepository = userRepository;
   }
 
-  public User getUserByPasswordAndUsername(String password, String username) {
+
+  public User getUserByPasswordAndUsername(String username, String password) {
+    return userRepository.findByUsernameAndPassword(username, password)
+        .orElseThrow(() -> new NoSuchElementException("No user with such username and password"));
+  }
+
+
+  public User getUserByPasswordAndCheckUsername(String password, String username) {
 
     Optional<User> user = userRepository.findByPassword(password);
-    if (user.isPresent()&& user.get().getUsername().equals(username)) {
+    if (user.isPresent() && user.get().getUsername().equals(username)) {
       return user.get();
     } else {
       throw new NoSuchElementException("No user with such password");
     }
   }
 
-  public User getUserByUsername(String username){
+  public User getUserByUsername(String username) {
     Optional<User> user = userRepository.findByUsername(username);
-    if (user.isPresent()){
+    if (user.isPresent()) {
       return user.get();
-    }else{
+    } else {
       throw new NoSuchElementException("No user with such username");
     }
   }
-
 
 
   public void saveUpdatedUser(User user) {
@@ -46,18 +52,17 @@ public class UserService {
     boolean newActiveStatus = false;
     boolean actualUserStatus = user.isActive();
 
-    try {
+    if (activityStatus.equals("true") || activityStatus.equals("false")) {
+      newActiveStatus = Boolean.parseBoolean(activityStatus);
+      System.out.println("Success! Activity status set to user : " + user.getUsername() + " is : "
+          + newActiveStatus);
 
-      if (activityStatus.equals("true") || activityStatus.equals("false")) {
-        newActiveStatus = Boolean.parseBoolean(activityStatus);
-        System.out.println("Success! Activity status set to user : "  + user.getUsername() + " is : "  + newActiveStatus);
-
-        return newActiveStatus; //returns true or false
-      } else {
-        throw new IllegalArgumentException("Invalid input. Please enter 'true' or 'false'.");
-      }
-    } catch (IllegalArgumentException e) {
-      System.out.println(e.getMessage());
-    }return actualUserStatus;
+      return newActiveStatus;
+    } else {
+      throw new IllegalArgumentException("Invalid input. Please enter 'true' or 'false'.");
+    }
   }
+
+
+
 }

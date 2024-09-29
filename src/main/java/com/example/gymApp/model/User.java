@@ -1,6 +1,7 @@
 package com.example.gymApp.model;
 
 import jakarta.persistence.*;
+import java.io.Serializable;
 import lombok.Data;
 
 @Entity

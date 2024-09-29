@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.IfProfileValue;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -46,6 +47,9 @@ class TrainerServiceTest {
 
   @InjectMocks
   private TrainerService trainerService;
+
+  @InjectMocks
+  private TraineeService traineeService;
 
   @BeforeEach
   void setUp() {
@@ -135,7 +139,7 @@ class TrainerServiceTest {
     when(traineeRepository.findByUser(user)).thenReturn(Optional.of(trainee));
     when(trainingRepository.findByTrainee(trainee)).thenReturn(Collections.emptyList());
 
-    trainerService.deleteTraineeByUsername(username);
+    traineeService.deleteTraineeByUsername(username);
 
     verify(trainingRepository).findByTrainee(trainee);
     verify(trainingRepository).deleteAll(Collections.emptyList());
@@ -147,7 +151,7 @@ class TrainerServiceTest {
     when(userRepository.findByUsername("nonExistentUsername")).thenReturn(Optional.empty());
 
     NoSuchElementException thrown = assertThrows(NoSuchElementException.class, () ->
-        trainerService.deleteTraineeByUsername("nonExistentUsername")
+        traineeService.deleteTraineeByUsername("nonExistentUsername")
     );
 
     assertEquals("No user found with the provided username", thrown.getMessage());

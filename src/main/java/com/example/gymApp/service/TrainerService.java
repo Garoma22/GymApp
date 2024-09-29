@@ -2,7 +2,6 @@ package com.example.gymApp.service;
 
 import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.Trainer;
-import com.example.gymApp.model.Training;
 import com.example.gymApp.model.TrainingType;
 import com.example.gymApp.model.User;
 import com.example.gymApp.repository.TraineeRepository;
@@ -18,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import org.springframework.transaction.annotation.Transactional;
+
 
 
 @Slf4j
@@ -41,6 +41,15 @@ public class TrainerService {
     this.traineeRepository = traineeRepository;
     this.trainingRepository = trainingRepository;
   }
+
+  public Trainer saveTrainer(Trainer trainer){
+    return trainerRepository.save(trainer);
+
+  }
+
+
+
+
 
   @Transactional
   public Trainer updateTrainer(Trainer trainer, String name, String lastName, String username,
@@ -70,7 +79,7 @@ public class TrainerService {
     if (trainingType.isEmpty()) {
       throw new IllegalArgumentException("Specialization not found in the database");
     }
-    return trainingType.get(); //get clear TrainingType object;
+    return trainingType.get();
   }
 
 
@@ -119,36 +128,10 @@ public class TrainerService {
 
   }
 
-  @Transactional
-  public void deleteTraineeByUsername(String username) {
-
-    Optional<User> userOpt = userRepository.findByUsername(username);
-
-    if (userOpt.isEmpty()) {
-      throw new NoSuchElementException("No user found with the provided username");
-    }
-
-    User user = userOpt.get();
-
-    Optional<Trainee> traineeOpt = traineeRepository.findByUser(user);
-
-    if (traineeOpt.isEmpty()) {
-      throw new NoSuchElementException("No trainee found for the provided user");
-    }
-    Trainee trainee = traineeOpt.get();
-
-    //deleting connected entities manually!!!
-    List<Training> trainings = trainingRepository.findByTrainee(trainee);
-    trainingRepository.deleteAll(trainings);
-
-    traineeRepository.delete(trainee);
-    System.out.println("Trainee and related entities deleted successfully.");
-  }
 
   public List<Trainer> getAllTrainersNotAssignedToTrainee(String traineeUsername) {
 
     return trainerRepository.getAllTrainersNotAssignedToTrainee(traineeUsername);
-
 
   }
 
@@ -162,6 +145,20 @@ public class TrainerService {
     Trainee trainee = traineeOpt.get();
 
     return trainingRepository.findDistinctTrainersByTrainee(trainee);
+  }
+
+
+  public List<Trainer> getAllActiveTrainersNotAssignedToTrainee(Trainee trainee) {
+
+    return trainingRepository.findAllActiveTrainersNotAssignedToTrainee(trainee.getUsername());
+
+
+
+  }
+
+  public List<Trainer> findByUsernameIn(List<String> newTrainersNames) {
+
+    return trainerRepository.findByUsernames(newTrainersNames);
   }
 }
 

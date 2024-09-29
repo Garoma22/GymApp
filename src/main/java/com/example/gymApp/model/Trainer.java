@@ -18,7 +18,7 @@ public class Trainer {
 
   @ManyToOne
   @JoinColumn(name = "training_type_id", nullable = false)
-  private TrainingType specialization; // Это теперь ссылка на TrainingType
+  private TrainingType specialization;
 
   public Trainer() {}
 
@@ -39,11 +39,6 @@ public class Trainer {
         ", specialization=" + specialization.getName() +
         '}';
   }
-
-
-
-
-
 
 
   public String getUsername() {

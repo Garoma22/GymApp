@@ -6,9 +6,6 @@ import java.time.format.DateTimeParseException;
 
 public class DateTimeFormatter {
 
-
-
-
   public static LocalDate getCorrectDateFormat(String rawDate){
     LocalDate date = null;
     while (date == null) {

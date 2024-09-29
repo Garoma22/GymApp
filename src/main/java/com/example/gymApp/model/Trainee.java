@@ -16,7 +16,7 @@ public class Trainee {
 
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-  private User user;  // Связь с User через внешний ключ
+  private User user;
 
   private LocalDate dateOfBirth;
   private String address;
@@ -29,6 +29,7 @@ public class Trainee {
   }
 
   public Trainee() {
+
   }
 
   @Override

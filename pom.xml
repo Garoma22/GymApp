@@ -27,6 +27,21 @@
       <version>6.1.12</version>
     </dependency>
 
+
+<!--      &lt;!&ndash; Spring AOP &ndash;&gt;-->
+<!--      <dependency>-->
+<!--        <groupId>org.springframework</groupId>-->
+<!--        <artifactId>spring-aop</artifactId>-->
+<!--        <version>5.3.22</version>-->
+<!--      </dependency>-->
+
+      <!-- AspectJ Weaver -->
+      <dependency>
+        <groupId>org.aspectj</groupId>
+        <artifactId>aspectjweaver</artifactId>
+        <version>1.9.7</version>
+      </dependency>
+
     <!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
     <dependency>
       <groupId>org.springframework</groupId>
@@ -48,6 +63,7 @@
       <artifactId>jetty-server</artifactId>
       <version>11.0.23</version>
     </dependency>
+
     <dependency>
       <groupId>org.eclipse.jetty</groupId>
       <artifactId>jetty-webapp</artifactId>
@@ -147,25 +163,12 @@
       <version>3.3.3</version>
     </dependency>
 
-
-    <!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
-<!--    <dependency>-->
-<!--      <groupId>org.hibernate.orm</groupId>-->
-<!--      <artifactId>hibernate-core</artifactId>-->
-<!--      <version>6.6.0.Final</version>-->
-<!--    </dependency>-->
-
-
     <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core-jakarta -->
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core-jakarta</artifactId>
       <version>5.6.15.Final</version>
     </dependency>
-
-
-
-
 
 
     <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
@@ -184,8 +187,69 @@
 
 
 
-  </dependencies>
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310 -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr310</artifactId>
+      <version>2.17.2</version>
+    </dependency>
 
+    <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
+    <dependency>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct</artifactId>
+      <version>1.5.5.Final</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor -->
+    <dependency>
+      <groupId>org.mapstruct</groupId>
+      <artifactId>mapstruct-processor</artifactId>
+      <version>1.5.5.Final</version>
+    </dependency>
+
+
+
+    <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok-mapstruct-binding -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok-mapstruct-binding</artifactId>
+      <version>0.2.0</version>
+    </dependency>
+
+
+<!--    &lt;!&ndash; https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui &ndash;&gt;-->
+<!--    <dependency>-->
+<!--      <groupId>org.springdoc</groupId>-->
+<!--      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>-->
+<!--      <version>2.6.0</version>-->
+<!--    </dependency>-->
+
+<!--    <dependency>-->
+<!--      <groupId>org.webjars</groupId>-->
+<!--      <artifactId>swagger-ui</artifactId>-->
+<!--      <version>5.17.14</version> &lt;!&ndash; или используйте версию, которую предпочитаете &ndash;&gt;-->
+<!--    </dependency>-->
+
+
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+      <version>2.6.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.swagger.core.v3</groupId>
+      <artifactId>swagger-annotations</artifactId>
+      <version>2.2.21</version>
+    </dependency>
+
+
+
+
+
+
+  </dependencies>
   <build>
     <finalName>GymApp</finalName>
     <plugins>
@@ -201,8 +265,31 @@
         <configuration>
           <source>21</source>
           <target>21</target>
+          <compilerArgs>
+            <arg>-parameters</arg>
+          </compilerArgs>
+
+          <annotationProcessorPaths>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>1.18.34</version>
+            </path>
+            <path>
+              <groupId>org.mapstruct</groupId>
+              <artifactId>mapstruct-processor</artifactId>
+              <version>1.5.5.Final</version>
+            </path>
+
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok-mapstruct-binding</artifactId>
+              <version>0.2.0</version>
+            </path>
+          </annotationProcessorPaths>
         </configuration>
       </plugin>
+
     </plugins>
   </build>
 </project>
