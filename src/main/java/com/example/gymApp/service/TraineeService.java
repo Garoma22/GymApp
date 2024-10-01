@@ -119,12 +119,9 @@ public class TraineeService {
 
     User user = userOpt.get();
 
-    Optional<Trainee> traineeOpt = traineeRepository.findByUser(user);
+    Trainee trainee = traineeRepository.findByUser(user)
+        .orElseThrow(() -> new NoSuchElementException("No trainee found for the provided user"));
 
-    if (traineeOpt.isEmpty()) {
-      throw new NoSuchElementException("No trainee found for the provided user");
-    }
-    Trainee trainee = traineeOpt.get();
 
     //deleting connected entities manually!!!
     List<Training> trainings = trainingRepository.findByTrainee(trainee);
@@ -144,6 +141,7 @@ public class TraineeService {
     Trainer trainer = trainerOpt.get();
 
     return trainingRepository.findDistinctTraineeByTrainer(trainer);
+
   }
 }
 

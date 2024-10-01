@@ -1,13 +1,13 @@
 package com.example.gymApp.loggingAOP;
 
-//import org.aspectj.lang.annotation.Aspect;
-
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Aspect  //works with old versions of spring-aop (5.3.22), aspectjweaver (1.9.7)
 @Component
 public class LoggingAspect {
@@ -18,9 +18,7 @@ public class LoggingAspect {
     if (transactionId == null) {
       transactionId = "N/A";
     }
-
-
-    System.out.println("Executing method: " + joinPoint.getSignature().getName() +
+    log.info("Executing method: " + joinPoint.getSignature().getName() +
         " in class: " + joinPoint.getTarget().getClass().getSimpleName() +
         " [transactionId=" + transactionId + "]");
   }

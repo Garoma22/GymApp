@@ -1,6 +1,5 @@
 package com.example.gymApp.controller;
 
-
 import com.example.gymApp.dto.training.Training5FieldsRequestDto;
 import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.Trainer;
@@ -15,6 +14,7 @@ import com.example.gymApp.service.TrainingService;
 import com.example.gymApp.service.TrainingTypeService;
 import com.example.gymApp.service.UserService;
 import java.util.List;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,14 +23,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
-
 @Slf4j
 @RestController
-@RequestMapping("/protected/training")
+@RequestMapping("/protected/training-management")
+@AllArgsConstructor
 public class TrainingController {
-
 
   private final TrainingService trainingService;
   private final TrainerService trainerService;
@@ -40,23 +37,6 @@ public class TrainingController {
   private final TrainerRepository trainerRepository;
   private final UserRepository userRepository;
   private final TrainingTypeService trainiingTypeService;
-
-
-  public TrainingController(
-      TrainingService trainingService, TrainerService trainerService,
-      TraineeService traineeService, UserService userService, TraineeRepository traineeRepository,
-      TrainerRepository trainerRepository, UserRepository userRepository,
-      TrainingTypeService trainiingTypeService) {
-    this.trainingService = trainingService;
-
-    this.trainerService = trainerService;
-    this.traineeService = traineeService;
-    this.userService = userService;
-    this.traineeRepository = traineeRepository;
-    this.trainerRepository = trainerRepository;
-    this.userRepository = userRepository;
-    this.trainiingTypeService = trainiingTypeService;
-  }
 
   /*
   14. Add Training (POST method)
@@ -70,15 +50,11 @@ b. Response
       I. 200 OK
    */
 
-
-
-  @PostMapping("/addTraining")
+  @PostMapping("/trainings")
   public ResponseEntity<?> addTraining
   (@RequestBody Training5FieldsRequestDto request)
 
   {
-
-
       Trainee trainee = traineeService.getTraineeByUsername(request.getTraineeUsername());
 
       Trainer trainer = trainerService.getTrainerByUsername(request.getTrainerUsername());
@@ -103,8 +79,7 @@ Get Training types (GET method)
           2. Training type Id
  */
 
-
-  @GetMapping("/getAllTrainingTypes")
+  @GetMapping("/training-types")
   public ResponseEntity<?> getTrainingTypes(){
     log.info("Received request to get all training types");
    List<TrainingType> list  = trainiingTypeService.getTrainingTypeList();

@@ -11,7 +11,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import lombok.extern.slf4j.Slf4j;
 
+
+@Slf4j
 public class SessionAuthenticationFilter implements Filter {
 
     @Override
@@ -21,16 +24,17 @@ public class SessionAuthenticationFilter implements Filter {
       HttpServletResponse httpResponse = (HttpServletResponse) response;
       HttpSession session = httpRequest.getSession(false);
 
-      System.out.println("Filter triggered for URI: " + httpRequest.getRequestURI());
+      log.info("Filter triggered for URI: " + httpRequest.getRequestURI());
 
       if (session == null || session.getAttribute("user") == null) {
-        System.out.println("Unauthorized access attempt to: " + httpRequest.getRequestURI());
+
+        log.info("Unauthorized access attempt to: " + httpRequest.getRequestURI());
         httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         httpResponse.getWriter().write("Unauthorized: Please log in.");
         return;
       }
 
-      System.out.println("Session found for user: " + session.getAttribute("user"));
+      log.info("Session found for user: " + session.getAttribute("user"));
       chain.doFilter(request, response);
     }
 

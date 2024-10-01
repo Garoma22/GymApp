@@ -19,21 +19,22 @@ public class TraineeWithTrainerListDto {
  private String username;
   private String firstName;
   private String lastName;
+
+  //todo: dd date formatter
   private LocalDate dateOfBirth;
   private String address;
   private boolean isActive;
   private List<TrainerDto> trainers;
 
-  public TraineeWithTrainerListDto(String firstName, List<TrainerDto> trainers, String lastName,
-      LocalDate dateOfBirth, String address, boolean isActive) {
-    this.firstName = firstName;
-    this.trainers = trainers;
-    this.lastName = lastName;
-    this.dateOfBirth = dateOfBirth;
-    this.address = address;
-    this.isActive = isActive;
-  }
-
+//  public TraineeWithTrainerListDto(String firstName, List<TrainerDto> trainers, String lastName,
+//      LocalDate dateOfBirth, String address, boolean isActive) {
+//    this.firstName = firstName;
+//    this.trainers = trainers;
+//    this.lastName = lastName;
+//    this.dateOfBirth = dateOfBirth;
+//    this.address = address;
+//    this.isActive = isActive;
+//  }
 
   public TraineeWithTrainerListDto(String username,
       String firstName, String lastName, LocalDate dateOfBirth,
@@ -48,8 +49,6 @@ public class TraineeWithTrainerListDto {
     this.trainers = trainersList;
 
   }
-
-
 }
 
 

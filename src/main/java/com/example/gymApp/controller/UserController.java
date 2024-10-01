@@ -1,5 +1,6 @@
 package com.example.gymApp.controller;
 
+import com.example.gymApp.dto.user.ChangePasswordRequestDto;
 import com.example.gymApp.dto.user.UserLoginDto;
 import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.User;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/protected/user")
+@RequestMapping("/protected/user-management")
 public class UserController {
 
   private final UserService userService;
@@ -53,30 +55,42 @@ I. 200 OK
    */
 
 
+  @PutMapping("/users/{username}/password")
 
-  @PutMapping("/change-password")
-  public ResponseEntity<String> changePassword(@RequestParam String username,
-      @RequestParam String oldPassword,
-      @RequestParam String newPassword) {
+//  @PutMapping("/change-password")
+  public ResponseEntity<String> changePassword( @PathVariable String username,
+      @RequestBody ChangePasswordRequestDto changePasswordRequestDto) {
 
     if (username == null || username.isEmpty() ||
-        oldPassword == null || oldPassword.isEmpty() ||
-        newPassword == null || newPassword.isEmpty()) {
+        changePasswordRequestDto.getOldPassword() == null || changePasswordRequestDto.getOldPassword().isEmpty() ||
+        changePasswordRequestDto.getNewPassword() == null || changePasswordRequestDto.getNewPassword().isEmpty()) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
           .body("Username, old password, and new password are required");
     }
 
-      User user = userService.getUserByPasswordAndCheckUsername(oldPassword, username);
+//    User user = userService.getUserByPasswordAndCheckUsername(
+    User user = userService.getUserByPasswordAndUsername(
+        changePasswordRequestDto.getOldPassword(),
+        username
+    );
 
-      user.setPassword(newPassword);
-      userService.saveUpdatedUser(user);
+    if (user == null) {
+      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+    }
 
-      return ResponseEntity.ok("Password changed successfully!");
+    user.setPassword(changePasswordRequestDto.getNewPassword());
+    userService.saveUpdatedUser(user);
+
+    return ResponseEntity.ok("Password changed successfully!");
   }
 
+
+
+
+
   //15+16 - the joint method for trainee and trainer
-  @PatchMapping("/activateUser")
-  public ResponseEntity<?> activateTrainee(@RequestParam String username, String isActiveStatus) {
+  @PatchMapping("/users/{username}/status")
+  public ResponseEntity<?> activateTrainee(@PathVariable String username, String isActiveStatus) {
 
     User user = userService.getUserByUsername(username);
 

@@ -12,23 +12,19 @@ import com.example.gymApp.dto.trainingType.TrainingForTrainerMapper;
 import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.Trainer;
 import com.example.gymApp.model.Training;
-import com.example.gymApp.model.TrainingType;
 import com.example.gymApp.service.ProfileService;
 import com.example.gymApp.service.TraineeService;
 import com.example.gymApp.service.TrainerService;
 import com.example.gymApp.service.TrainingService;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +33,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/trainer")
+@RequestMapping("/protected/trainer-management")
+@AllArgsConstructor
 public class TrainerController {
 
   private static final Logger log = LoggerFactory.getLogger(TrainerController.class);
@@ -48,19 +45,6 @@ public class TrainerController {
   private final TraineeService traineeService;
   private final TraineeMapper traineeMapper;
   private final TrainingService trainingService;
-
-
-  public TrainerController(TrainerService trainerService, ProfileService profileService,
-      TrainerMapper trainerMapper, TraineeDto traineeDto, TraineeService traineeService,
-      TraineeMapper traineeMapper, TrainingService trainingService) {
-    this.trainerService = trainerService;
-    this.profileService = profileService;
-    this.trainerMapper = trainerMapper;
-    this.traineeDto = traineeDto;
-    this.traineeService = traineeService;
-    this.traineeMapper = traineeMapper;
-    this.trainingService = trainingService;
-  }
 
 
 
@@ -79,8 +63,8 @@ V. Trainees List
    3. Trainee Last Name
    */
 
-  @GetMapping("/getTrainerWithTraineesList")
-  public ResponseEntity<?> getTrainerProfileWithTraineeList(@RequestParam String username) {
+  @GetMapping("/trainers/{username}/trainees")
+  public ResponseEntity<?> getTrainerProfileWithTraineeList(@PathVariable String username) {
     Trainer trainer = trainerService.getTrainerByUsername(username);
 
     List<Trainee> trainees = traineeService.getAllTraineesByTrainerUsername(username);
@@ -117,10 +101,12 @@ VI. Trainees List
    */
 
 //HERE WE UPDATING FIRST AND SECOND NAME + MAKE A CUSTOM RESPONSE
-  @PutMapping("/updateTrainerWithTraineesList")
-  public ResponseEntity<?> updateTrainerProfile(@RequestBody TrainerDto trainerDto) {
+//  @PutMapping("/update-trainer-with-trainees-list")
 
-    Trainer trainer = trainerService.getTrainerByUsername(trainerDto.getUsername());
+  @PutMapping("/trainers/{username}/trainees")
+  public ResponseEntity<?> updateTrainerProfile(@PathVariable String username,  @RequestBody TrainerDto trainerDto) {
+
+    Trainer trainer = trainerService.getTrainerByUsername(username);
 
     log.info("THIS IS TRAINER FROM DB : " + trainer);
 
@@ -146,8 +132,6 @@ VI. Trainees List
     log.info("THIS IS RESPONSE_DTO : " + responseDto);
 
     return ResponseEntity.ok(responseDto);
-
-
   }
 
     /*
@@ -172,9 +156,11 @@ VI. Trainees List
 
    */
 
-  @GetMapping("/getTrainerTrainingsListByDynamicCriteria")
+//  @GetMapping("/trainer-trainings-list-by-dynamic-criteria")
+
+  @GetMapping("/trainers/{username}/trainings")
   public ResponseEntity<?> getTrainerTrainingsListByDynamicCriteria(
-      @RequestParam String username,
+      @PathVariable String username,
       @RequestParam(required = false) String periodFrom,
       @RequestParam(required = false) String periodTo,
       @RequestParam(required = false) String traineeFirstName) {

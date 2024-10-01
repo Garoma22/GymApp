@@ -22,7 +22,8 @@ public interface TrainerRepository extends JpaRepository<Trainer, Long> {
   List<Trainer> getAllTrainersNotAssignedToTrainee(@Param("traineeUsername") String traineeUsername);
 
 
-  @Query("SELECT t FROM Trainer t WHERE t.user.username IN :usernames")
-  List<Trainer> findByUsernames(@Param("usernames") List<String> usernames);
+
+  List<Trainer> findByUserUsernameIn(List<String> usernames);
+
 
 }

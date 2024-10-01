@@ -1,5 +1,6 @@
 package com.example.gymApp.service;
 
+import com.example.gymApp.dto.trainer.TrainerDto;
 import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.Trainer;
 import com.example.gymApp.model.TrainingType;
@@ -11,8 +12,10 @@ import com.example.gymApp.repository.TrainingTypeRepository;
 import com.example.gymApp.repository.UserRepository;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -29,25 +32,33 @@ public class TrainerService {
   private final TrainingTypeRepository trainingTypeRepository;
   private final TraineeRepository traineeRepository;
   private final TrainingRepository trainingRepository;
+  private final Converter<Trainer, TrainerDto> trainerToTrainerDtoConverter;
 
 
   @Autowired
   public TrainerService(TrainerRepository trainerRepository, UserRepository userRepository,
       TrainingTypeRepository trainingTypeRepository, TraineeRepository traineeRepository,
-      TrainingRepository trainingRepository) {
+      TrainingRepository trainingRepository,
+      Converter<Trainer, TrainerDto> trainerToTrainerDtoConverter) {
     this.trainerRepository = trainerRepository;
     this.userRepository = userRepository;
+
     this.trainingTypeRepository = trainingTypeRepository;
     this.traineeRepository = traineeRepository;
     this.trainingRepository = trainingRepository;
+    this.trainerToTrainerDtoConverter = trainerToTrainerDtoConverter;
   }
 
-  public Trainer saveTrainer(Trainer trainer){
-    return trainerRepository.save(trainer);
-
+  public List<TrainerDto> getAllTrainersByTrainee(String traineeUsername) {
+    List<Trainer> trainers = getAlltrainersByTrainee(traineeUsername);
+    return trainers.stream()
+        .map(trainerToTrainerDtoConverter::convert)  //using converter
+        .collect(Collectors.toList());
   }
 
-
+  public Trainer saveTrainer(Trainer trainer) {
+    return trainerRepository.saveAndFlush(trainer);
+  }
 
 
 
@@ -158,7 +169,7 @@ public class TrainerService {
 
   public List<Trainer> findByUsernameIn(List<String> newTrainersNames) {
 
-    return trainerRepository.findByUsernames(newTrainersNames);
+    return trainerRepository.findByUserUsernameIn(newTrainersNames);
   }
 }
 

@@ -1,7 +1,15 @@
 package com.example.gymApp.service;
 
+import com.example.gymApp.dto.trainee.TraineeDto;
+import com.example.gymApp.dto.trainee.TraineeMapper;
+import com.example.gymApp.dto.trainer.TrainerDto;
+import com.example.gymApp.dto.trainer.TrainerMapper;
+import com.example.gymApp.model.Trainee;
+import com.example.gymApp.model.Trainer;
 import com.example.gymApp.repository.UserRepository;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +21,19 @@ import java.util.stream.IntStream;
 public class ProfileService {
 
   private final UserRepository userRepository;
+  private final TraineeMapper traineeMapper;
+  private final TraineeService traineeService;
+  private final TrainerService trainerService;
+  private final TrainerMapper trainerMapper;
 
   @Autowired
-  public ProfileService(UserRepository userRepository) {
+  public ProfileService(UserRepository userRepository, TraineeMapper traineeMapper,
+      TraineeService traineeService, TrainerService trainerService, TrainerMapper trainerMapper) {
     this.userRepository = userRepository;
+    this.traineeMapper = traineeMapper;
+    this.traineeService = traineeService;
+    this.trainerService = trainerService;
+    this.trainerMapper = trainerMapper;
   }
 
 
@@ -51,5 +68,58 @@ public class ProfileService {
     return IntStream.range(0, length)
         .mapToObj(i -> String.valueOf(characters.charAt(random.nextInt(characters.length()))))
         .collect(Collectors.joining());
+  }
+
+  public Map<String,String> registerTrainee(TraineeDto traineeDto) {
+
+    String username = generateUsername(traineeDto.getFirstName(),
+        traineeDto.getLastName());
+    String password = generateRandomPassword();
+
+    Trainee trainee = traineeMapper.toTrainee(traineeDto);
+    trainee.getUser().setUsername(username);
+    trainee.getUser().setPassword(password);
+
+    traineeService.createTrainee(
+        trainee.getUser().getFirstName(),
+        trainee.getUser().getLastName(),
+        username,
+        password,
+        trainee.getDateOfBirth(),
+        trainee.getAddress()
+    );
+
+    Map<String, String> response = new HashMap<>();
+    response.put("username", username);
+    response.put("password", password);
+
+    return response;
+  }
+
+  public Map<String, String> registerTrainer(TrainerDto trainerDto) {
+    String username = generateUsername(trainerDto.getFirstName(),
+        trainerDto.getLastName());
+    String password = generateRandomPassword();
+
+    trainerService.checkSpecializationCorrectness(
+        trainerDto.getSpecialization());
+
+    Trainer trainer = trainerMapper.toTrainer(trainerDto);
+    trainer.getUser().setUsername(username);
+    trainer.getUser().setPassword(password);
+
+    trainerService.createTrainer(
+        trainer.getUser().getFirstName(),
+        trainer.getUser().getLastName(),
+        trainer.getUser().getUsername(),
+        trainer.getUser().getPassword(),
+        trainer.getSpecialization().getName()
+    );
+
+    Map<String, String> response = new HashMap<>();
+    response.put("username", username);
+    response.put("password", password);
+
+    return response;
   }
 }
