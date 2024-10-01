@@ -24,8 +24,11 @@ List<String> findAllByUsernameStartingWith(@Param("baseUsername") String baseUse
   Optional<User> findByPassword(String password);
 
 
-  Optional<User> findByUsernameAndPassword(String username, String password);
+//  Optional<User> findByUsernameAndPassword(String username, String password);
 
+
+  @Query("SELECT u FROM User u WHERE u.username = :username AND u.password = :password")
+  Optional<User> findByUsernameAndPassword(@Param("username") String username, @Param("password") String password);
 
 
 

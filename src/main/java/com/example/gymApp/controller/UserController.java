@@ -55,24 +55,52 @@ I. 200 OK
    */
 
 
-  @PutMapping("/users/{username}/password")
+//  @PutMapping("/users/password")
+////  @PutMapping("/change-password")
+//  public ResponseEntity<String> changePassword(
+//      @RequestBody ChangePasswordRequestDto changePasswordRequestDto) {
+//
+//    if (changePasswordRequestDto.getUsername() == null || changePasswordRequestDto.getUsername().isEmpty() ||
+//        changePasswordRequestDto.getOldPassword() == null || changePasswordRequestDto.getOldPassword().isEmpty() ||
+//        changePasswordRequestDto.getNewPassword() == null || changePasswordRequestDto.getNewPassword().isEmpty()) {
+//      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+//          .body("Username, old password, and new password are required");
+//    }
+//
+//    User user = userService.getUserByPasswordAndCheckUsername(
+////    User user = userService.getUserByPasswordAndUsername(
+//        changePasswordRequestDto.getOldPassword(),
+//        changePasswordRequestDto.getUsername()
+//    );
+//
+//    if (user == null) {
+//      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
+//    }
+//
+//    user.setPassword(changePasswordRequestDto.getNewPassword());
+//    userService.saveUpdatedUser(user);
+//
+//    return ResponseEntity.ok("Password changed successfully!");
+//  }
 
-//  @PutMapping("/change-password")
-  public ResponseEntity<String> changePassword( @PathVariable String username,
+
+
+  @PutMapping("/users/{username}/password")
+  public ResponseEntity<String> changePassword(
+      @PathVariable String username,
       @RequestBody ChangePasswordRequestDto changePasswordRequestDto) {
 
-    if (username == null || username.isEmpty() ||
-        changePasswordRequestDto.getOldPassword() == null || changePasswordRequestDto.getOldPassword().isEmpty() ||
+    if (changePasswordRequestDto.getOldPassword() == null || changePasswordRequestDto.getOldPassword().isEmpty() ||
         changePasswordRequestDto.getNewPassword() == null || changePasswordRequestDto.getNewPassword().isEmpty()) {
       return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-          .body("Username, old password, and new password are required");
+          .body("Old password and new password are required");
     }
 
-//    User user = userService.getUserByPasswordAndCheckUsername(
-    User user = userService.getUserByPasswordAndUsername(
-        changePasswordRequestDto.getOldPassword(),
-        username
-    );
+    User user = userService.getUserByUsername(username);
+
+    // todo: i also was trying to use here - User user = userService.getUserByPasswordAndCheckUsername
+    //  and/or userService.getUserByPasswordAndUsername
+    //  but it doesn't work properly for some reason
 
     if (user == null) {
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
@@ -90,7 +118,8 @@ I. 200 OK
 
   //15+16 - the joint method for trainee and trainer
   @PatchMapping("/users/{username}/status")
-  public ResponseEntity<?> activateTrainee(@PathVariable String username, String isActiveStatus) {
+  public ResponseEntity<?> activateTrainee(@PathVariable String username,
+      @RequestParam String isActiveStatus) {
 
     User user = userService.getUserByUsername(username);
 
