@@ -63,8 +63,14 @@ b. Response
           request.getTrainingName(),
       request.getTrainingDate(), request.getTrainingDuration());
 
+
+      //answer option 1
 //      return ResponseEntity.ok(training);  // useful for checking
 
+    //answer option 2
+//    return ResponseEntity.status(HttpStatus.CREATED).body(training);
+
+  //  answer option 3 - required in the task
       return ResponseEntity.ok().build();
   }
 
@@ -85,6 +91,5 @@ Get Training types (GET method)
    List<TrainingType> list  = trainiingTypeService.getTrainingTypeList();
     log.info("Successfully retrieved {} training types", list.size());
    return ResponseEntity.ok(list);
-
   }
 }

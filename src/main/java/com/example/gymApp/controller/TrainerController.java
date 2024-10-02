@@ -104,7 +104,8 @@ VI. Trainees List
 //  @PutMapping("/update-trainer-with-trainees-list")
 
   @PutMapping("/trainers/{username}/trainees")
-  public ResponseEntity<?> updateTrainerProfile(@PathVariable String username,  @RequestBody TrainerDto trainerDto) {
+  public ResponseEntity<?> updateTrainerProfile(@PathVariable String username,
+      @RequestBody TrainerDto trainerDto) {
 
     Trainer trainer = trainerService.getTrainerByUsername(username);
 

@@ -52,6 +52,6 @@ public class AuthController {
     if (session != null) {
       session.invalidate();
     }
-    return ResponseEntity.ok("Logged out successfully.");
+    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Logged out successfully.");
   }
 }

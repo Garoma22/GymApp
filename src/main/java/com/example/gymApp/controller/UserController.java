@@ -29,21 +29,6 @@ public class UserController {
     this.userService = userService;
   }
 
-
-  // 3 - this method moved to AuthController
-
-//  @GetMapping("/login")
-//  public ResponseEntity<String> login(@RequestParam String username,
-//      @RequestParam String password) {
-//    if (username == null || username.isEmpty() || password == null || password.isEmpty()) {
-//      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-//          .body("Username or password cannot be empty");
-//    }
-//      userService.getUserByPasswordAndUsername(password, username);
-//      return ResponseEntity.ok("Login successful!");
-//  }
-
-
   /* 4
   Change Login (PUT method)
 a. Request
@@ -54,34 +39,6 @@ b. Response
 I. 200 OK
    */
 
-
-//  @PutMapping("/users/password")
-////  @PutMapping("/change-password")
-//  public ResponseEntity<String> changePassword(
-//      @RequestBody ChangePasswordRequestDto changePasswordRequestDto) {
-//
-//    if (changePasswordRequestDto.getUsername() == null || changePasswordRequestDto.getUsername().isEmpty() ||
-//        changePasswordRequestDto.getOldPassword() == null || changePasswordRequestDto.getOldPassword().isEmpty() ||
-//        changePasswordRequestDto.getNewPassword() == null || changePasswordRequestDto.getNewPassword().isEmpty()) {
-//      return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-//          .body("Username, old password, and new password are required");
-//    }
-//
-//    User user = userService.getUserByPasswordAndCheckUsername(
-////    User user = userService.getUserByPasswordAndUsername(
-//        changePasswordRequestDto.getOldPassword(),
-//        changePasswordRequestDto.getUsername()
-//    );
-//
-//    if (user == null) {
-//      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
-//    }
-//
-//    user.setPassword(changePasswordRequestDto.getNewPassword());
-//    userService.saveUpdatedUser(user);
-//
-//    return ResponseEntity.ok("Password changed successfully!");
-//  }
 
 
 
@@ -109,6 +66,8 @@ I. 200 OK
     user.setPassword(changePasswordRequestDto.getNewPassword());
     userService.saveUpdatedUser(user);
 
+
+    //! Required response in the task
     return ResponseEntity.ok("Password changed successfully!");
   }
 
