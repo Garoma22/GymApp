@@ -3,8 +3,10 @@ package com.example.gymApp.dto.trainer;
 import com.example.gymApp.dto.trainee.TraineeDto;
 import com.example.gymApp.dto.trainee.TraineeDto3fields;
 import com.example.gymApp.dto.trainingType.TrainingForTraineeMapper;
+import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.Trainer;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -66,7 +68,37 @@ public interface TrainerMapper {
   TrainerWithTraineeListDto toUpdatedTrainerWithTraineeListDtoNew(Trainer trainer,
       List<TraineeDto3fields> traineeDto);  // is here!
 
+
+
+
+
+    @Mapping(source = "trainer.user.firstName", target = "firstName")
+    @Mapping(source = "trainer.user.lastName", target = "lastName")
+    @Mapping(source = "trainer.user.username", target = "username")
+    @Mapping(source = "trainer.specialization", target = "trainingType")
+    @Mapping(source = "trainer.user.active", target = "active")
+    @Mapping(source = "trainees", target = "traineeDtoList")
+    TrainerWithTraineeListDto toDto(Trainer trainer, List<Trainee> trainees);
+
+    @Mapping(source = "user.firstName", target = "firstName")
+    @Mapping(source = "user.lastName", target = "lastName")
+    @Mapping(source = "user.username", target = "username")
+    TrainerWithTraineeListDto.TraineeDto toTraineeDto(Trainee trainee);
+
+    List<TrainerWithTraineeListDto.TraineeDto> mapTrainees(List<Trainee> trainees);
+
+
+
+
+
+
+
+
+//  TrainerWithTraineeListDto toDto(Trainer trainer, List<Trainee> trainees);
 //task 10
+
+
+
 
   TrainerMapper INSTANCE = Mappers.getMapper(TrainerMapper.class);
 

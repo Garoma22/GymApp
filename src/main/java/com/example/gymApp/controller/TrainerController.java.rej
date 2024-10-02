@@ -1,0 +1,39 @@
+diff a/src/main/java/com/example/gymApp/controller/TrainerController.java b/src/main/java/com/example/gymApp/controller/TrainerController.java	(rejected hunks)
+@@ -117,34 +117,12 @@
+    */
+ 
+ //HERE WE UPDATING FIRST AND SECOND NAME + MAKE A CUSTOM RESPONSE
+-  @PutMapping("/updateTrainerWithTraineesList")
+-  public ResponseEntity<?> updateTrainerProfile(@RequestBody TrainerDto trainerDto) {
+-
+-    Trainer trainer = trainerService.getTrainerByUsername(trainerDto.getUsername());
+-
+-    log.info("THIS IS TRAINER FROM DB : " + trainer);
+-
+-    List<Trainee> trainees = traineeService.getAllTraineesByTrainerUsername(
+-        trainer.getUsername());
+-
+-    log.info("THIS ARE HIS TRAINEES: " + trainees);
+-
+-    List<TraineeDto3fields> traineeDtosList = traineeMapper.toTraineeDto3ListNew(
+-        trainees); //works!
+-
+-    log.info("THIS are TRAINEE_DTO LIST: " + traineeDtosList);
+-
+-    //updating trainer from DTO
+-    Trainer updatedTrainerFromDto = trainerMapper.updateTrainerFromDto(trainerDto, trainer);
+-    trainerService.saveTrainer(updatedTrainerFromDto);
++  @PutMapping
++  public ResponseEntity<TrainerWithTraineeListDto> updateTrainerProfile(@RequestBody TrainerDto trainerDto) {
+ 
+-    log.info("UPDATED trainer is SAVED :  " + updatedTrainerFromDto);
+-
+-    TrainerWithTraineeListDto responseDto = trainerMapper.toUpdatedTrainerWithTraineeListDtoNew(
+-        trainer, traineeDtosList);
++    var responseDto = trainerService.updateTrainerProfile(trainerDto);
+ 
+     log.info("THIS IS RESPONSE_DTO : " + responseDto);
+-
+     return ResponseEntity.ok(responseDto);
+ 
+ 

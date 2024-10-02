@@ -1,6 +1,8 @@
 package com.example.gymApp.model;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Data;
 
 @Data
@@ -19,6 +21,14 @@ public class Trainer {
   @ManyToOne
   @JoinColumn(name = "training_type_id", nullable = false)
   private TrainingType specialization;
+
+//  @OneToMany(mappedBy = "trainer")
+//  private List<Training> trainings;
+
+
+    @OneToMany(mappedBy = "trainer", fetch = FetchType.EAGER)
+  private List<Training> trainings = new ArrayList<>();
+
 
   public Trainer() {}
 
@@ -40,10 +50,6 @@ public class Trainer {
         '}';
   }
 
-
-  public String getUsername() {
-    return user.getUsername();
-  }
 
 
 }

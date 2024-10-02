@@ -451,7 +451,7 @@ public class ConsoleInputHandler {
       System.out.println("This is new Trainer : " + trainer1);
 
       System.out.println(
-          "Trainer from DB: " + trainerService.getTrainerByUsername(trainer1.getUsername()));
+          "Trainer from DB: " + trainerService.getTrainerByUsername(trainer1.getUser().getUsername()));
     } catch (IllegalArgumentException | NoSuchElementException e) {
       System.out.println(e.getMessage());
 

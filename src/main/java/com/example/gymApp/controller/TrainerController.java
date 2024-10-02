@@ -37,7 +37,7 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class TrainerController {
 
-  private static final Logger log = LoggerFactory.getLogger(TrainerController.class);
+//  private static final Logger log = LoggerFactory.getLogger(TrainerController.class);
   private final TrainerService trainerService;
   private final ProfileService profileService;
   private final TrainerMapper trainerMapper;
@@ -101,39 +101,22 @@ VI. Trainees List
    */
 
 //HERE WE UPDATING FIRST AND SECOND NAME + MAKE A CUSTOM RESPONSE
-//  @PutMapping("/update-trainer-with-trainees-list")
 
-  @PutMapping("/trainers/{username}/trainees")
-  public ResponseEntity<?> updateTrainerProfile(@PathVariable String username,
-      @RequestBody TrainerDto trainerDto) {
 
-    Trainer trainer = trainerService.getTrainerByUsername(username);
+  @PutMapping("trainers/{username}/trainees")
+  public ResponseEntity<TrainerWithTraineeListDto> updateTrainerProfile(@PathVariable String username,
+  @RequestBody TrainerDto trainerDto) {
 
-    log.info("THIS IS TRAINER FROM DB : " + trainer);
-
-    List<Trainee> trainees = traineeService.getAllTraineesByTrainerUsername(
-        trainer.getUsername());
-
-    log.info("THIS ARE HIS TRAINEES: " + trainees);
-
-    List<TraineeDto3fields> traineeDtosList = traineeMapper.toTraineeDto3ListNew(
-        trainees); //works!
-
-    log.info("THIS are TRAINEE_DTO LIST: " + traineeDtosList);
-
-    //updating trainer from DTO
-    Trainer updatedTrainerFromDto = trainerMapper.updateTrainerFromDto(trainerDto, trainer);
-    trainerService.saveTrainer(updatedTrainerFromDto);
-
-    log.info("UPDATED trainer is SAVED :  " + updatedTrainerFromDto);
-
-    TrainerWithTraineeListDto responseDto = trainerMapper.toUpdatedTrainerWithTraineeListDtoNew(
-        trainer, traineeDtosList);
+    var responseDto = trainerService.updateTrainerProfile(trainerDto);
 
     log.info("THIS IS RESPONSE_DTO : " + responseDto);
 
     return ResponseEntity.ok(responseDto);
   }
+
+
+
+
 
     /*
 13. Get Trainer Trainings List (GET method)

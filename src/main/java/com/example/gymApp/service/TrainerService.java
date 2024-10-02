@@ -13,18 +13,24 @@ import com.example.gymApp.repository.UserRepository;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import org.springframework.transaction.annotation.Transactional;
+import com.example.gymApp.dto.trainee.TraineeDto3fields;
+import com.example.gymApp.dto.trainee.TraineeMapper;
+import com.example.gymApp.dto.trainer.TrainerMapper;
+import com.example.gymApp.dto.trainer.TrainerWithTraineeListDto;
+import com.example.gymApp.model.Training;
 
 
 
 @Slf4j
 @Service
+@AllArgsConstructor
 public class TrainerService {
 
   private final TrainerRepository trainerRepository;
@@ -33,21 +39,34 @@ public class TrainerService {
   private final TraineeRepository traineeRepository;
   private final TrainingRepository trainingRepository;
   private final Converter<Trainer, TrainerDto> trainerToTrainerDtoConverter;
+  private final TraineeMapper traineeMapper;
+  private final TrainerMapper trainerMapper;
 
 
-  @Autowired
-  public TrainerService(TrainerRepository trainerRepository, UserRepository userRepository,
-      TrainingTypeRepository trainingTypeRepository, TraineeRepository traineeRepository,
-      TrainingRepository trainingRepository,
-      Converter<Trainer, TrainerDto> trainerToTrainerDtoConverter) {
-    this.trainerRepository = trainerRepository;
-    this.userRepository = userRepository;
+  public TrainerWithTraineeListDto updateTrainerProfile(TrainerDto trainerDto) {
+    Trainer trainer = trainerRepository.findByUserUsername(trainerDto.getUsername())
+        .orElseThrow(() -> new NoSuchElementException("No trainer found with the username: " + trainerDto.getUsername()));
 
-    this.trainingTypeRepository = trainingTypeRepository;
-    this.traineeRepository = traineeRepository;
-    this.trainingRepository = trainingRepository;
-    this.trainerToTrainerDtoConverter = trainerToTrainerDtoConverter;
+
+    trainer.getUser().setFirstName(trainerDto.getFirstName());
+    trainer.getUser().setLastName(trainerDto.getLastName());
+    trainer.setSpecialization(checkSpecializationCorrectness(trainerDto.getTrainingType().getName()));
+
+    log.info("THIS IS UPDATED TRAINER FROM DB : " + trainer);
+
+    List<Trainee> trainees = trainer.getTrainings().stream().map(Training::getTrainee).toList();
+    log.info("THIS ARE HIS TRAINEES: " + trainees);
+
+//    List<TraineeDto3fields> traineeDtosList = traineeMapper.toTraineeDto3ListNew(trainees);
+//    log.info("THIS are TRAINEE_DTO LIST: " + traineeDtosList);
+
+
+    trainerRepository.save(trainer);
+    log.info("UPDATED trainer is SAVED : " + trainer);
+
+    return trainerMapper.toDto(trainer, trainees);
   }
+
 
   public List<TrainerDto> getAllTrainersByTrainee(String traineeUsername) {
     List<Trainer> trainers = getAlltrainersByTrainee(traineeUsername);
@@ -94,6 +113,10 @@ public class TrainerService {
   }
 
 
+
+
+
+
   public Trainer createTrainer(String firstName, String lastName, String username, String password,
       String specialization) {
     if (userRepository.findByUsername(username).isPresent()) {
@@ -135,10 +158,7 @@ public class TrainerService {
     User user = userOpt.get();
 
     return user;
-
-
   }
-
 
   public List<Trainer> getAllTrainersNotAssignedToTrainee(String traineeUsername) {
 

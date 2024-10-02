@@ -92,7 +92,7 @@ public class TrainingService {
         training.setTrainer(trainer);
         training.setTrainee(trainee);
         training.setTrainingType(trainer.getSpecialization());
-        training.setTrainingName(trainer.getUsername() + " - " + trainee.getUsername()
+        training.setTrainingName(trainer.getUser().getUsername() + " - " + trainee.getUsername()
             + " test training with hardcode data");
         training.setTrainingDate(LocalDate.parse("2222-11-11")); //hardcode here!
         training.setTrainingDuration(1);  //hardcode!
@@ -115,7 +115,7 @@ public class TrainingService {
     training.setTrainer(trainer);
     training.setTrainee(trainee);
     training.setTrainingType(trainer.getSpecialization());
-    training.setTrainingName(trainer.getUsername() + " - " + trainee.getUsername() + " - "
+    training.setTrainingName(trainer.getUser().getUsername() + " - " + trainee.getUsername() + " - "
         + trainingName);
     training.setTrainingDate(trainingDate); //hardcode here!
     training.setTrainingDuration(trainingDuration);  //hardcode!
