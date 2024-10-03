@@ -1,5 +1,8 @@
 package com.example.gymApp.service;
 
+import com.example.gymApp.dto.trainee.TraineeTrainingRequestDto;
+import com.example.gymApp.dto.training.TrainingForTraineeResponseDto;
+import com.example.gymApp.dto.trainingType.TrainingForTraineeMapper;
 import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.Trainer;
 import com.example.gymApp.model.Training;
@@ -11,6 +14,8 @@ import com.example.gymApp.repository.UserRepository;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -19,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Data
 @Slf4j
+@AllArgsConstructor
 public class TrainingService {
 
 
@@ -27,17 +33,7 @@ public class TrainingService {
   private final TrainerRepository trainerRepository;
   private final TrainingTypeRepository trainingTypeRepository;
   private final TrainingRepository trainingRepository;
-
-
-  public TrainingService(TraineeRepository traineeRepository, UserRepository userRepository,
-      TrainerRepository trainerRepository, TrainingTypeRepository trainingTypeRepository,
-      TrainingRepository trainingRepository) {
-    this.traineeRepository = traineeRepository;
-    this.userRepository = userRepository;
-    this.trainerRepository = trainerRepository;
-    this.trainingTypeRepository = trainingTypeRepository;
-    this.trainingRepository = trainingRepository;
-  }
+  private final TrainingForTraineeMapper trainingForTraineeMapper;
 
 
   @Transactional
@@ -74,9 +70,10 @@ public class TrainingService {
     log.info("Training " + training + " successfully saved");
   }
 
+  //todo change naming!
 
   @Transactional
-  public void createTraining2args(List<Trainer> trainers, Trainee trainee) {
+  public void createTraining(List<Trainer> trainers, Trainee trainee) {
 
     for (Trainer trainer : trainers) {
 
@@ -122,12 +119,8 @@ public class TrainingService {
     trainingRepository.save(training);
     System.out.println("New training is created: " + training);
 
-  return training;
+    return training;
   }
-
-
-
-
 
 
   public List<Training> getTrainingsByUserUsername(String traineeUsername, LocalDate startDate,
@@ -156,6 +149,37 @@ public class TrainingService {
 
   public List<Training> findTrainerTrainingsByUsername(String trainerUsername) {
     return trainingRepository.findTrainerTrainingsByUsername(trainerUsername);
+  }
+
+  public List<TrainingForTraineeResponseDto> findTraineeTrainingsWithFilters(
+      TraineeTrainingRequestDto requestDto) {
+    List<Training> trainings = findTraineeTrainingsByUsername(requestDto.getUsername());
+
+    if (requestDto.getPeriodFrom() != null && requestDto.getPeriodTo() != null) {
+      trainings = trainings.stream()
+          .filter(t -> !t.getTrainingDate().isBefore(requestDto.getPeriodFrom())
+              && !t.getTrainingDate().isAfter(requestDto.getPeriodTo()))
+          .collect(Collectors.toList());
+    }
+
+    if (requestDto.getTrainerName() != null) {
+      trainings = trainings.stream()
+          .filter(t -> t.getTrainer().getUser().getFirstName().equals(requestDto.getTrainerName()))
+          .collect(Collectors.toList());
+    }
+
+    if (requestDto.getSpecialization() != null) {
+      trainings = trainings.stream()
+          .filter(t -> t.getTrainer().getSpecialization().getName()
+              .equals(requestDto.getSpecialization()))
+          .collect(Collectors.toList());
+    }
+
+    List<TrainingForTraineeResponseDto> responseDtos = trainingForTraineeMapper.toDtoList(
+        trainings);
+
+    return responseDtos;
+
   }
 }
 

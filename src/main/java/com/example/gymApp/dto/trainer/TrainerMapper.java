@@ -17,7 +17,8 @@ public interface TrainerMapper {
 
   @Mapping(source = "firstName", target = "user.firstName")
   @Mapping(source = "lastName", target = "user.lastName")
-  @Mapping(source = "specialization", target = "specialization", qualifiedByName = "mapToTrainingType")
+  @Mapping(source = "specialization", target = "specialization",
+      qualifiedByName = "mapToTrainingType")
   @Mapping(source = "username", target = "user.username")
   Trainer toTrainer(TrainerDto dto);
 
@@ -80,6 +81,9 @@ public interface TrainerMapper {
     @Mapping(source = "trainees", target = "traineeDtoList")
     TrainerWithTraineeListDto toDto(Trainer trainer, List<Trainee> trainees);
 
+//    List<TraineeDto> toDto( List<Trainee> trainees);  //todo try this!
+
+
     @Mapping(source = "user.firstName", target = "firstName")
     @Mapping(source = "user.lastName", target = "lastName")
     @Mapping(source = "user.username", target = "username")
@@ -94,22 +98,14 @@ public interface TrainerMapper {
 
 
 
-//  TrainerWithTraineeListDto toDto(Trainer trainer, List<Trainee> trainees);
-//task 10
-
-
-
-
-  TrainerMapper INSTANCE = Mappers.getMapper(TrainerMapper.class);
 
   @Mapping(source = "user.username", target = "username")
   @Mapping(source = "user.firstName", target = "firstName")
   @Mapping(source = "user.lastName", target = "lastName")
   @Mapping(source = "specialization", target = "trainingType")
-  TrainerDto4fields toTrainerDto4fields(Trainer trainer);
+  TrainerResponseDto toTrainerResponseDto(Trainer trainer);
 
-
-  List<TrainerDto4fields> toTrainerDto4fieldsList(List<Trainer> trainers);
+  List<TrainerResponseDto> toTrainerResponseDto(List<Trainer> trainers);
 
 
   //13

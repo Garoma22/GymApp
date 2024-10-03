@@ -53,7 +53,7 @@ I. 200 OK
           .body("Old password and new password are required");
     }
 
-    User user = userService.getUserByUsername(username);
+    User user = userService.getUserByUsername(username); //user DTO!
 
     // todo: i also was trying to use here - User user = userService.getUserByPasswordAndCheckUsername
     //  and/or userService.getUserByPasswordAndUsername
@@ -82,13 +82,13 @@ I. 200 OK
 
     User user = userService.getUserByUsername(username);
 
-    boolean activityStatus = userService.setActivityStatusToUser(isActiveStatus, user);
+//    boolean activityStatus = userService.setActivityStatusToUser(isActiveStatus, user);
 
-    user.setActive(activityStatus);
+    user.setActive(Boolean.parseBoolean(isActiveStatus));
 
     userService.saveUpdatedUser(user);
 
-    return ResponseEntity.ok(user);
+    return ResponseEntity.ok(user); //get back dto!
 
 //      return ResponseEntity.ok().build();
   }

@@ -40,13 +40,12 @@ public class ProfileService {
   public String generateUsername(String firstName, String lastName) {
     String baseUsername = firstName + "." + lastName;
 
-
-    List<String> existingUsernames = userRepository.findAllByUsernameStartingWith(baseUsername + "%");
+    List<String> existingUsernames = userRepository.findAllByUsernameStartingWith(
+        baseUsername + "%");
 
     if (!existingUsernames.contains(baseUsername)) {
       return baseUsername;
     }
-
 
     int maxSuffix = existingUsernames.stream()
         .filter(username -> username.matches(baseUsername + "\\d+"))
@@ -54,7 +53,6 @@ public class ProfileService {
         .mapToInt(suffix -> suffix.isEmpty() ? 0 : Integer.parseInt(suffix))
         .max()
         .orElse(0);
-
 
     return baseUsername + (maxSuffix + 1);
   }
@@ -70,7 +68,7 @@ public class ProfileService {
         .collect(Collectors.joining());
   }
 
-  public Map<String,String> registerTrainee(TraineeDto traineeDto) {
+  public Map<String, String> registerTrainee(TraineeDto traineeDto) {
 
     String username = generateUsername(traineeDto.getFirstName(),
         traineeDto.getLastName());
@@ -97,14 +95,12 @@ public class ProfileService {
   }
 
   public Map<String, String> registerTrainer(TrainerDto trainerDto) {
-    String username = generateUsername(trainerDto.getFirstName(),
-        trainerDto.getLastName());
-    String password = generateRandomPassword();
-
-    trainerService.checkSpecializationCorrectness(
-        trainerDto.getSpecialization());
+    trainerService.checkSpecializationCorrectness(trainerDto.getSpecialization());
 
     Trainer trainer = trainerMapper.toTrainer(trainerDto);
+
+    String username = generateUsername(trainerDto.getFirstName(), trainerDto.getLastName());
+    String password = generateRandomPassword();
     trainer.getUser().setUsername(username);
     trainer.getUser().setPassword(password);
 

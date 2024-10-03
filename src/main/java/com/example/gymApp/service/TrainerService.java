@@ -1,6 +1,8 @@
 package com.example.gymApp.service;
 
 import com.example.gymApp.dto.trainer.TrainerDto;
+
+import com.example.gymApp.dto.trainer.TrainerResponseDto;
 import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.Trainer;
 import com.example.gymApp.model.TrainingType;
@@ -15,12 +17,13 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Lazy;
+
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import org.springframework.transaction.annotation.Transactional;
-import com.example.gymApp.dto.trainee.TraineeDto3fields;
 import com.example.gymApp.dto.trainee.TraineeMapper;
 import com.example.gymApp.dto.trainer.TrainerMapper;
 import com.example.gymApp.dto.trainer.TrainerWithTraineeListDto;
@@ -57,8 +60,6 @@ public class TrainerService {
     List<Trainee> trainees = trainer.getTrainings().stream().map(Training::getTrainee).toList();
     log.info("THIS ARE HIS TRAINEES: " + trainees);
 
-//    List<TraineeDto3fields> traineeDtosList = traineeMapper.toTraineeDto3ListNew(trainees);
-//    log.info("THIS are TRAINEE_DTO LIST: " + traineeDtosList);
 
 
     trainerRepository.save(trainer);
@@ -68,18 +69,23 @@ public class TrainerService {
   }
 
 
-  public List<TrainerDto> getAllTrainersByTrainee(String traineeUsername) {
+  public List<TrainerDto> getAllTrainersDtoByTrainee(String traineeUsername) {
     List<Trainer> trainers = getAlltrainersByTrainee(traineeUsername);
     return trainers.stream()
         .map(trainerToTrainerDtoConverter::convert)  //using converter
         .collect(Collectors.toList());
   }
 
+  public List<Trainer> getAlltrainersByTrainee(String traineeUsername) {
+    Trainee trainee = traineeRepository.findByUserUsername(traineeUsername)
+        .orElseThrow(() -> new NoSuchElementException("No trainee found for the provided user"));
+
+    return trainingRepository.findDistinctTrainersByTrainee(trainee);
+  }
+
   public Trainer saveTrainer(Trainer trainer) {
     return trainerRepository.saveAndFlush(trainer);
   }
-
-
 
   @Transactional
   public Trainer updateTrainer(Trainer trainer, String name, String lastName, String username,
@@ -141,10 +147,13 @@ public class TrainerService {
   }
 
 
+
+
+
   public Trainer getTrainerByUsername(String username) {
     return trainerRepository.findByUserUsername(username)
         .orElseThrow(
-            () -> new NoSuchElementException("No trainer found with the username: " + username));
+    () -> new NoSuchElementException("No trainer found with the username: " + username));
   }
 
   public User getTrainerByPassword(String password) {
@@ -166,24 +175,18 @@ public class TrainerService {
 
   }
 
-  public List<Trainer> getAlltrainersByTrainee(String traineeUsername) {
-
-    Optional<Trainee> traineeOpt = traineeRepository.findByUserUsername(traineeUsername);
-
-    if (traineeOpt.isEmpty()) {
-      throw new NoSuchElementException("No trainee found for the provided user");
-    }
-    Trainee trainee = traineeOpt.get();
-
-    return trainingRepository.findDistinctTrainersByTrainee(trainee);
-  }
 
 
-  public List<Trainer> getAllActiveTrainersNotAssignedToTrainee(Trainee trainee) {
+  public List<TrainerResponseDto> getAllActiveTrainersNotAssignedToTrainee(String traineeusername) {
 
-    return trainingRepository.findAllActiveTrainersNotAssignedToTrainee(trainee.getUsername());
+    Trainee trainee =  traineeRepository.findByUserUsername(traineeusername)
+        .orElseThrow(
+            () -> new NoSuchElementException("No trainer found with the username: " + traineeusername));
 
 
+    List<Trainer> trainers = trainingRepository.findAllActiveTrainersNotAssignedToTrainee(trainee.getUsername());
+
+   return trainerMapper.toTrainerResponseDto(trainers);
 
   }
 

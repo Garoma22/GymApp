@@ -22,15 +22,13 @@ public class Trainer {
   @JoinColumn(name = "training_type_id", nullable = false)
   private TrainingType specialization;
 
-//  @OneToMany(mappedBy = "trainer")
-//  private List<Training> trainings;
 
-
-    @OneToMany(mappedBy = "trainer", fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "trainer", fetch = FetchType.EAGER)
   private List<Training> trainings = new ArrayList<>();
 
 
-  public Trainer() {}
+  public Trainer() {
+  }
 
   public Trainer(User user, TrainingType specialization) {
     this.user = user;
@@ -49,7 +47,6 @@ public class Trainer {
         ", specialization=" + specialization.getName() +
         '}';
   }
-
 
 
 }

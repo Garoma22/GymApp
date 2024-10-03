@@ -5,8 +5,12 @@ import com.example.gymApp.model.User;
 import com.example.gymApp.repository.UserRepository;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class UserService {
 
@@ -54,7 +58,7 @@ public class UserService {
 
     if (activityStatus.equals("true") || activityStatus.equals("false")) {
       newActiveStatus = Boolean.parseBoolean(activityStatus);
-      System.out.println("Success! Activity status set to user : " + user.getUsername() + " is : "
+      log.info("Success! Activity status set to user : " + user.getUsername() + " is : "
           + newActiveStatus);
 
       return newActiveStatus;

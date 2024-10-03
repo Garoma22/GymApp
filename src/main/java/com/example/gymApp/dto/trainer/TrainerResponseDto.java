@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
   @JsonPropertyOrder({ "username", "firstName", "lastName", "specialization" })
   @Component
   @Data
-  public class TrainerDto4fields {
+  public class TrainerResponseDto {
 
 
     private String username;

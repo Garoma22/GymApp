@@ -1,10 +1,11 @@
 package com.example.gymApp.controller;
 
 import com.example.gymApp.dto.user.UserLoginDto;
-import com.example.gymApp.model.User;
+import com.example.gymApp.service.AuthService;
 import com.example.gymApp.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,30 +17,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
+@AllArgsConstructor
 public class AuthController {
 
-  private final UserService userService;
+  private final AuthService authService;
 
-  public AuthController(UserService userService) {
-    this.userService = userService;
 
-  }
   @PostMapping("/login")
-
-
   public ResponseEntity<String> login(@RequestBody UserLoginDto loginRequest, HttpServletRequest request) {
+    boolean isAuthenticated = authService.authenticate(loginRequest.getUsername(), loginRequest.getPassword(), request);
 
-    String username = loginRequest.getUsername();
-    String password = loginRequest.getPassword();
-
-
-    User user = userService.getUserByPasswordAndUsername(username, password);
-
-    if (user != null) {
-
-      HttpSession session = request.getSession();
-      session.setAttribute("user", user);
-
+    if (isAuthenticated) {
       return ResponseEntity.ok("Login successful!");
     } else {
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");

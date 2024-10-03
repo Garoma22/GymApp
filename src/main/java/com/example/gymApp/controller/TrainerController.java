@@ -63,6 +63,8 @@ V. Trainees List
    3. Trainee Last Name
    */
 
+
+//todo refactoring
   @GetMapping("/trainers/{username}/trainees")
   public ResponseEntity<?> getTrainerProfileWithTraineeList(@PathVariable String username) {
     Trainer trainer = trainerService.getTrainerByUsername(username);
@@ -142,6 +144,8 @@ VI. Trainees List
 
 //  @GetMapping("/trainer-trainings-list-by-dynamic-criteria")
 
+
+  //todo refactoring
   @GetMapping("/trainers/{username}/trainings")
   public ResponseEntity<?> getTrainerTrainingsListByDynamicCriteria(
       @PathVariable String username,

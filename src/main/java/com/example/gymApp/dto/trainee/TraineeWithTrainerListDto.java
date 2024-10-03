@@ -26,15 +26,6 @@ public class TraineeWithTrainerListDto {
   private boolean isActive;
   private List<TrainerDto> trainers;
 
-//  public TraineeWithTrainerListDto(String firstName, List<TrainerDto> trainers, String lastName,
-//      LocalDate dateOfBirth, String address, boolean isActive) {
-//    this.firstName = firstName;
-//    this.trainers = trainers;
-//    this.lastName = lastName;
-//    this.dateOfBirth = dateOfBirth;
-//    this.address = address;
-//    this.isActive = isActive;
-//  }
 
   public TraineeWithTrainerListDto(String username,
       String firstName, String lastName, LocalDate dateOfBirth,

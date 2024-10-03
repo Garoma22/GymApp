@@ -5,8 +5,9 @@ import com.example.gymApp.dto.trainee.TraineeMapper;
 import com.example.gymApp.dto.trainee.TraineeTrainingRequestDto;
 import com.example.gymApp.dto.trainee.TraineeWithTrainerListDto;
 import com.example.gymApp.dto.trainer.TrainerDto;
-import com.example.gymApp.dto.trainer.TrainerDto4fields;
+
 import com.example.gymApp.dto.trainer.TrainerMapper;
+import com.example.gymApp.dto.trainer.TrainerResponseDto;
 import com.example.gymApp.dto.training.TrainingForTraineeResponseDto;
 import com.example.gymApp.dto.trainingType.TrainingForTraineeMapper;
 import com.example.gymApp.model.Trainee;
@@ -50,6 +51,7 @@ public class TraineeController {
   private final TrainerMapper trainerMapper;
   private final TrainerService trainerService;
   private final TrainingService trainingService;
+  private final TrainingForTraineeMapper trainingForTraineeMapper;
 
   @GetMapping("/trainees")
   public List<Trainee> getAllTrainees() {
@@ -78,21 +80,10 @@ VI. Trainers List
 
 
   @GetMapping("/trainees/{username}/trainers")
-  public ResponseEntity<?> getTraineeProfileWithTrainersList(@PathVariable String username) {
-
-    Trainee trainee = traineeService.getTraineeByUsername(username);
-    List<TrainerDto> trainersList = trainerService.getAllTrainersByTrainee(username);
-
-    TraineeWithTrainerListDto responseDTO = new TraineeWithTrainerListDto(
-        trainee.getUser().getUsername(),
-        trainee.getUser().getFirstName(),
-        trainee.getUser().getLastName(),
-        trainee.getDateOfBirth(),
-        trainee.getAddress(),
-        trainee.getUser().isActive(),
-        trainersList
-    );
-
+  public ResponseEntity<TraineeWithTrainerListDto> getTraineeProfileWithTrainersList(
+      @PathVariable String username) {
+    TraineeWithTrainerListDto responseDTO = traineeService.getTraineeProfileWithTrainersList(
+        username);
     return ResponseEntity.ok(responseDTO);
   }
 
@@ -121,53 +112,16 @@ VII. Trainers List
 3. Trainer Last Name
 4. Trainer Specialization (Training type reference)
 
-
-
-
  */
 
+
   @PutMapping("/trainees/{username}")
-  public ResponseEntity<?> updateTraineeProfile(@RequestBody TraineeDto traineeDto,
+  public ResponseEntity<TraineeWithTrainerListDto> updateTraineeProfile(
+      @RequestBody TraineeDto traineeDto,
       @PathVariable String username) {
-    Trainee trainee = traineeService.getTraineeByUsername(username);
-    log.info("Before Update: " + trainee);
-
-    trainee.getUser().setFirstName(traineeDto.getFirstName());
-    trainee.getUser().setLastName(traineeDto.getLastName());
-    trainee.getUser().setActive(traineeDto.isActive());
-    trainee.setDateOfBirth(LocalDate.parse(traineeDto.getDateOfBirth()));
-    trainee.setAddress(traineeDto.getAddress());
-
-    Trainee updatedTrainee = traineeService.updateTrainee(trainee,
-        traineeDto.getFirstName(),
-        traineeDto.getLastName(),
-        trainee.getUsername(),
-
-        trainee.getUser().getPassword(),
-        traineeDto.isActive(),
-        traineeDto.getAddress(),
-        LocalDate.parse(traineeDto.getDateOfBirth()));
-
-    List<TrainerDto> trainersList = trainerService.getAlltrainersByTrainee(username).stream()
-        .map(trainer -> new TrainerDto(
-            trainer.getUser().getUsername(),
-            trainer.getUser().getFirstName(),
-            trainer.getUser().getLastName(),
-            trainer.getSpecialization().getName()))
-        .collect(Collectors.toList());
-
-    TraineeWithTrainerListDto responseDto = new TraineeWithTrainerListDto(
-        updatedTrainee.getUser().getUsername(),
-        updatedTrainee.getUser().getFirstName(),
-        updatedTrainee.getUser().getLastName(),
-        updatedTrainee.getDateOfBirth(),
-        updatedTrainee.getAddress(),
-        updatedTrainee.getUser().isActive(),
-        trainersList
-    );
-
-    return ResponseEntity.ok(responseDto);
+    return ResponseEntity.ok(traineeService.updateTraineeProfile(traineeDto, username));
   }
+
 
 
 /*
@@ -181,10 +135,11 @@ I. 200 OK0
 
   @DeleteMapping("/trainees/{username}")
   public ResponseEntity<String> deleteTraineeProfile(@PathVariable String username) {
-    Trainee trainee = traineeService.getTraineeByUsername(username);
-    traineeService.deleteTraineeByUsername(trainee.getUsername());
+    traineeService.deleteTraineeByUsername(username);
     return ResponseEntity.noContent().build();
   }
+
+
 
 
 
@@ -203,15 +158,14 @@ IV. Trainer Specialization (Training type reference)
 
 
   @GetMapping("/trainees/{traineeUsername}/trainers/not-assigned")
-  public ResponseEntity<?> getNotAssignedActiveTrainersOnTrainee(
+  public ResponseEntity<List<TrainerResponseDto>> getNotAssignedActiveTrainersOnTrainee(
       @PathVariable String traineeUsername) {
 
-    Trainee trainee = traineeService.getTraineeByUsername(traineeUsername);
-    List<Trainer> trainers = trainerService.getAllActiveTrainersNotAssignedToTrainee(trainee);
-    List<TrainerDto4fields> trainerDtos = TrainerMapper.INSTANCE.toTrainerDto4fieldsList(
-        trainers);
-    return ResponseEntity.ok(trainerDtos);
+    List<TrainerResponseDto> trainers = trainerService.getAllActiveTrainersNotAssignedToTrainee(
+        traineeUsername);
+    return ResponseEntity.ok(trainers);
   }
+
 
   /*
   11. Update Trainee's Trainer List (PUT method)
@@ -227,31 +181,13 @@ I. Trainers List
 4. Trainer Specialization (Training type reference)
    */
 
+
   @PutMapping("/trainees/{traineeUsername}/trainers")
-
-  public ResponseEntity<?> updateTraineeTrainersList
-      (@PathVariable String traineeUsername, @RequestBody List<String> newTrainersNames) {
-
-    //1 finding trainers by names;
-
-    List<Trainer> foundedTrainers = trainerService.findByUsernameIn(newTrainersNames);
-
-    //2 get trainee
-    Trainee trainee = traineeService.getTraineeByUsername(traineeUsername);
-
-    //3. create trainings
-    trainingService.createTraining2args(foundedTrainers, trainee);
-
-    //4. get updated trainersList
-    List<Trainer> trainers = trainingService.getAllTrainersByTraineeUsername(
-        traineeUsername);
-    System.out.println(
-        "All trainers by trainee " + trainee.getUsername() + " : " + trainers);
-
-    List<TrainerDto4fields> trainerDtos = TrainerMapper.INSTANCE.toTrainerDto4fieldsList(
-        trainers);
-
-    return ResponseEntity.ok(trainerDtos);
+  public ResponseEntity<List<TrainerResponseDto>> updateTraineeTrainersList(
+      @PathVariable String traineeUsername, @RequestBody List<String> newTrainersUsernames) {
+    List<TrainerResponseDto> updatedTrainersList = traineeService.updateTraineeTrainers(
+        traineeUsername, newTrainersUsernames);
+    return ResponseEntity.ok(updatedTrainersList);
   }
 
 
@@ -281,76 +217,24 @@ Trainer's first name: If trainerFirstName is provided, it filters trainings wher
 Trainer's specialization: If specializationName is provided, it filters trainings by the trainer's specialization.
  */
 
-//  @GetMapping("/trainee-trainings-list-by-dynamic-criteria")
 
   @GetMapping("/trainees/{username}/trainings")
-  public ResponseEntity<?> getTraineeTrainingsListByDynamicCriteria(
-
+  public ResponseEntity<List<TrainingForTraineeResponseDto>> getTraineeTrainingsListByDynamicCriteria(
       @PathVariable String username,
       @RequestParam(required = false) String periodFrom,
       @RequestParam(required = false) String periodTo,
       @RequestParam(required = false) String trainerFirstName,
       @RequestParam(required = false) String specializationName
-
-//      ,
-//      HttpServletRequest request  //todo - figure out why does not work this way
-
   ) {
+    TraineeTrainingRequestDto traineeTrainingRequestDto = traineeMapper.toDto(
+        username, periodFrom, periodTo, trainerFirstName, specializationName
+    );
+    List<TrainingForTraineeResponseDto> responseDtos = trainingService
+        .findTraineeTrainingsWithFilters(traineeTrainingRequestDto);
 
-    User authenticatedUser = userService.getUserByUsername(username);
-    if (authenticatedUser == null) {
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-          .body("Invalid token or user not found.");
-    }
-
-    //todo - figure out why does not work this way
-//
-//    String authenticatedUsername = (String) request.getAttribute("username");
-//    log.info("Authenticated username: {}", authenticatedUsername);
-//
-//
-//    User authenticatedUser = userService.getUserByUsername(authenticatedUsername);
-//    if (authenticatedUser == null) {
-//      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid token or user not found.");
-//    }
-//
-//    if (!authenticatedUsername.equals(username)) {
-//      return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Access denied.");
-//    }
-
-      TraineeTrainingRequestDto traineeTrainingRequestDto =
-          traineeMapper.toDto(username, periodFrom, periodTo, trainerFirstName, specializationName);
-
-      List<Training> trainings = trainingService.findTraineeTrainingsByUsername(username);
-
-      if (periodFrom != null && periodTo != null) {
-        trainings = trainings.stream()
-            .filter(t -> !t.getTrainingDate().isBefore(traineeTrainingRequestDto.getPeriodFrom())
-                && !t.getTrainingDate()
-                .isAfter(traineeTrainingRequestDto.getPeriodTo()))
-            .collect(Collectors.toList());
-      }
-
-      if (trainerFirstName != null) {
-        trainings = trainings.stream()
-            .filter(t -> t.getTrainer().getUser().getFirstName().equals(trainerFirstName))
-            .collect(Collectors.toList());
-      }
-
-      if (specializationName != null) {
-        trainings = trainings.stream()
-            .filter(t -> t.getTrainer().getSpecialization().getName().equals(specializationName))
-            .collect(Collectors.toList());
-      }
-
-      List<TrainingForTraineeResponseDto> responseDtos = TrainingForTraineeMapper.INSTANCE.toDtoList(
-          trainings);
-
-      return ResponseEntity.ok(responseDtos);
-
-
-    }
+    return ResponseEntity.ok(responseDtos);
   }
+}
 
 
 
