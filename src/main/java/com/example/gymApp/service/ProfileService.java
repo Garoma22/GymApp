@@ -10,7 +10,7 @@ import com.example.gymApp.repository.UserRepository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Service
+@AllArgsConstructor
 public class ProfileService {
 
   private final UserRepository userRepository;
@@ -25,17 +26,6 @@ public class ProfileService {
   private final TraineeService traineeService;
   private final TrainerService trainerService;
   private final TrainerMapper trainerMapper;
-
-  @Autowired
-  public ProfileService(UserRepository userRepository, TraineeMapper traineeMapper,
-      TraineeService traineeService, TrainerService trainerService, TrainerMapper trainerMapper) {
-    this.userRepository = userRepository;
-    this.traineeMapper = traineeMapper;
-    this.traineeService = traineeService;
-    this.trainerService = trainerService;
-    this.trainerMapper = trainerMapper;
-  }
-
 
   public String generateUsername(String firstName, String lastName) {
     String baseUsername = firstName + "." + lastName;

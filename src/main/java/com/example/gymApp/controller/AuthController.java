@@ -2,7 +2,6 @@ package com.example.gymApp.controller;
 
 import com.example.gymApp.dto.user.UserLoginDto;
 import com.example.gymApp.service.AuthService;
-import com.example.gymApp.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
@@ -26,7 +25,6 @@ public class AuthController {
   @PostMapping("/login")
   public ResponseEntity<String> login(@RequestBody UserLoginDto loginRequest, HttpServletRequest request) {
     boolean isAuthenticated = authService.authenticate(loginRequest.getUsername(), loginRequest.getPassword(), request);
-
     if (isAuthenticated) {
       return ResponseEntity.ok("Login successful!");
     } else {

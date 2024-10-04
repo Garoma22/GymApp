@@ -1,6 +1,6 @@
 package com.example.gymApp.controller;
 
-import com.example.gymApp.dto.training.Training5FieldsRequestDto;
+import com.example.gymApp.dto.training.TrainingRequestDto;
 import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.Trainer;
 import com.example.gymApp.model.Training;
@@ -53,7 +53,7 @@ b. Response
 
   @PostMapping("/trainings")
   public ResponseEntity<Void> addTraining  //to get back dto!
-  (@RequestBody Training5FieldsRequestDto request)  //todo  - addTrainingRequestDto
+  (@RequestBody TrainingRequestDto request)  //todo  - addTrainingRequestDto
   {
     Trainee trainee = traineeService.getTraineeByUsername(request.getTraineeUsername());
     Trainer trainer = trainerService.getTrainerByUsername(request.getTrainerUsername());

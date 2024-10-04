@@ -1,16 +1,14 @@
 package com.example.gymApp.dto.trainer;
 
 import com.example.gymApp.dto.trainee.TraineeDto;
-import com.example.gymApp.dto.trainee.TraineeDto3fields;
+import com.example.gymApp.dto.trainee.TraineeResponseDto;
 import com.example.gymApp.dto.trainingType.TrainingForTraineeMapper;
 import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.Trainer;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring", uses = {TrainingForTraineeMapper.class})
 public interface TrainerMapper {
@@ -38,37 +36,37 @@ public interface TrainerMapper {
   TrainerWithTraineeListDto toTrainerWithTraineeListDto(Trainer trainer,
       List<TraineeDto> traineeDto);
 
-  @Mapping(source = "username", target = "user.username")
-  @Mapping(source = "firstName", target = "user.firstName")
-  @Mapping(source = "lastName", target = "user.lastName")
-  @Mapping(source = "active", target = "user.active")
-  @Mapping(source = "trainingType", target = "specialization")
-  Trainer updateTrainerFromDto(TrainerDto trainerDto, @MappingTarget Trainer trainer);
-
-
-  @Mapping(source = "trainer.user.username", target = "username")
-  @Mapping(source = "trainer.user.firstName", target = "firstName")
-  @Mapping(source = "trainer.user.lastName", target = "lastName")
-  @Mapping(source = "trainer.specialization", target = "trainingType")
-  @Mapping(source = "trainer.user.active", target = "active")
-  @Mapping(source = "traineeDto", target = "traineeDtoList")
-  TrainerWithTraineeListDto toUpdatedTrainerWithTraineeListDto(Trainer trainer,
-      List<TraineeDto> traineeDto);
+//  @Mapping(source = "username", target = "user.username")
+//  @Mapping(source = "firstName", target = "user.firstName")
+//  @Mapping(source = "lastName", target = "user.lastName")
+//  @Mapping(source = "active", target = "user.active")
+//  @Mapping(source = "trainingType", target = "specialization")
+//  Trainer updateTrainerFromDto(TrainerDto trainerDto, @MappingTarget Trainer trainer);
+//
+//
+//  @Mapping(source = "trainer.user.username", target = "username")
+//  @Mapping(source = "trainer.user.firstName", target = "firstName")
+//  @Mapping(source = "trainer.user.lastName", target = "lastName")
+//  @Mapping(source = "trainer.specialization", target = "trainingType")
+//  @Mapping(source = "trainer.user.active", target = "active")
+//  @Mapping(source = "traineeDto", target = "traineeDtoList")
+//  TrainerWithTraineeListDto toUpdatedTrainerWithTraineeListDto(Trainer trainer,
+//      List<TraineeDto> traineeDto);
 
 //3 fields
 
 
-  @Mapping(source = "trainer.user.username", target = "username")
-  @Mapping(source = "trainer.user.firstName", target = "firstName")
-  @Mapping(source = "trainer.user.lastName", target = "lastName")
-  @Mapping(source = "trainer.specialization", target = "trainingType")
-  @Mapping(source = "trainer.user.active", target = "active")
-  @Mapping(source = "traineeDto", target = "traineeDtoList")
-    //here traineeDto
-
-  TrainerWithTraineeListDto toUpdatedTrainerWithTraineeListDtoNew(Trainer trainer,
-      List<TraineeDto3fields> traineeDto);  // is here!
-
+//  @Mapping(source = "trainer.user.username", target = "username")
+//  @Mapping(source = "trainer.user.firstName", target = "firstName")
+//  @Mapping(source = "trainer.user.lastName", target = "lastName")
+//  @Mapping(source = "trainer.specialization", target = "trainingType")
+//  @Mapping(source = "trainer.user.active", target = "active")
+//  @Mapping(source = "traineeDto", target = "traineeDtoList")
+//    //here traineeDto
+//
+//  TrainerWithTraineeListDto toUpdatedTrainerWithTraineeListDtoNew(Trainer trainer,
+//      List<TraineeResponseDto> traineeDto);  // is here!
+//
 
 
 
@@ -90,11 +88,6 @@ public interface TrainerMapper {
     TrainerWithTraineeListDto.TraineeDto toTraineeDto(Trainee trainee);
 
     List<TrainerWithTraineeListDto.TraineeDto> mapTrainees(List<Trainee> trainees);
-
-
-
-
-
 
 
 

@@ -1,8 +1,12 @@
 package com.example.gymApp.service;
 
 import com.example.gymApp.dto.trainee.TraineeTrainingRequestDto;
+import com.example.gymApp.dto.trainer.TrainerMapper;
+import com.example.gymApp.dto.trainer.TrainerTrainingRequestDto;
 import com.example.gymApp.dto.training.TrainingForTraineeResponseDto;
+import com.example.gymApp.dto.training.TrainingForTrainerResponseDto;
 import com.example.gymApp.dto.trainingType.TrainingForTraineeMapper;
+import com.example.gymApp.dto.trainingType.TrainingForTrainerMapper;
 import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.Trainer;
 import com.example.gymApp.model.Training;
@@ -34,6 +38,7 @@ public class TrainingService {
   private final TrainingTypeRepository trainingTypeRepository;
   private final TrainingRepository trainingRepository;
   private final TrainingForTraineeMapper trainingForTraineeMapper;
+  private final TrainerMapper trainerMapper;
 
 
   @Transactional
@@ -180,6 +185,33 @@ public class TrainingService {
 
     return responseDtos;
 
+  }
+
+  public List<TrainingForTrainerResponseDto> getTrainerTrainingsByCriteria(String username,
+      String periodFrom, String periodTo, String traineeFirstName) {
+    TrainerTrainingRequestDto trainerTrainingRequestDto
+        = trainerMapper.toDto(username, periodFrom, periodTo, traineeFirstName);
+
+    List<Training> trainings = findTrainerTrainingsByUsername(username);
+
+    if (periodFrom != null && periodTo != null) {
+      trainings = trainings.stream()
+          .filter(t -> !t.getTrainingDate().isBefore(trainerTrainingRequestDto.getPeriodFrom())
+              && !t.getTrainingDate()
+              .isAfter(trainerTrainingRequestDto.getPeriodTo()))
+          .collect(Collectors.toList());
+    }
+
+    if (traineeFirstName != null) {
+      trainings = trainings.stream()
+          .filter(t -> t.getTrainee().getUser().getFirstName().equals(traineeFirstName))
+          .collect(Collectors.toList());
+    }
+
+    List<TrainingForTrainerResponseDto> dtoList = TrainingForTrainerMapper.INSTANCE.toDtoList(
+        trainings);
+
+    return dtoList;
   }
 }
 

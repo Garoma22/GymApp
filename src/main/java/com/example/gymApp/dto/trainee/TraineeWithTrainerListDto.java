@@ -1,11 +1,9 @@
 package com.example.gymApp.dto.trainee;
 import com.example.gymApp.dto.trainer.TrainerDto;
-import com.example.gymApp.model.TrainingType;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.time.LocalDate;
 import java.util.List;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 
@@ -19,8 +17,6 @@ public class TraineeWithTrainerListDto {
  private String username;
   private String firstName;
   private String lastName;
-
-  //todo: dd date formatter
   private LocalDate dateOfBirth;
   private String address;
   private boolean isActive;

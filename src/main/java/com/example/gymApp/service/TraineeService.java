@@ -67,19 +67,24 @@ public class TraineeService {
     return traineeRepository.save(trainee);
   }
 
-
   public List<Trainee> getAllTrainees() {
     return traineeRepository.findAll();
   }
 
+//  public Trainee getTraineeById(Long id) {
+//    Optional<Trainee> trainee = traineeRepository.findById(id);
+//    if (trainee.isPresent()) {
+//      return trainee.get();
+//    } else {
+//      throw new IllegalArgumentException("Trainee not found with id: " + id);
+//    }
+//  }
+
   public Trainee getTraineeById(Long id) {
-    Optional<Trainee> trainee = traineeRepository.findById(id);
-    if (trainee.isPresent()) {
-      return trainee.get();
-    } else {
-      throw new IllegalArgumentException("Trainee not found with id: " + id);
-    }
+    return traineeRepository.findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("Trainee not found with id: " + id));
   }
+
 
   @Transactional
   public void deleteTrainee(Long id) {
@@ -130,19 +135,18 @@ public class TraineeService {
     log.info("Trainee and related entities deleted successfully.");
   }
 
-
-  public List<Trainee> getAllTraineesByTrainerUsername(String trainerUsername) {
-
-    Optional<Trainer> trainerOpt = trainerRepository.findByUserUsername(trainerUsername);
-
-    if (trainerOpt.isEmpty()) {
-      throw new NoSuchElementException("No trainee found for the provided user");
-    }
-    Trainer trainer = trainerOpt.get();
-
-    return trainingRepository.findDistinctTraineeByTrainer(trainer);
-
-  }
+//  public List<Trainee> getAllTraineesByTrainerUsername(String trainerUsername) {
+//
+//    Optional<Trainer> trainerOpt = trainerRepository.findByUserUsername(trainerUsername);
+//
+//    if (trainerOpt.isEmpty()) {
+//      throw new NoSuchElementException("No trainee found for the provided user");
+//    }
+//    Trainer trainer = trainerOpt.get();
+//
+//    return trainingRepository.findDistinctTraineeByTrainer(trainer);
+//
+//  }
 
   public TraineeWithTrainerListDto getTraineeProfileWithTrainersList(String username) {
 
@@ -191,21 +195,14 @@ public class TraineeService {
   }
 
 
-
   public List<TrainerResponseDto> updateTraineeTrainers(String traineeUsername,
       List<String> newTrainersUsernames) {
 
     List<Trainer> foundedTrainers = trainerService.findByUsernameIn(newTrainersUsernames);
-
     Trainee trainee = getTraineeByUsername(traineeUsername);
-
     trainingService.createTraining(foundedTrainers, trainee);
-
-    List<Trainer> trainers = trainingService.getAllTrainersByTraineeUsername(
-        traineeUsername);
-    log.info(
-        "All trainers by trainee " + trainee.getUsername() + " : " + trainers);
-
+    List<Trainer> trainers = trainingService.getAllTrainersByTraineeUsername(traineeUsername);
+    log.info("All trainers by trainee " + trainee.getUsername() + " : " + trainers);
     return trainerMapper.toTrainerResponseDto(
         trainers);
   }

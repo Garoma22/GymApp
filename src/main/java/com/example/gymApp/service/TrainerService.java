@@ -1,5 +1,6 @@
 package com.example.gymApp.service;
 
+import com.example.gymApp.dto.trainee.TraineeDto;
 import com.example.gymApp.dto.trainer.TrainerDto;
 
 import com.example.gymApp.dto.trainer.TrainerResponseDto;
@@ -17,7 +18,6 @@ import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Lazy;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,6 @@ import com.example.gymApp.dto.trainee.TraineeMapper;
 import com.example.gymApp.dto.trainer.TrainerMapper;
 import com.example.gymApp.dto.trainer.TrainerWithTraineeListDto;
 import com.example.gymApp.model.Training;
-
 
 
 @Slf4j
@@ -46,21 +45,21 @@ public class TrainerService {
   private final TrainerMapper trainerMapper;
 
 
+
   public TrainerWithTraineeListDto updateTrainerProfile(TrainerDto trainerDto) {
     Trainer trainer = trainerRepository.findByUserUsername(trainerDto.getUsername())
-        .orElseThrow(() -> new NoSuchElementException("No trainer found with the username: " + trainerDto.getUsername()));
-
+        .orElseThrow(() -> new NoSuchElementException(
+            "No trainer found with the username: " + trainerDto.getUsername()));
 
     trainer.getUser().setFirstName(trainerDto.getFirstName());
     trainer.getUser().setLastName(trainerDto.getLastName());
-    trainer.setSpecialization(checkSpecializationCorrectness(trainerDto.getTrainingType().getName()));
+    trainer.setSpecialization(
+        checkSpecializationCorrectness(trainerDto.getTrainingType().getName()));
 
     log.info("THIS IS UPDATED TRAINER FROM DB : " + trainer);
 
     List<Trainee> trainees = trainer.getTrainings().stream().map(Training::getTrainee).toList();
     log.info("THIS ARE HIS TRAINEES: " + trainees);
-
-
 
     trainerRepository.save(trainer);
     log.info("UPDATED trainer is SAVED : " + trainer);
@@ -91,12 +90,16 @@ public class TrainerService {
   public Trainer updateTrainer(Trainer trainer, String name, String lastName, String username,
       String password, Boolean activeStatus, String specialization) {
 
-    Optional<TrainingType> trainingTypeOptional = trainingTypeRepository.findByName(specialization);
-    if (trainingTypeOptional.isEmpty()) {
-      throw new IllegalArgumentException("Specialization not found in the database");
-    }
+//    Optional<TrainingType> trainingTypeOptional = trainingTypeRepository.findByName(specialization);
+//    if (trainingTypeOptional.isEmpty()) {
+//      throw new IllegalArgumentException("Specialization not found in the database");
+//    }
+//
+//    TrainingType trainingType = trainingTypeOptional.get();
 
-    TrainingType trainingType = trainingTypeOptional.get();
+    TrainingType trainingType = trainingTypeRepository.findByName(specialization)
+        .orElseThrow(() -> new IllegalArgumentException("Specialization not found in the database"));
+
 
     trainer.getUser().setFirstName(name);
     trainer.getUser().setLastName(lastName);
@@ -110,17 +113,18 @@ public class TrainerService {
     return trainer;
   }
 
+//  public TrainingType checkSpecializationCorrectness(String specialization) {
+//    Optional<TrainingType> trainingType = trainingTypeRepository.findByName(specialization);
+//    if (trainingType.isEmpty()) {
+//      throw new IllegalArgumentException("Specialization not found in the database");
+//    }
+//    return trainingType.get();
+//  }
+
   public TrainingType checkSpecializationCorrectness(String specialization) {
-    Optional<TrainingType> trainingType = trainingTypeRepository.findByName(specialization);
-    if (trainingType.isEmpty()) {
-      throw new IllegalArgumentException("Specialization not found in the database");
-    }
-    return trainingType.get();
+    return trainingTypeRepository.findByName(specialization)
+        .orElseThrow(() -> new IllegalArgumentException("Specialization not found in the database"));
   }
-
-
-
-
 
 
   public Trainer createTrainer(String firstName, String lastName, String username, String password,
@@ -128,7 +132,6 @@ public class TrainerService {
     if (userRepository.findByUsername(username).isPresent()) {
       throw new IllegalArgumentException("Username of trainer already exists");
     }
-
     TrainingType trainingType = checkSpecializationCorrectness(specialization);
 
     User user = new User();
@@ -139,60 +142,54 @@ public class TrainerService {
     user.setActive(true);
 
     Trainer trainer = new Trainer(user, trainingType);
-
     trainerRepository.save(trainer);
-
     log.info("Trainer created successfully: {}", trainer.getUser().getUsername());
     return trainer;
   }
 
 
-
-
-
   public Trainer getTrainerByUsername(String username) {
     return trainerRepository.findByUserUsername(username)
         .orElseThrow(
-    () -> new NoSuchElementException("No trainer found with the username: " + username));
+            () -> new NoSuchElementException("No trainer found with the username: " + username));
   }
 
-  public User getTrainerByPassword(String password) {
-
-    Optional<User> userOpt = userRepository.findByPassword(password);
-
-    if (userOpt.isEmpty()) {
-      throw new IllegalArgumentException("No user found with the provided password");
-    }
-
-    User user = userOpt.get();
-
-    return user;
-  }
+//  public User getTrainerByPassword(String password) {
+//    Optional<User> userOpt = userRepository.findByPassword(password);
+//    if (userOpt.isEmpty()) {
+//      throw new IllegalArgumentException("No user found with the provided password");
+//    }
+//    User user = userOpt.get();
+//    return user;
+//  }
 
   public List<Trainer> getAllTrainersNotAssignedToTrainee(String traineeUsername) {
-
     return trainerRepository.getAllTrainersNotAssignedToTrainee(traineeUsername);
-
   }
 
-
-
   public List<TrainerResponseDto> getAllActiveTrainersNotAssignedToTrainee(String traineeusername) {
-
-    Trainee trainee =  traineeRepository.findByUserUsername(traineeusername)
+    Trainee trainee = traineeRepository.findByUserUsername(traineeusername)
         .orElseThrow(
-            () -> new NoSuchElementException("No trainer found with the username: " + traineeusername));
-
-
-    List<Trainer> trainers = trainingRepository.findAllActiveTrainersNotAssignedToTrainee(trainee.getUsername());
-
-   return trainerMapper.toTrainerResponseDto(trainers);
-
+            () -> new NoSuchElementException(
+                "No trainer found with the username: " + traineeusername));
+    List<Trainer> trainers = trainingRepository.findAllActiveTrainersNotAssignedToTrainee(
+        trainee.getUsername());
+    return trainerMapper.toTrainerResponseDto(trainers);
   }
 
   public List<Trainer> findByUsernameIn(List<String> newTrainersNames) {
-
     return trainerRepository.findByUserUsernameIn(newTrainersNames);
+  }
+
+  public TrainerWithTraineeListDto getTrainerWithTrainees(String username) {
+    Trainer trainer = getTrainerByUsername(username);
+    List<Trainee> trainees =  trainingRepository.findDistinctTraineeByTrainer(trainer);
+    List<TraineeDto> traineeDtosList = traineeMapper.toTraineeDtoList(trainees);
+    return trainerMapper.toTrainerWithTraineeListDto(trainer,
+        traineeDtosList
+    );
+
+
   }
 }
 

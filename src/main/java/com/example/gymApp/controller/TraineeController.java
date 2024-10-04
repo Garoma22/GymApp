@@ -4,28 +4,21 @@ import com.example.gymApp.dto.trainee.TraineeDto;
 import com.example.gymApp.dto.trainee.TraineeMapper;
 import com.example.gymApp.dto.trainee.TraineeTrainingRequestDto;
 import com.example.gymApp.dto.trainee.TraineeWithTrainerListDto;
-import com.example.gymApp.dto.trainer.TrainerDto;
 
 import com.example.gymApp.dto.trainer.TrainerMapper;
 import com.example.gymApp.dto.trainer.TrainerResponseDto;
 import com.example.gymApp.dto.training.TrainingForTraineeResponseDto;
 import com.example.gymApp.dto.trainingType.TrainingForTraineeMapper;
 import com.example.gymApp.model.Trainee;
-import com.example.gymApp.model.Trainer;
-import com.example.gymApp.model.Training;
-import com.example.gymApp.model.User;
 import com.example.gymApp.service.ProfileService;
 import com.example.gymApp.service.TraineeService;
 import com.example.gymApp.service.TrainerService;
 import com.example.gymApp.service.TrainingService;
 import com.example.gymApp.service.UserService;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,22 +35,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class TraineeController {
 
-  private static final Logger log = LoggerFactory.getLogger(TraineeController.class);
   private final TraineeService traineeService;
-  private final UserService userService;
-  private final ProfileService profileService;
-  private final TraineeDto traineeDto;
   private final TraineeMapper traineeMapper;
-  private final TrainerMapper trainerMapper;
   private final TrainerService trainerService;
   private final TrainingService trainingService;
-  private final TrainingForTraineeMapper trainingForTraineeMapper;
 
   @GetMapping("/trainees")
   public List<Trainee> getAllTrainees() {
     return traineeService.getAllTrainees();
   }
-
 
 
   /*
