@@ -65,14 +65,14 @@ class UserServiceTest {
   }
 
   @Test
-  void getUserByUsername_ShouldReturnUser_WhenUsernameExists() {
+  void getUserByUsername_ShouldReturnUser_Dto_WhenUsernameExists() {
     String username = "john.doe";
     User user = new User();
     user.setUsername(username);
 
     when(userRepository.findByUsername(username)).thenReturn(Optional.of(user));
 
-    User result = userService.getUserByUsername(username);
+    User result = userService.getUserDtoByUsername(username);
 
     assertNotNull(result);
     assertEquals(username, result.getUsername());
@@ -80,24 +80,24 @@ class UserServiceTest {
   }
 
   @Test
-  void getUserByUsername_ShouldThrowException_WhenUsernameDoesNotExist() {
+  void getUserDtoByUsername_ShouldThrowException_WhenUsernameDoesNotExist() {
     String username = "john.doe";
 
     when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
 
     NoSuchElementException exception = assertThrows(NoSuchElementException.class,
-        () -> userService.getUserByUsername(username));
+        () -> userService.getUserDtoByUsername(username));
 
     assertEquals("No user with such username", exception.getMessage());
     verify(userRepository, times(1)).findByUsername(username);
   }
 
   @Test
-  void saveUpdatedUser_ShouldSaveUser() {
+  void saveUpdatedUser_ShouldSaveUserFromDtoAndSaveToDb() {
     User user = new User();
     user.setUsername("john.doe");
 
-    userService.saveUpdatedUser(user);
+    userService.setNewPasswordToUserFromDtoAndSaveToDb(user);
 
     verify(userRepository, times(1)).save(user);
   }

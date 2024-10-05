@@ -1,6 +1,6 @@
 package com.example.gymApp.controller;
 
-import com.example.gymApp.dto.training.Training5FieldsRequestDto;
+import com.example.gymApp.dto.training.TrainingRequestDto;
 import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.Trainer;
 import com.example.gymApp.model.Training;
@@ -16,6 +16,7 @@ import com.example.gymApp.service.UserService;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,21 +52,24 @@ b. Response
    */
 
   @PostMapping("/trainings")
-  public ResponseEntity<?> addTraining
-  (@RequestBody Training5FieldsRequestDto request)
-
+  public ResponseEntity<Void> addTraining  //to get back dto!
+  (@RequestBody TrainingRequestDto request)  //todo  - addTrainingRequestDto
   {
-      Trainee trainee = traineeService.getTraineeByUsername(request.getTraineeUsername());
+    Trainee trainee = traineeService.getTraineeByUsername(request.getTraineeUsername());
+    Trainer trainer = trainerService.getTrainerByUsername(request.getTrainerUsername());
 
-      Trainer trainer = trainerService.getTrainerByUsername(request.getTrainerUsername());
+    Training training = trainingService.createTraining5args(trainer, trainee,
+        request.getTrainingName(),
+        request.getTrainingDate(), request.getTrainingDuration());
 
-      Training training = trainingService.createTraining5args(trainer, trainee,
-          request.getTrainingName(),
-      request.getTrainingDate(), request.getTrainingDuration());
-
+    //answer option 1
 //      return ResponseEntity.ok(training);  // useful for checking
 
-      return ResponseEntity.ok().build();
+    //answer option 2
+    return ResponseEntity.status(HttpStatus.CREATED).build();
+
+    //  answer option 3 - required in the task
+//      return ResponseEntity.ok().build();
   }
 
 /*
@@ -80,11 +84,10 @@ Get Training types (GET method)
  */
 
   @GetMapping("/training-types")
-  public ResponseEntity<?> getTrainingTypes(){
+  public ResponseEntity<?> getTrainingTypes() {
     log.info("Received request to get all training types");
-   List<TrainingType> list  = trainiingTypeService.getTrainingTypeList();
+    List<TrainingType> list = trainiingTypeService.getTrainingTypeList(); //get back dtos!
     log.info("Successfully retrieved {} training types", list.size());
-   return ResponseEntity.ok(list);
-
+    return ResponseEntity.ok(list);
   }
 }

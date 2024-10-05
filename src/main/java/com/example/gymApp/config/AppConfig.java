@@ -22,7 +22,6 @@ public class AppConfig {
 
     registrationBean.setFilter(new SessionAuthenticationFilter());
     registrationBean.addUrlPatterns("/protected/*" );
-//    ( "/trainee/*", "trainer/*", "user/*");
 
     return registrationBean;
   }

@@ -10,7 +10,7 @@ import com.example.gymApp.repository.UserRepository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Service
+@AllArgsConstructor
 public class ProfileService {
 
   private final UserRepository userRepository;
@@ -26,27 +27,15 @@ public class ProfileService {
   private final TrainerService trainerService;
   private final TrainerMapper trainerMapper;
 
-  @Autowired
-  public ProfileService(UserRepository userRepository, TraineeMapper traineeMapper,
-      TraineeService traineeService, TrainerService trainerService, TrainerMapper trainerMapper) {
-    this.userRepository = userRepository;
-    this.traineeMapper = traineeMapper;
-    this.traineeService = traineeService;
-    this.trainerService = trainerService;
-    this.trainerMapper = trainerMapper;
-  }
-
-
   public String generateUsername(String firstName, String lastName) {
     String baseUsername = firstName + "." + lastName;
 
-
-    List<String> existingUsernames = userRepository.findAllByUsernameStartingWith(baseUsername + "%");
+    List<String> existingUsernames = userRepository.findAllByUsernameStartingWith(
+        baseUsername + "%");
 
     if (!existingUsernames.contains(baseUsername)) {
       return baseUsername;
     }
-
 
     int maxSuffix = existingUsernames.stream()
         .filter(username -> username.matches(baseUsername + "\\d+"))
@@ -54,7 +43,6 @@ public class ProfileService {
         .mapToInt(suffix -> suffix.isEmpty() ? 0 : Integer.parseInt(suffix))
         .max()
         .orElse(0);
-
 
     return baseUsername + (maxSuffix + 1);
   }
@@ -70,7 +58,7 @@ public class ProfileService {
         .collect(Collectors.joining());
   }
 
-  public Map<String,String> registerTrainee(TraineeDto traineeDto) {
+  public Map<String, String> registerTrainee(TraineeDto traineeDto) {
 
     String username = generateUsername(traineeDto.getFirstName(),
         traineeDto.getLastName());
@@ -97,14 +85,12 @@ public class ProfileService {
   }
 
   public Map<String, String> registerTrainer(TrainerDto trainerDto) {
-    String username = generateUsername(trainerDto.getFirstName(),
-        trainerDto.getLastName());
-    String password = generateRandomPassword();
-
-    trainerService.checkSpecializationCorrectness(
-        trainerDto.getSpecialization());
+    trainerService.checkSpecializationCorrectness(trainerDto.getSpecialization());
 
     Trainer trainer = trainerMapper.toTrainer(trainerDto);
+
+    String username = generateUsername(trainerDto.getFirstName(), trainerDto.getLastName());
+    String password = generateRandomPassword();
     trainer.getUser().setUsername(username);
     trainer.getUser().setPassword(password);
 

@@ -1,6 +1,8 @@
 package com.example.gymApp.model;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Data;
 
 @Data
@@ -20,7 +22,13 @@ public class Trainer {
   @JoinColumn(name = "training_type_id", nullable = false)
   private TrainingType specialization;
 
-  public Trainer() {}
+
+  @OneToMany(mappedBy = "trainer", fetch = FetchType.EAGER)
+  private List<Training> trainings = new ArrayList<>();
+
+
+  public Trainer() {
+  }
 
   public Trainer(User user, TrainingType specialization) {
     this.user = user;
@@ -38,11 +46,6 @@ public class Trainer {
         ", active=" + user.isActive() +
         ", specialization=" + specialization.getName() +
         '}';
-  }
-
-
-  public String getUsername() {
-    return user.getUsername();
   }
 
 

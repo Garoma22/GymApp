@@ -1,16 +1,25 @@
 package com.example.gymApp.service;
 
+import com.example.gymApp.dto.trainee.TraineeDto;
+import com.example.gymApp.dto.trainee.TraineeMapper;
+import com.example.gymApp.dto.trainee.TraineeWithTrainerListDto;
+import com.example.gymApp.dto.trainer.TrainerDto;
+import com.example.gymApp.dto.trainer.TrainerMapper;
+import com.example.gymApp.dto.trainer.TrainerResponseDto;
 import com.example.gymApp.model.Trainee;
 
 import com.example.gymApp.model.Trainer;
-import com.example.gymApp.model.Training;
+
 import com.example.gymApp.model.User;
 import com.example.gymApp.repository.TraineeRepository;
 import com.example.gymApp.repository.TrainerRepository;
 import com.example.gymApp.repository.TrainingRepository;
 import com.example.gymApp.repository.UserRepository;
 import java.util.NoSuchElementException;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,22 +27,20 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+
+@Slf4j
 @Service
+@AllArgsConstructor
 public class TraineeService {
 
   private final TraineeRepository traineeRepository;
   private final UserRepository userRepository;
   private final TrainingRepository trainingRepository;
   private final TrainerRepository trainerRepository;
+  private final TrainerService trainerService;
+  private final TrainingService trainingService;
+  private final TrainerMapper trainerMapper;
 
-  @Autowired
-  public TraineeService(TraineeRepository traineeRepository, UserRepository userRepository,
-      TrainingRepository trainingRepository, TrainerRepository trainerRepository) {
-    this.traineeRepository = traineeRepository;
-    this.userRepository = userRepository;
-    this.trainingRepository = trainingRepository;
-    this.trainerRepository = trainerRepository;
-  }
 
   @Transactional
   public Trainee createTrainee(String firstName, String lastName, String username, String password,
@@ -52,29 +59,32 @@ public class TraineeService {
     // no need to save it separately! И
 //    userRepository.save(user);
 
-
     Trainee trainee = new Trainee();
     trainee.setUser(user);
     trainee.setDateOfBirth(dateOfBirth);
     trainee.setAddress(address);
 
-
     return traineeRepository.save(trainee);
   }
-
 
   public List<Trainee> getAllTrainees() {
     return traineeRepository.findAll();
   }
 
+//  public Trainee getTraineeById(Long id) {
+//    Optional<Trainee> trainee = traineeRepository.findById(id);
+//    if (trainee.isPresent()) {
+//      return trainee.get();
+//    } else {
+//      throw new IllegalArgumentException("Trainee not found with id: " + id);
+//    }
+//  }
+
   public Trainee getTraineeById(Long id) {
-    Optional<Trainee> trainee = traineeRepository.findById(id);
-    if (trainee.isPresent()) {
-      return trainee.get();
-    } else {
-      throw new IllegalArgumentException("Trainee not found with id: " + id);
-    }
+    return traineeRepository.findById(id)
+        .orElseThrow(() -> new IllegalArgumentException("Trainee not found with id: " + id));
   }
+
 
   @Transactional
   public void deleteTrainee(Long id) {
@@ -90,7 +100,9 @@ public class TraineeService {
 
   public Trainee updateTrainee(Trainee trainee, String newName, String newLastName,
       String newUsername,
-      String newPassword, boolean activeStatus, String address,
+      String newPassword,
+      boolean activeStatus,
+      String address,
       LocalDate dateOfBirth) {
 
     trainee.getUser().setFirstName(newName);
@@ -110,39 +122,92 @@ public class TraineeService {
 
   @Transactional
   public void deleteTraineeByUsername(String username) {
-
-    Optional<User> userOpt = userRepository.findByUsername(username);
-
-    if (userOpt.isEmpty()) {
-      throw new NoSuchElementException("No user found with the provided username");
-    }
-
-    User user = userOpt.get();
+    User user = userRepository.findByUsername(username)
+        .orElseThrow(() -> new NoSuchElementException("No user found with the provided username"));
 
     Trainee trainee = traineeRepository.findByUser(user)
         .orElseThrow(() -> new NoSuchElementException("No trainee found for the provided user"));
 
-
-    //deleting connected entities manually!!!
-    List<Training> trainings = trainingRepository.findByTrainee(trainee);
-    trainingRepository.deleteAll(trainings);
+    trainingRepository.findByTrainee(trainee)
+        .forEach(trainingRepository::delete);
 
     traineeRepository.delete(trainee);
-    System.out.println("Trainee and related entities deleted successfully.");
+    log.info("Trainee and related entities deleted successfully.");
   }
 
-  public List<Trainee> getAllTraineesByTrainerUsername(String trainerUsername) {
+//  public List<Trainee> getAllTraineesByTrainerUsername(String trainerUsername) {
+//
+//    Optional<Trainer> trainerOpt = trainerRepository.findByUserUsername(trainerUsername);
+//
+//    if (trainerOpt.isEmpty()) {
+//      throw new NoSuchElementException("No trainee found for the provided user");
+//    }
+//    Trainer trainer = trainerOpt.get();
+//
+//    return trainingRepository.findDistinctTraineeByTrainer(trainer);
+//
+//  }
 
-    Optional<Trainer> trainerOpt = trainerRepository.findByUserUsername(trainerUsername);
+  public TraineeWithTrainerListDto getTraineeProfileWithTrainersList(String username) {
 
-    if (trainerOpt.isEmpty()) {
-      throw new NoSuchElementException("No trainee found for the provided user");
-    }
-    Trainer trainer = trainerOpt.get();
+    Trainee trainee = getTraineeByUsername(username);
 
-    return trainingRepository.findDistinctTraineeByTrainer(trainer);
+    List<TrainerDto> trainersList = trainerService.getAllTrainersDtoByTrainee(username);
 
+    TraineeWithTrainerListDto responseDTO = new TraineeWithTrainerListDto(
+        trainee.getUser().getUsername(),
+        trainee.getUser().getFirstName(),
+        trainee.getUser().getLastName(),
+        trainee.getDateOfBirth(),
+        trainee.getAddress(),
+        trainee.getUser().isActive(),
+        trainersList
+    );
+
+    return responseDTO;
+  }
+
+
+  public TraineeWithTrainerListDto updateTraineeProfile(TraineeDto traineeDto, String username) {
+    Trainee trainee = getTraineeByUsername(username);
+    log.info("Before Update: " + trainee);
+
+    trainee.getUser().setFirstName(traineeDto.getFirstName());
+    trainee.getUser().setLastName(traineeDto.getLastName());
+    trainee.getUser().setActive(traineeDto.isActive());
+    trainee.setDateOfBirth(LocalDate.parse(traineeDto.getDateOfBirth()));
+    trainee.setAddress(traineeDto.getAddress());
+    traineeRepository.save(trainee);
+
+    List<TrainerDto> trainersDtoList = trainerService.getAllTrainersDtoByTrainee(username);
+
+    TraineeWithTrainerListDto responseDto = new TraineeWithTrainerListDto(
+        trainee.getUser().getUsername(),
+        trainee.getUser().getFirstName(),
+        trainee.getUser().getLastName(),
+        trainee.getDateOfBirth(),
+        trainee.getAddress(),
+        trainee.getUser().isActive(),
+        trainersDtoList
+    );
+
+    return responseDto;
+  }
+
+
+  public List<TrainerResponseDto> updateTraineeTrainers(String traineeUsername,
+      List<String> newTrainersUsernames) {
+
+    List<Trainer> foundedTrainers = trainerService.findByUsernameIn(newTrainersUsernames);
+    Trainee trainee = getTraineeByUsername(traineeUsername);
+    trainingService.createTraining(foundedTrainers, trainee);
+    List<Trainer> trainers = trainingService.getAllTrainersByTraineeUsername(traineeUsername);
+    log.info("All trainers by trainee " + trainee.getUsername() + " : " + trainers);
+    return trainerMapper.toTrainerResponseDto(
+        trainers);
   }
 }
+
+
 
 
