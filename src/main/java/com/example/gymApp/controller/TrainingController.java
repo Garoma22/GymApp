@@ -84,7 +84,7 @@ Get Training types (GET method)
  */
 
   @GetMapping("/training-types")
-  public ResponseEntity<?> getTrainingTypes() {
+  public ResponseEntity<List<TrainingType>> getTrainingTypes() {
     log.info("Received request to get all training types");
     List<TrainingType> list = trainiingTypeService.getTrainingTypeList(); //get back dtos!
     log.info("Successfully retrieved {} training types", list.size());
