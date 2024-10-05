@@ -10,7 +10,7 @@ public class TrainingRequestDto {
   private String trainerUsername;
   private String trainingName;
   private LocalDate trainingDate;
-  private Integer trainingDuration
+  private Integer trainingDuration;
 }
 
 
