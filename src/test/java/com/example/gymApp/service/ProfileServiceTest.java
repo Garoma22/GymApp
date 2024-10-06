@@ -80,3 +80,7 @@ class ProfileServiceTest {
     assertTrue(password.matches("[A-Za-z0-9]+"));  // Проверяем, что пароль состоит только из разрешенных символов
   }
 }
+
+
+
+

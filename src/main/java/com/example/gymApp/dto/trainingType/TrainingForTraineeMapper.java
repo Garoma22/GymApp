@@ -19,7 +19,6 @@ public interface TrainingForTraineeMapper {
     trainingType.setName(specializationName);
     return trainingType;
   }
-
   @Named("trainingTypeToMap")
   default String trainingTypeToMap (TrainingType trainingType){
     return trainingType.getName();

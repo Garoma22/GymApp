@@ -36,6 +36,8 @@ public class Training {
   @Column(name = "training_duration", nullable = false)
   private Integer trainingDuration;
 
+
+
   public Training() {}
 
   public Training(Trainer trainer, Trainee trainee, TrainingType trainingType, String trainingName, LocalDate trainingDate, Integer trainingDuration) {
@@ -52,8 +54,8 @@ public class Training {
   public String toString() {
     return "Training{" +
         "id=" + id +
-        ", trainer=" + trainer.getUsername() +
-        ", trainee=" + trainee.getUsername() +
+        ", trainer=" + trainer.getUser().getUsername() +
+        ", trainee=" + trainee.getUser().getUsername() +
         ", trainingType=" + trainingType.getName() +
         ", trainingName='" + trainingName + '\'' +
         ", trainingDate=" + trainingDate +

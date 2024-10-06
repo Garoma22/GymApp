@@ -26,7 +26,7 @@ public class TransactionIdFilter implements Filter {
     log.info("Entering TransactionIdFilter");
 
     String transactionId = UUID.randomUUID().toString();
-    System.out.println("Generated transactionId: " + transactionId);
+    log.info("Generated transactionId: " + transactionId);
     MDC.put("transactionId", transactionId);
 
     try {

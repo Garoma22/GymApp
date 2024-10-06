@@ -47,6 +47,8 @@ public interface TrainingRepository extends JpaRepository<Training, Long> {
   List<Trainee> findDistinctTraineeByTrainer(@Param("trainer") Trainer trainer);
 
 
+
+
   @Query("SELECT DISTINCT tr FROM Trainer tr WHERE tr.user.isActive = true "
       + "AND tr NOT IN (SELECT t.trainer FROM Training t WHERE t.trainee.user.username = :username)")
   List<Trainer> findAllActiveTrainersNotAssignedToTrainee(

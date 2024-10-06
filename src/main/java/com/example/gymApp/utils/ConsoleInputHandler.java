@@ -3,7 +3,6 @@ package com.example.gymApp.utils;
 import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.Trainer;
 import com.example.gymApp.model.Training;
-import com.example.gymApp.model.TrainingType;
 import com.example.gymApp.model.User;
 import com.example.gymApp.service.ProfileService;
 import com.example.gymApp.service.TraineeService;
@@ -11,7 +10,6 @@ import com.example.gymApp.service.TrainerService;
 import com.example.gymApp.service.TrainingService;
 import com.example.gymApp.service.UserService;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +29,7 @@ public class ConsoleInputHandler {
   private final ProfileService profileService;
   private final UserService userService;
 
+
   private final Scanner scanner;
 
   @Autowired
@@ -43,6 +42,7 @@ public class ConsoleInputHandler {
     this.traineeService = traineeService;
     this.profileService = profileService;
     this.userService = userService;
+
 
 
   }
@@ -342,7 +342,7 @@ public class ConsoleInputHandler {
       boolean newActiveStatus = userService.setActivityStatusToUser(activityStatus, user);
 
       user.setActive(newActiveStatus);
-      userService.saveUpdatedUser(user);
+      userService.setNewPasswordToUserFromDtoAndSaveToDb(user);
 
 
     } catch (IllegalArgumentException | NoSuchElementException e) {
@@ -451,7 +451,7 @@ public class ConsoleInputHandler {
       System.out.println("This is new Trainer : " + trainer1);
 
       System.out.println(
-          "Trainer from DB: " + trainerService.getTrainerByUsername(trainer1.getUsername()));
+          "Trainer from DB: " + trainerService.getTrainerByUsername(trainer1.getUser().getUsername()));
     } catch (IllegalArgumentException | NoSuchElementException e) {
       System.out.println(e.getMessage());
 
@@ -477,7 +477,7 @@ public class ConsoleInputHandler {
       System.out.println("New password generated: " + newPassword);
 
       // Сохранить обновленного пользователя
-      userService.saveUpdatedUser(user);
+      userService.setNewPasswordToUserFromDtoAndSaveToDb(user);
       log.info("User password: " + user + " is updated");
 
     } catch (NoSuchElementException e) {

@@ -5,13 +5,14 @@ import lombok.Data;
 
 
 @Data
-public class Training5FieldsRequestDto {
+public class TrainingRequestDto {
   private String traineeUsername;
   private String trainerUsername;
   private String trainingName;
   private LocalDate trainingDate;
   private Integer trainingDuration;
-
 }
+
+
 
 
