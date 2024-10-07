@@ -1,5 +1,6 @@
 package com.example.gymApp.controller;
 
+import com.example.gymApp.actuator.CustomMetrics;
 import com.example.gymApp.dto.user.UserLoginDto;
 import com.example.gymApp.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,14 +21,25 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
   private final AuthService authService;
+  private final CustomMetrics customMetrics;
 
 
   @PostMapping("/login")
   public ResponseEntity<String> login(@RequestBody UserLoginDto loginRequest, HttpServletRequest request) {
+
+    long startTime = System.currentTimeMillis(); //start
+
     boolean isAuthenticated = authService.authenticate(loginRequest.getUsername(), loginRequest.getPassword(), request);
+
+    long duration = System.currentTimeMillis() - startTime; //stop
+
+    customMetrics.recordOperationDuration(duration); //recording operation duration
+
     if (isAuthenticated) {
+      customMetrics.recordSuccess(); // Increasing the counter of successful operations
       return ResponseEntity.ok("Login successful!");
     } else {
+      customMetrics.recordFailure(); //decreasing the counter of successful operations
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
     }
   }

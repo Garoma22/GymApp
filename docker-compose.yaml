@@ -1,55 +1,152 @@
 #version: '3.8'
 #
 #services:
+#  postgres_local:
+#    image: postgres:latest
+#    container_name: gym_db_local
+#    environment:
+#      POSTGRES_USER: user_local
+#      POSTGRES_PASSWORD: user_local
+#      POSTGRES_DB: gym_db_local
+#    ports:
+#      - "5432:5432"
+#    networks:
+#      - app-network
+#
+#  prometheus:
+#    image: prom/prometheus
+#    ports:
+#      - "9090:9090"
+#    volumes:
+#      - ./prometheus.yaml:/etc/prometheus/prometheus.yaml
+#    networks:
+#      - app-network
+#
+#networks:
+#  app-network:
+#    driver: bridge
+
+
+
+#version: '3.8'
+#
+#services:
 #  postgres:
 #    image: postgres:latest
-#    container_name: gym_db_container
+#    container_name: gym_db_container_${ENV}
+#    environment:
+#      POSTGRES_USER: ${POSTGRES_USER}
+#      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+#      POSTGRES_DB: ${POSTGRES_DB}
+#    ports:
+#      - "${POSTGRES_PORT}:5432"
+#    networks:
+#      - app-network
+#
+#networks:
+#  app-network:
+#    driver: bridge
+
+
+#version: '3.8'
+#
+#services:
+#  postgres_local:
+#    image: postgres:latest
+#    container_name: gym_db_container_LOCAL
 #    environment:
 #      POSTGRES_USER: user
 #      POSTGRES_PASSWORD: user
 #      POSTGRES_DB: gym_db
 #    ports:
 #      - "5432:5432"
-#    networks:
-#      - app-network
 #
+#  postgres_dev:
+#    image: postgres:latest
+#    container_name: gym_db_container_DEV
+#    environment:
+#      POSTGRES_USER: user_dev
+#      POSTGRES_PASSWORD: password_dev
+#      POSTGRES_DB: gym_db_dev
+#    ports:
+#      - "5433:5432"
 #
+#  postgres_stg:
+#    image: postgres:latest
+#    container_name: gym_db_container_STG
+#    environment:
+#      POSTGRES_USER: user_stg
+#      POSTGRES_PASSWORD: password_stg
+#      POSTGRES_DB: gym_db_stg
+#    ports:
+#      - "5434:5432"  # Staging среда
 #
+#  postgres_prod:
+#    image: postgres:latest
+#    container_name: gym_db_container_PROD
+#    environment:
+#      POSTGRES_USER: user_prod
+#      POSTGRES_PASSWORD: password_prod
+#      POSTGRES_DB: gym_db_prod
+#    ports:
+#      - "5435:5432"
 #
 #networks:
 #  app-network:
 #    driver: bridge
-#
-#
-#
-#
-#
+
+
 
 
 version: '3.8'
 
 services:
-  postgres:
+  postgres_local:
     image: postgres:latest
-    container_name: gym_db_container
+    container_name: LOCAL_gym_db
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: user
-      POSTGRES_DB: gym_db
+      POSTGRES_USER: user_local
+      POSTGRES_PASSWORD: user_local
+      POSTGRES_DB: gym_db_local
     ports:
       - "5432:5432"
     networks:
       - app-network
 
-  grafana:
-    image: grafana/grafana
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./grafana:/var/lib/grafana
+  postgres_dev:
+    image: postgres:latest
+    container_name: DEV_gym_db
     environment:
-      - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=admin
+      POSTGRES_USER: user_dev
+      POSTGRES_PASSWORD: user_dev
+      POSTGRES_DB: gym_db_dev
+    ports:
+      - "5433:5432"
+    networks:
+      - app-network
+
+  postgres_prod:
+    image: postgres:latest
+    container_name: PROD_gym_db
+    environment:
+      POSTGRES_USER: user_prod
+      POSTGRES_PASSWORD: user_prod
+      POSTGRES_DB: gym_db_prod
+    ports:
+      - "5434:5432"
+    networks:
+      - app-network
+
+
+  postgres_stg:
+    image: postgres:latest
+    container_name: STG_gym_db
+    environment:
+      POSTGRES_USER: user_stg
+      POSTGRES_PASSWORD: user_stg
+      POSTGRES_DB: gym_db_stg
+    ports:
+      - "5435:5432"
     networks:
       - app-network
 
