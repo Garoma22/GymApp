@@ -116,19 +116,12 @@
       <!--      <scope>test</scope>-->
     </dependency>
 
-
-
-
     <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <version>42.7.4</version>
     </dependency>
-
-
-
-
 
     <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310 -->
     <dependency>
@@ -144,16 +137,12 @@
       <version>1.5.5.Final</version>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor -->
     <dependency>
       <groupId>org.mapstruct</groupId>
       <artifactId>mapstruct-processor</artifactId>
       <version>1.5.5.Final</version>
     </dependency>
 
-
-
-    <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok-mapstruct-binding -->
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok-mapstruct-binding</artifactId>
@@ -166,8 +155,6 @@
       <artifactId>micrometer-registry-prometheus</artifactId>
       <version>1.13.4</version>
     </dependency>
-
-
 
 
   </dependencies>
