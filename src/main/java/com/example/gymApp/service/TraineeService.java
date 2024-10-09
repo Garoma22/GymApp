@@ -1,7 +1,6 @@
 package com.example.gymApp.service;
 
 import com.example.gymApp.dto.trainee.TraineeDto;
-import com.example.gymApp.dto.trainee.TraineeMapper;
 import com.example.gymApp.dto.trainee.TraineeWithTrainerListDto;
 import com.example.gymApp.dto.trainer.TrainerDto;
 import com.example.gymApp.dto.trainer.TrainerMapper;
@@ -25,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 
 @Slf4j
@@ -36,7 +34,6 @@ public class TraineeService {
   private final TraineeRepository traineeRepository;
   private final UserRepository userRepository;
   private final TrainingRepository trainingRepository;
-  private final TrainerRepository trainerRepository;
   private final TrainerService trainerService;
   private final TrainingService trainingService;
   private final TrainerMapper trainerMapper;
@@ -86,11 +83,11 @@ public class TraineeService {
   }
 
 
-  @Transactional
-  public void deleteTrainee(Long id) {
-    Trainee trainee = getTraineeById(id);
-    traineeRepository.delete(trainee);
-  }
+//  @Transactional
+//  public void deleteTrainee(Long id) {
+//    Trainee trainee = getTraineeById(id);
+//    traineeRepository.delete(trainee);
+//  }
 
   public Trainee getTraineeByUsername(String username) {
     return traineeRepository.findByUserUsername(username)
@@ -116,8 +113,6 @@ public class TraineeService {
     traineeRepository.save(trainee);
 
     return trainee;
-
-
   }
 
   @Transactional
@@ -193,7 +188,6 @@ public class TraineeService {
 
     return responseDto;
   }
-
 
   public List<TrainerResponseDto> updateTraineeTrainers(String traineeUsername,
       List<String> newTrainersUsernames) {

@@ -30,6 +30,7 @@ public class TrainerDto {
 
   @JsonProperty("isActive")
   private boolean isActive;
+
   private String username;
 
   public TrainerDto() {
