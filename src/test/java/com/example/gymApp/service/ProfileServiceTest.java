@@ -1,85 +1,155 @@
 package com.example.gymApp.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import com.example.gymApp.dto.trainee.TraineeDto;
+import com.example.gymApp.dto.trainee.TraineeMapper;
+import com.example.gymApp.dto.trainer.TrainerDto;
+import com.example.gymApp.dto.trainer.TrainerMapper;
+import com.example.gymApp.model.Trainee;
+import com.example.gymApp.model.Trainer;
+import com.example.gymApp.model.Training;
+import com.example.gymApp.model.TrainingType;
+import com.example.gymApp.model.User;
 import com.example.gymApp.repository.UserRepository;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import org.springframework.test.annotation.DirtiesContext;
+import java.util.Map;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+
+import org.mockito.junit.jupiter.MockitoExtension;
 
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@ExtendWith(MockitoExtension.class)
 class ProfileServiceTest {
 
-  @Mock
-  private UserRepository userRepository;
 
   @InjectMocks
   private ProfileService profileService;
 
-  @BeforeEach
-  void setUp() {
+  @Mock
+  private UserRepository userRepository;
 
-    MockitoAnnotations.openMocks(this);
+  @Mock
+  private TraineeMapper traineeMapper;
+
+  @Mock
+  private TraineeService traineeService;
+
+  @Mock
+  private TrainerMapper trainerMapper;
+
+  @Mock
+  private TrainerService trainerService;
+
+
+
+@Test
+  void generateUsername_noExistingUsernames_returnBaseUsername(){
+  String firstName = "Ivan";
+  String lastName = "Petrov";
+
+  String baseUsername = firstName + "." + lastName;
+
+  when(userRepository.findAllByUsernameStartingWith(baseUsername + "%"))
+      .thenReturn(Collections.emptyList());
+
+  String generatedUsername = profileService.generateUsername(firstName,lastName);
+  assertEquals(baseUsername, generatedUsername);
   }
 
-
   @Test
-  void generateUsername_ShouldReturnBaseUsername_WhenNoSimilarUsernamesExist() {
-
+  void generateUsername_existingUsernames_returnsUsernameWithSuffix() {
     String firstName = "John";
     String lastName = "Doe";
-    String baseUsername = "John.Doe";
-
-    when(userRepository.findAllByUsernameStartingWith(baseUsername + "%"))
-        .thenReturn(Collections.emptyList());
-
-
-    String generatedUsername = profileService.generateUsername(firstName, lastName);
-
-
-    assertEquals(baseUsername, generatedUsername);
-    verify(userRepository).findAllByUsernameStartingWith(baseUsername + "%");
-  }
-
-  @Test
-  void generateUsername_ShouldReturnBaseUsernameWithIncrementedSuffix_WhenSimilarUsernamesExist() {
-
-    String firstName = "John";
-    String lastName = "Doe";
-    String baseUsername = "John.Doe";
+    String baseUsername = firstName + "." + lastName;
 
     List<String> existingUsernames = Arrays.asList("John.Doe", "John.Doe1", "John.Doe2");
     when(userRepository.findAllByUsernameStartingWith(baseUsername + "%"))
         .thenReturn(existingUsernames);
 
-
     String generatedUsername = profileService.generateUsername(firstName, lastName);
+    assertEquals(baseUsername + "3", generatedUsername);
+  }
 
-    assertEquals("John.Doe3", generatedUsername);
-    verify(userRepository).findAllByUsernameStartingWith(baseUsername + "%");
+
+  @Test
+  void registerTrainee_shouldReturnUsernameAndPassword() {
+    TraineeDto traineeDto = new TraineeDto();
+    traineeDto.setFirstName("John");
+    traineeDto.setLastName("Doe");
+
+    Trainee trainee = new Trainee();
+    User user = new User();
+    user.setFirstName("John");
+    user.setLastName("Doe");
+    trainee.setUser(user);
+
+    String expectedUsername = "John.Doe";
+
+
+    when(userRepository.findAllByUsernameStartingWith("John.Doe%")).thenReturn(Collections.emptyList());
+    when(traineeMapper.toTrainee(traineeDto)).thenReturn(trainee);
+
+    when(traineeService.createTrainee(any(), any(), any(), any(), any(), any()))
+        .thenReturn(trainee);
+
+
+    Map<String, String> response = profileService.registerTrainee(traineeDto);
+
+    assertEquals(expectedUsername, response.get("username"));
+    assertNotNull(response.get("password"));
+
+    verify(traineeService).createTrainee(eq("John"), eq("Doe"), eq(expectedUsername), anyString(), any(), any());
   }
 
   @Test
-  void generateRandomPassword_ShouldReturnPasswordOfCorrectLengthAndCharacters() {
+  void registerTrainer_shouldReturnUsernameAndPassword() {
 
-    String password = profileService.generateRandomPassword();
+    TrainerDto trainerDto = new TrainerDto();
+    trainerDto.setFirstName("John");
+    trainerDto.setLastName("Doe");
+    trainerDto.setSpecialization("cardio");
+    TrainingType trainingType = new TrainingType("cardio");
+    trainerDto.setTrainingType(trainingType);
+    trainerDto.setActive(true);
 
-    assertNotNull(password);
-    assertEquals(10, password.length());
-    assertTrue(password.matches("[A-Za-z0-9]+"));  // Проверяем, что пароль состоит только из разрешенных символов
+    Trainer trainer = new Trainer();
+    User user = new User();
+    user.setFirstName("John");
+    user.setLastName("Doe");
+    trainer.setUser(user);
+    trainer.setSpecialization(trainingType);
+
+    String expectedUsername = "John.Doe";
+
+    //imitation of the situation when John.Doe is absent in the db
+    when(userRepository.findAllByUsernameStartingWith("John.Doe%")).thenReturn(Collections.emptyList());
+
+    when(trainerMapper.toTrainer(trainerDto)).thenReturn(trainer);
+    when(trainerService.createTrainer(any(), any(), any(), any(), any())).thenReturn(trainer);
+    when(trainerService.checkSpecializationCorrectness(anyString())).thenReturn(trainingType);
+
+    Map<String, String> response = profileService.registerTrainer(trainerDto);
+
+    assertEquals(expectedUsername, response.get("username"));
+    assertNotNull(response.get("password"));
+
+    verify(trainerService).createTrainer(eq("John"), eq("Doe"), eq(expectedUsername), anyString(), eq(trainingType.getName()));
   }
 }
+
 
 
 
