@@ -272,7 +272,7 @@ public class TraineeServiceTest {
     when(userRepository.findByUsername(traineeUser.getUsername())).thenReturn(
         Optional.of(traineeUser));
     when(traineeRepository.findByUser(traineeUser)).thenReturn(Optional.of(trainee));
-    when(trainingRepository.findByTrainee(trainee)).thenReturn(Arrays.asList(training1, training2));
+    when(trainingRepository.findByTrainee(trainee)).thenReturn(List.of(training1, training2));
     traineeService.deleteTraineeByUsername(traineeUsername);
 
     // Then
@@ -455,7 +455,7 @@ public class TraineeServiceTest {
     TrainerDto trainerDto1 = new TrainerDto("Iavan.Petrov", "Ivan", "Petrov", "cardio");
     TrainerDto trainerDto2 = new TrainerDto("Maria.Sidorova", "Maria", "Sidorova", "yoga");
 
-    List<TrainerDto> trainersList = Arrays.asList(trainerDto1, trainerDto2);
+    List<TrainerDto> trainersList = List.of(trainerDto1, trainerDto2);
 
     // Mock repository and service calls
     when(traineeRepository.findByUserUsername(username)).thenReturn(Optional.of(trainee));
@@ -554,6 +554,64 @@ public class TraineeServiceTest {
     trainer.setSpecialization(specialization);
 
     return trainer;
+  }
+
+  @Test
+  void testGetAllTrainees_shouldReturnAllTrainees() {
+
+    List<Trainee> expectedTrainees = getTrainees();
+
+    when(traineeRepository.findAll()).thenReturn(expectedTrainees);
+
+    List<Trainee> actualTrainees = traineeService.getAllTrainees();
+
+
+    assertNotNull(actualTrainees);
+    assertEquals(2, actualTrainees.size());
+    assertEquals("userFirstName1", actualTrainees.get(0).getUser().getFirstName());
+    assertEquals("userFirstName2", actualTrainees.get(1).getUser().getFirstName());
+
+
+    verify(traineeRepository, times(1)).findAll();
+  }
+
+  private static List<Trainee> getTrainees() {
+    User user1 = new User();
+    user1.setFirstName("userFirstName1");
+    user1.setLastName("userLastName1");
+    user1.setUsername("username1");
+
+    Trainee trainee1 = new Trainee();
+    trainee1.setId(1L);
+    trainee1.setUser(user1);
+
+    User user2 = new User();
+    user2.setFirstName("userFirstName2");
+    user2.setLastName("userLastName2");
+    user2.setUsername("username2");
+
+    Trainee trainee2 = new Trainee();
+    trainee2.setId(2L);
+    trainee2.setUser(user2);
+
+    List<Trainee> expectedTrainees = Arrays.asList(trainee1, trainee2);
+    return expectedTrainees;
+  }
+
+  @Test
+  void testGetAllTrainees_whenNoTrainees_shouldReturnEmptyList() {
+
+    when(traineeRepository.findAll()).thenReturn(List.of());
+
+    // Call the method to test
+    List<Trainee> actualTrainees = traineeService.getAllTrainees();
+
+
+    assertNotNull(actualTrainees);
+    assertTrue(actualTrainees.isEmpty());
+
+
+    verify(traineeRepository, times(1)).findAll();
   }
 }
 

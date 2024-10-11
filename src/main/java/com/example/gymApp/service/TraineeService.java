@@ -68,14 +68,7 @@ public class TraineeService {
     return traineeRepository.findAll();
   }
 
-//  public Trainee getTraineeById(Long id) {
-//    Optional<Trainee> trainee = traineeRepository.findById(id);
-//    if (trainee.isPresent()) {
-//      return trainee.get();
-//    } else {
-//      throw new IllegalArgumentException("Trainee not found with id: " + id);
-//    }
-//  }
+
 
   public Trainee getTraineeById(Long id) {
     return traineeRepository.findById(id)
@@ -200,6 +193,9 @@ public class TraineeService {
     return trainerMapper.toTrainerResponseDto(
         trainers);
   }
+
+
+
 }
 
 
