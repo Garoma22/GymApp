@@ -30,18 +30,14 @@ public class AuthServiceTest {
   void testAuthenticate_Success() {
     User mockUser = new User();
     when(userService.getUserByPasswordAndUsername("username", "password")).thenReturn(mockUser);
-
     boolean result = authService.authenticate("username", "password", new MockHttpServletRequest());
-
     assertTrue(result);
   }
 
   @Test
   void testAuthenticate_Fail() {
     when(userService.getUserByPasswordAndUsername("username", "password")).thenReturn(null);
-
     boolean result = authService.authenticate("username", "password", new MockHttpServletRequest());
-
     assertFalse(result);
   }
 }

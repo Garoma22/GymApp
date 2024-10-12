@@ -603,13 +603,10 @@ public class TraineeServiceTest {
 
     when(traineeRepository.findAll()).thenReturn(List.of());
 
-    // Call the method to test
     List<Trainee> actualTrainees = traineeService.getAllTrainees();
-
 
     assertNotNull(actualTrainees);
     assertTrue(actualTrainees.isEmpty());
-
 
     verify(traineeRepository, times(1)).findAll();
   }
