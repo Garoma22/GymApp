@@ -158,13 +158,6 @@ public class TrainerServiceTest {
 
   }
 
-
-  /*
-
-  public Trainer saveTrainer(Trainer trainer) {
-    return trainerRepository.saveAndFlush(trainer);
-  }
-   */
   @Test
   void testSaveTrainer() {
 

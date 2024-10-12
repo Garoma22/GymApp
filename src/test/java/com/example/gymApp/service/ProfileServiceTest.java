@@ -5,17 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
 import com.example.gymApp.dto.trainee.TraineeDto;
 import com.example.gymApp.dto.trainee.TraineeMapper;
 import com.example.gymApp.dto.trainer.TrainerDto;
 import com.example.gymApp.dto.trainer.TrainerMapper;
 import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.Trainer;
-import com.example.gymApp.model.Training;
 import com.example.gymApp.model.TrainingType;
 import com.example.gymApp.model.User;
 import com.example.gymApp.repository.UserRepository;
@@ -27,13 +24,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-
 import org.mockito.junit.jupiter.MockitoExtension;
-
 
 @ExtendWith(MockitoExtension.class)
 class ProfileServiceTest {
-
 
   @InjectMocks
   private ProfileService profileService;
@@ -53,90 +47,98 @@ class ProfileServiceTest {
   @Mock
   private TrainerService trainerService;
 
+  private User createUser(String firstName, String lastName) {
+    User user = new User();
+    user.setFirstName(firstName);
+    user.setLastName(lastName);
+    return user;
+  }
 
+  private Trainee createTrainee(String firstName, String lastName) {
+    Trainee trainee = new Trainee();
+    trainee.setUser(createUser(firstName, lastName));
+    return trainee;
+  }
 
-@Test
-  void generateUsername_noExistingUsernames_returnBaseUsername(){
-  String firstName = "Ivan";
-  String lastName = "Petrov";
+  private Trainer createTrainer(String firstName, String lastName, TrainingType specialization) {
+    Trainer trainer = new Trainer();
+    trainer.setUser(createUser(firstName, lastName));
+    trainer.setSpecialization(specialization);
+    return trainer;
+  }
 
-  String baseUsername = firstName + "." + lastName;
+  private void mockUserRepositoryForUsernameGeneration(String baseUsername, List<String> existingUsernames) {
+    when(userRepository.findAllByUsernameStartingWith(baseUsername + "%"))
+        .thenReturn(existingUsernames);
+  }
 
-  when(userRepository.findAllByUsernameStartingWith(baseUsername + "%"))
-      .thenReturn(Collections.emptyList());
+  @Test
+  void generateUsername_noExistingUsernames_returnBaseUsername() {
 
-  String generatedUsername = profileService.generateUsername(firstName,lastName);
-  assertEquals(baseUsername, generatedUsername);
+    String firstName = "Ivan";
+    String lastName = "Petrov";
+    String baseUsername = firstName + "." + lastName;
+
+    mockUserRepositoryForUsernameGeneration(baseUsername, Collections.emptyList());
+
+    String generatedUsername = profileService.generateUsername(firstName, lastName);
+
+    assertEquals(baseUsername, generatedUsername);
   }
 
   @Test
   void generateUsername_existingUsernames_returnsUsernameWithSuffix() {
+
     String firstName = "John";
     String lastName = "Doe";
     String baseUsername = firstName + "." + lastName;
 
     List<String> existingUsernames = Arrays.asList("John.Doe", "John.Doe1", "John.Doe2");
-    when(userRepository.findAllByUsernameStartingWith(baseUsername + "%"))
-        .thenReturn(existingUsernames);
+    mockUserRepositoryForUsernameGeneration(baseUsername, existingUsernames);
 
     String generatedUsername = profileService.generateUsername(firstName, lastName);
+
     assertEquals(baseUsername + "3", generatedUsername);
   }
 
-
   @Test
   void registerTrainee_shouldReturnUsernameAndPassword() {
+
     TraineeDto traineeDto = new TraineeDto();
     traineeDto.setFirstName("John");
     traineeDto.setLastName("Doe");
 
-    Trainee trainee = new Trainee();
-    User user = new User();
-    user.setFirstName("John");
-    user.setLastName("Doe");
-    trainee.setUser(user);
-
+    Trainee trainee = createTrainee("John", "Doe");
     String expectedUsername = "John.Doe";
 
-
-    when(userRepository.findAllByUsernameStartingWith("John.Doe%")).thenReturn(Collections.emptyList());
+    mockUserRepositoryForUsernameGeneration(expectedUsername, Collections.emptyList());
     when(traineeMapper.toTrainee(traineeDto)).thenReturn(trainee);
-
     when(traineeService.createTrainee(any(), any(), any(), any(), any(), any()))
         .thenReturn(trainee);
-
 
     Map<String, String> response = profileService.registerTrainee(traineeDto);
 
     assertEquals(expectedUsername, response.get("username"));
     assertNotNull(response.get("password"));
-
     verify(traineeService).createTrainee(eq("John"), eq("Doe"), eq(expectedUsername), anyString(), any(), any());
   }
 
   @Test
   void registerTrainer_shouldReturnUsernameAndPassword() {
-
+    // Arrange
     TrainerDto trainerDto = new TrainerDto();
     trainerDto.setFirstName("John");
     trainerDto.setLastName("Doe");
     trainerDto.setSpecialization("cardio");
+
     TrainingType trainingType = new TrainingType("cardio");
     trainerDto.setTrainingType(trainingType);
     trainerDto.setActive(true);
 
-    Trainer trainer = new Trainer();
-    User user = new User();
-    user.setFirstName("John");
-    user.setLastName("Doe");
-    trainer.setUser(user);
-    trainer.setSpecialization(trainingType);
-
+    Trainer trainer = createTrainer("John", "Doe", trainingType);
     String expectedUsername = "John.Doe";
 
-    //imitation of the situation when John.Doe is absent in the db
-    when(userRepository.findAllByUsernameStartingWith("John.Doe%")).thenReturn(Collections.emptyList());
-
+    mockUserRepositoryForUsernameGeneration(expectedUsername, Collections.emptyList());
     when(trainerMapper.toTrainer(trainerDto)).thenReturn(trainer);
     when(trainerService.createTrainer(any(), any(), any(), any(), any())).thenReturn(trainer);
     when(trainerService.checkSpecializationCorrectness(anyString())).thenReturn(trainingType);
@@ -145,12 +147,9 @@ class ProfileServiceTest {
 
     assertEquals(expectedUsername, response.get("username"));
     assertNotNull(response.get("password"));
-
     verify(trainerService).createTrainer(eq("John"), eq("Doe"), eq(expectedUsername), anyString(), eq(trainingType.getName()));
   }
 }
-
-
 
 
 

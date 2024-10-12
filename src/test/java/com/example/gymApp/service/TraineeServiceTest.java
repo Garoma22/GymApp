@@ -137,19 +137,12 @@ public class TraineeServiceTest {
 
   @Test
   void getTraineeById_shouldThrowExceptionWhenNotExists() {
-    // Given
     Long traineeId = 1L;
-
-    // Mocking repository to return empty (trainee not found)
     when(traineeRepository.findById(traineeId)).thenReturn(Optional.empty());
 
-    // traineeService.getTraineeById(traineeId) will trow an exception if trainee with such id will not be found
-    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+       IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
         () -> traineeService.getTraineeById(traineeId));
-
     assertEquals("Trainee not found with id: " + traineeId, exception.getMessage());
-
-    // Verify that repository's findById was called
     verify(traineeRepository).findById(traineeId);
   }
 
@@ -163,26 +156,22 @@ public class TraineeServiceTest {
     user.setUsername(username);
     trainee.setUser(user);
 
-    // Stub traineeRepository to return the trainee when the username is found
     when(traineeRepository.findByUserUsername(username)).thenReturn(Optional.of(trainee));
 
-    // When
+
     Trainee result = traineeService.getTraineeByUsername(username);
 
-    // Then
     assertNotNull(result);
     assertEquals(username, result.getUser().getUsername());
 
-    // Verify that repository method was called
     verify(traineeRepository).findByUserUsername(username);
   }
 
   @Test
   void getTraineeByUsername_shouldThrowExceptionWhenNotFound() {
-    // Given
+
     String username = "unknown_user";
 
-    // Stub traineeRepository to return an empty Optional when username is not found
     when(traineeRepository.findByUserUsername(username)).thenReturn(Optional.empty());
 
     // When and Then
@@ -191,7 +180,6 @@ public class TraineeServiceTest {
 
     assertEquals("No trainee found with the username: " + username, exception.getMessage());
 
-    // Verify that repository method was called
     verify(traineeRepository).findByUserUsername(username);
   }
 
@@ -232,26 +220,14 @@ public class TraineeServiceTest {
     assertEquals(address, updatedTrainee.getAddress());
     assertEquals(dateOfBirth, updatedTrainee.getDateOfBirth());
 
-    // Verify that traineeRepository.save() was called
     verify(traineeRepository).save(trainee);
   }
 
   @Test
   void deleteTraineeByUsername_shouldDeleteTraineeAndRelatedEntities() {
 
-    //mock Trainee
-    String traineeUsername = "traineeUsername";
-    User traineeUser = new User();
-    traineeUser.setUsername(traineeUsername);
-    Trainee trainee = new Trainee();
-    trainee.setUser(traineeUser);
-
-    //mock Trainer
-    String trainerUsername = "trainerUsername";
-    User trainerUser = new User();
-    trainerUser.setUsername(trainerUsername);
-    Trainer trainer = new Trainer();
-    trainer.setUser(trainerUser);
+    Trainer trainer = createMockTrainer("trainerUsername", "cardio");
+    Trainee trainee = createMockTrainee("traineeUsername", "someAddress");
 
     //mock training1
     Training training1 = new Training();
@@ -260,7 +236,6 @@ public class TraineeServiceTest {
     training1.setTrainee(trainee);
     training1.setTrainer(trainer);
 
-//
     //mock training2
     Training training2 = new Training();
     training2.setId(2L);  // Ensure you set some values
@@ -269,51 +244,42 @@ public class TraineeServiceTest {
     training2.setTrainer(trainer);
 
     // Mock repository calls for trainee
-    when(userRepository.findByUsername(traineeUser.getUsername())).thenReturn(
-        Optional.of(traineeUser));
-    when(traineeRepository.findByUser(traineeUser)).thenReturn(Optional.of(trainee));
+    when(userRepository.findByUsername(trainee.getUser().getUsername())).thenReturn(
+        Optional.of(trainee.getUser()));
+    when(traineeRepository.findByUser(trainee.getUser())).thenReturn(Optional.of(trainee));
     when(trainingRepository.findByTrainee(trainee)).thenReturn(List.of(training1, training2));
-    traineeService.deleteTraineeByUsername(traineeUsername);
+    traineeService.deleteTraineeByUsername(trainee.getUsername());
 
     // Then
-    // Verify that both trainings were deleted
     verify(trainingRepository, times(1)).delete(training1);
     verify(trainingRepository, times(1)).delete(training2);
 
-    // Verify that the trainee was deleted
+
     verify(traineeRepository, times(1)).delete(trainee);
 
-    // Verify that the trainer WAS NOT deleted!
     verify(trainerRepository, times(0)).delete(trainer);
 
-    // Verify the total number of delete invocations on trainingRepository
     verify(trainingRepository, times(2)).delete(any(Training.class));
   }
 
 
   @Test
   void deleteTraineeByUsername_shouldThrowExceptionIfUserNotFound() {
-    // Given
-    String username = "nonexistentUsername";
 
-    // Mocking the repository call to return empty when user is not found
+    String username = "nonexistentUsername";
     when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
 
-    // When & Then
     NoSuchElementException exception = assertThrows(NoSuchElementException.class, () -> {
       traineeService.deleteTraineeByUsername(username);
     });
-
     assertEquals("No user found with the provided username", exception.getMessage());
 
-    // Verify that the trainee and trainings are never touched
     verify(traineeRepository, never()).delete(any());
     verify(trainingRepository, never()).delete(any());
   }
 
   @Test
   void deleteTraineeByUsername_shouldThrowExceptionIfTraineeNotFound() {
-
     String username = "traineeUsername";
     User user = new User();
     user.setUsername(username);
@@ -329,7 +295,6 @@ public class TraineeServiceTest {
     verify(traineeRepository, never()).delete(any());
     verify(trainingRepository, never()).delete(any());
   }
-
 
   @Test
   void getTraineeProfileWithTrainersList_shouldReturnTraineeProfileWithTrainersList() {
@@ -610,6 +575,18 @@ public class TraineeServiceTest {
 
     verify(traineeRepository, times(1)).findAll();
   }
+
+
+  private Trainee createMockTrainee(String username, String address) {
+    User user = new User();
+    user.setUsername(username);
+    Trainee trainee = new Trainee();
+    trainee.setUser(user);
+    trainee.setAddress(address);
+    trainee.getUser().setActive(true);
+    return trainee;
+  }
+
 }
 
 
