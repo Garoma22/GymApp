@@ -70,6 +70,7 @@ public class TrainerService {
 
   public List<TrainerDto> getAllTrainersDtoByTrainee(String traineeUsername) {
     List<Trainer> trainers = getAlltrainersByTrainee(traineeUsername);
+
     return trainers.stream()
         .map(trainerToTrainerDtoConverter::convert)  //using converter
         .collect(Collectors.toList());
@@ -78,7 +79,6 @@ public class TrainerService {
   public List<Trainer> getAlltrainersByTrainee(String traineeUsername) {
     Trainee trainee = traineeRepository.findByUserUsername(traineeUsername)
         .orElseThrow(() -> new NoSuchElementException("No trainee found for the provided user"));
-
     return trainingRepository.findDistinctTrainersByTrainee(trainee);
   }
 
@@ -89,14 +89,6 @@ public class TrainerService {
   @Transactional
   public Trainer updateTrainer(Trainer trainer, String name, String lastName, String username,
       String password, Boolean activeStatus, String specialization) {
-
-//    Optional<TrainingType> trainingTypeOptional = trainingTypeRepository.findByName(specialization);
-//    if (trainingTypeOptional.isEmpty()) {
-//      throw new IllegalArgumentException("Specialization not found in the database");
-//    }
-//
-//    TrainingType trainingType = trainingTypeOptional.get();
-
     TrainingType trainingType = trainingTypeRepository.findByName(specialization)
         .orElseThrow(() -> new IllegalArgumentException("Specialization not found in the database"));
 
@@ -109,17 +101,11 @@ public class TrainerService {
     trainer.setSpecialization(trainingType);
 
     trainerRepository.save(trainer);
-
     return trainer;
+
+
   }
 
-//  public TrainingType checkSpecializationCorrectness(String specialization) {
-//    Optional<TrainingType> trainingType = trainingTypeRepository.findByName(specialization);
-//    if (trainingType.isEmpty()) {
-//      throw new IllegalArgumentException("Specialization not found in the database");
-//    }
-//    return trainingType.get();
-//  }
 
   public TrainingType checkSpecializationCorrectness(String specialization) {
     return trainingTypeRepository.findByName(specialization)
@@ -154,15 +140,6 @@ public class TrainerService {
             () -> new NoSuchElementException("No trainer found with the username: " + username));
   }
 
-//  public User getTrainerByPassword(String password) {
-//    Optional<User> userOpt = userRepository.findByPassword(password);
-//    if (userOpt.isEmpty()) {
-//      throw new IllegalArgumentException("No user found with the provided password");
-//    }
-//    User user = userOpt.get();
-//    return user;
-//  }
-
   public List<Trainer> getAllTrainersNotAssignedToTrainee(String traineeUsername) {
     return trainerRepository.getAllTrainersNotAssignedToTrainee(traineeUsername);
   }
@@ -172,13 +149,12 @@ public class TrainerService {
         .orElseThrow(
             () -> new NoSuchElementException(
                 "No trainer found with the username: " + traineeusername));
-    List<Trainer> trainers = trainingRepository.findAllActiveTrainersNotAssignedToTrainee(
-        trainee.getUsername());
+    List<Trainer> trainers = trainingRepository.findAllActiveTrainersNotAssignedToTrainee(trainee.getUsername());
     return trainerMapper.toTrainerResponseDto(trainers);
   }
 
-  public List<Trainer> findByUsernameIn(List<String> newTrainersNames) {
-    return trainerRepository.findByUserUsernameIn(newTrainersNames);
+  public List<Trainer> findByUsernameIn(List<String> newTrainersUserNames) {
+    return trainerRepository.findByUserUsernameIn(newTrainersUserNames);
   }
 
   public TrainerWithTraineeListDto getTrainerWithTrainees(String username) {
@@ -190,6 +166,11 @@ public class TrainerService {
     );
 
 
+
+
+
   }
+
+
 }
 

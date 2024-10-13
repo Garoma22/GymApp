@@ -58,7 +58,7 @@ b. Response
     Trainee trainee = traineeService.getTraineeByUsername(request.getTraineeUsername());
     Trainer trainer = trainerService.getTrainerByUsername(request.getTrainerUsername());
 
-    Training training = trainingService.createTraining5args(trainer, trainee,
+    Training training = trainingService.createTraining(trainer, trainee,
         request.getTrainingName(),
         request.getTrainingDate(), request.getTrainingDuration());
 
