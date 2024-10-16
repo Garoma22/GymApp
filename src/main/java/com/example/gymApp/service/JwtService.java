@@ -32,10 +32,11 @@ public class JwtService {
     return extractClaim(token, Claims::getSubject);
   }
 
-// 5. the token on the single userDetails base - will use in later
+// 5. the token on the single userDetails base - will use it later
 String generateToken(UserDetails userDetails){
     return generateToken(new HashMap<>(), userDetails);
   }
+
 
 
 

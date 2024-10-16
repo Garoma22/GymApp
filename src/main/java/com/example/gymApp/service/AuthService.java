@@ -3,16 +3,22 @@ package com.example.gymApp.service;
 import com.example.gymApp.authentification.AuthenticationRequest;
 import com.example.gymApp.authentification.AuthenticationResponse;
 import com.example.gymApp.authentification.RegisterRequest;
+import com.example.gymApp.dto.trainee.TraineeDto;
+import com.example.gymApp.dto.trainer.TrainerDto;
 import com.example.gymApp.model.Role;
+import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.User;
 import com.example.gymApp.repository.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +32,11 @@ public class AuthService {
   private final PasswordEncoder passwordEncoder;
   private final JwtService jwtService;
   private final AuthenticationManager authenticationManager;
+  private final ProfileService profileService;
+  private final UserDetailsService userDetailsService;
+
+
+  //AN OLD AUTHENTICATION METHOD
 
 //  public boolean authenticate(String username, String password, HttpServletRequest request) {
 //    User user = userService.getUserByPasswordAndUsername(username, password);
@@ -38,25 +49,27 @@ public class AuthService {
 //  }
 
 
+  // NOT USED IN APP - HERE FOR EXAMPLE !(USER ENTITY)
+
   //method register user in DB and return the generated token
   //here we build user from RegisterRequest
-  public AuthenticationResponse register(RegisterRequest request) {
-
-    var user = User.builder()
-
-        .firstName(request.getFirstName())
-        .lastName(request.getLastName())
-        .username(request.getUsername())
-        .password(passwordEncoder.encode(request.getPassword()))
-        .role(Role.USER)
-        .build();
-    userRepository.save(user);
-    var jwtToken = jwtService.generateToken(user);
-    return AuthenticationResponse
-        .builder()
-        .token(jwtToken)
-        .build();
-  }
+//  public AuthenticationResponse register(RegisterRequest request) {
+//
+//    var user = User.builder()
+//
+//        .firstName(request.getFirstName())
+//        .lastName(request.getLastName())
+//        .username(request.getUsername())
+//        .password(passwordEncoder.encode(request.getPassword()))
+//        .role(Role.USER)
+//        .build();
+//    userRepository.save(user);
+//    var jwtToken = jwtService.generateToken(user);
+//    return AuthenticationResponse
+//        .builder()
+//        .token(jwtToken)
+//        .build();
+//  }
 
 
   //here we are checking login and password
@@ -80,8 +93,6 @@ public class AuthService {
             // against data stored in a database or other storage.
         )
     );
-
-
     /*
     General process:
     After successful authentication of the user, his data (username) is used to search the database via userRepository.
@@ -90,12 +101,51 @@ public class AuthService {
     The client can use this token to access protected resources by passing it in the request header.
      */
 
-    var user = userRepository.findByUsername(request.getUsername())
-        .orElseThrow();
-    var jwtToken = jwtService.generateToken(user);
+    // Use UserDetailsService for getting user from DB
+    UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
+
+    // Генерация токена на основе объекта UserDetails
+    var jwtToken = jwtService.generateToken(userDetails);
+
     return AuthenticationResponse
         .builder()
         .token(jwtToken)
         .build();
+
+
+
+//    var user = userRepository.findByUsername(request.getUsername())
+//        .orElseThrow();
+//    var jwtToken = jwtService.generateToken(user);
+//    return AuthenticationResponse
+//        .builder()
+//        .token(jwtToken)
+//        .build();
   }
+
+
+  //works!
+//methods i use in APP:
+
+  public AuthenticationResponse registerTrainee(TraineeDto traineeDto) {
+    Map<String, String> registrationData = profileService.registerTrainee(traineeDto);
+    var user = userRepository.findByUsername(registrationData.get("username"))
+        .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+    var jwtToken = jwtService.generateToken(user);
+    return AuthenticationResponse.builder().token(jwtToken).build();
+  }
+
+  public AuthenticationResponse registerTrainer(TrainerDto trainerDto) {
+    Map<String, String> registrationData = profileService.registerTrainer(trainerDto);
+
+    var user = userRepository.findByUsername(registrationData.get("username"))
+        .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+    var jwtToken = jwtService.generateToken(user);
+    return AuthenticationResponse.builder().token(jwtToken).build();
+  }
+
+
+
 }

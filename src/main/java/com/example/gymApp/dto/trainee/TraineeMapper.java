@@ -19,24 +19,6 @@ public interface TraineeMapper {
   Trainee toTrainee(TraineeDto dto);
 
 
-//  @Mapping(source = "user.firstName", target = "firstName")
-//  @Mapping(source = "user.lastName", target = "lastName")
-//  @Mapping(source = "dateOfBirth", target = "dateOfBirth")
-//  @Mapping(source = "address", target = "address")
-//  TraineeDto toTraineeDto(Trainee trainee);
-//
-//
-//  @Mapping(source = "user.firstName", target = "firstName")
-//  @Mapping(source = "user.lastName", target = "lastName")
-//  @Mapping(source = "user.username", target = "username")
-//  @Mapping(source = "dateOfBirth", target = "dateOfBirth")
-//  @Mapping(source = "address", target = "address")
-//  // !!!! In MapStruct, for boolean fields, if the field is called isActive,
-//  // MapStruct automatically removes the is prefix and expects the mapper to use
-//  // the name active, even if the class name is isActive. This is a built-in MapStruct
-//  // behavior that cannot be changed directly without additional configuration.
-//  @Mapping(source = "user.active", target = "active")
-//  TraineeDto toTraineeDto6Fields(Trainee trainee);
 
 
   @Named("toTraineeDto")

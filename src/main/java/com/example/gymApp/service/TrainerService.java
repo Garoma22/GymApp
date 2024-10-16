@@ -4,6 +4,7 @@ import com.example.gymApp.dto.trainee.TraineeDto;
 import com.example.gymApp.dto.trainer.TrainerDto;
 
 import com.example.gymApp.dto.trainer.TrainerResponseDto;
+import com.example.gymApp.model.Role;
 import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.Trainer;
 import com.example.gymApp.model.TrainingType;
@@ -126,8 +127,11 @@ public class TrainerService {
     user.setUsername(username);
     user.setPassword(password);
     user.setActive(true);
+    user.setRole(Role.TRAINER);
+
 
     Trainer trainer = new Trainer(user, trainingType);
+
     trainerRepository.save(trainer);
     log.info("Trainer created successfully: {}", trainer.getUser().getUsername());
     return trainer;

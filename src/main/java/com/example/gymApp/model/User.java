@@ -55,6 +55,7 @@ public class User implements UserDetails { // UserDetails is needed for Spring S
   }
 
   @Enumerated(EnumType.STRING)
+  @Column(name = "role", nullable = false)
   private Role role;
 
   @Override

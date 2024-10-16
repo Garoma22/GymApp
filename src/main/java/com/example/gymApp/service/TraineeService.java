@@ -5,6 +5,7 @@ import com.example.gymApp.dto.trainee.TraineeWithTrainerListDto;
 import com.example.gymApp.dto.trainer.TrainerDto;
 import com.example.gymApp.dto.trainer.TrainerMapper;
 import com.example.gymApp.dto.trainer.TrainerResponseDto;
+import com.example.gymApp.model.Role;
 import com.example.gymApp.model.Trainee;
 
 import com.example.gymApp.model.Trainer;
@@ -54,12 +55,13 @@ public class TraineeService {
     user.setActive(true);
 
     // no need to save it separately! И
-//    userRepository.save(user);
+    // userRepository.save(user);
 
     Trainee trainee = new Trainee();
     trainee.setUser(user);
     trainee.setDateOfBirth(dateOfBirth);
     trainee.setAddress(address);
+    trainee.getUser().setRole(Role.TRAINEE);
 
     return traineeRepository.save(trainee);
   }
@@ -69,12 +71,10 @@ public class TraineeService {
   }
 
 
-
   public Trainee getTraineeById(Long id) {
     return traineeRepository.findById(id)
         .orElseThrow(() -> new IllegalArgumentException("Trainee not found with id: " + id));
   }
-
 
 //  @Transactional
 //  public void deleteTrainee(Long id) {
@@ -122,7 +122,6 @@ public class TraineeService {
     traineeRepository.delete(trainee);
     log.info("Trainee and related entities deleted successfully.");
   }
-
 
 
   public TraineeWithTrainerListDto getTraineeProfileWithTrainersList(String username) {
@@ -182,7 +181,6 @@ public class TraineeService {
     return trainerMapper.toTrainerResponseDto(
         trainers);
   }
-
 
 
 }

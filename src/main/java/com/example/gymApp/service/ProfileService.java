@@ -4,13 +4,16 @@ import com.example.gymApp.dto.trainee.TraineeDto;
 import com.example.gymApp.dto.trainee.TraineeMapper;
 import com.example.gymApp.dto.trainer.TrainerDto;
 import com.example.gymApp.dto.trainer.TrainerMapper;
+import com.example.gymApp.model.Role;
 import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.Trainer;
 import com.example.gymApp.repository.UserRepository;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
@@ -26,6 +29,7 @@ public class ProfileService {
   private final TraineeService traineeService;
   private final TrainerService trainerService;
   private final TrainerMapper trainerMapper;
+  private final PasswordEncoder passwordEncoder;
 
   public String generateUsername(String firstName, String lastName) {
     String baseUsername = firstName + "." + lastName;
@@ -62,24 +66,25 @@ public class ProfileService {
 
     String username = generateUsername(traineeDto.getFirstName(),
         traineeDto.getLastName());
-    String password = generateRandomPassword();
 
-    Trainee trainee = traineeMapper.toTrainee(traineeDto);
-    trainee.getUser().setUsername(username);
-    trainee.getUser().setPassword(password);
+//  String rawPassword = generateRandomPassword();
+    String rawPassword = "password"; //need to have when we are checking authentication
+
+    String encodedPassword = passwordEncoder.encode(rawPassword);
 
     traineeService.createTrainee(
-        trainee.getUser().getFirstName(),
-        trainee.getUser().getLastName(),
+        traineeDto.getFirstName(),
+        traineeDto.getLastName(),
         username,
-        password,
-        trainee.getDateOfBirth(),
-        trainee.getAddress()
+        encodedPassword,
+        LocalDate.parse(traineeDto.getDateOfBirth()),
+        traineeDto.getAddress()
     );
 
+    // todo Probably need to respond only 200 ok here, not the rawPassword
     Map<String, String> response = new HashMap<>();
     response.put("username", username);
-    response.put("password", password);
+    response.put("password", rawPassword);
 
     return response;
   }
@@ -93,6 +98,7 @@ public class ProfileService {
     String password = generateRandomPassword();
     trainer.getUser().setUsername(username);
     trainer.getUser().setPassword(password);
+    trainer.getUser().setRole(Role.TRAINER);
 
     trainerService.createTrainer(
         trainer.getUser().getFirstName(),

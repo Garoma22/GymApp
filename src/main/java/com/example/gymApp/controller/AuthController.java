@@ -4,6 +4,8 @@ import com.example.gymApp.actuator.CustomMetrics;
 import com.example.gymApp.authentification.AuthenticationRequest;
 import com.example.gymApp.authentification.AuthenticationResponse;
 import com.example.gymApp.authentification.RegisterRequest;
+import com.example.gymApp.dto.trainee.TraineeDto;
+import com.example.gymApp.dto.trainer.TrainerDto;
 import com.example.gymApp.dto.user.UserLoginDto;
 import com.example.gymApp.service.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -25,7 +27,6 @@ public class AuthController {
 
   private final AuthService authService;
   private final CustomMetrics customMetrics;
-
 
 //  @PostMapping("/login")
 //  public ResponseEntity<String> login(@RequestBody UserLoginDto loginRequest, HttpServletRequest request) {
@@ -58,26 +59,41 @@ public class AuthController {
 //    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Logged out successfully.");
 //  }
 
+//   //REALIZATION FROM VIDEO
+//  @PostMapping("/register")
+//  public ResponseEntity<AuthenticationResponse> register(
+//      @RequestBody RegisterRequest request
+//  ){
+//
+//    return ResponseEntity.ok(authService.register(request));
+//
+//  }
+//
 
-  @PostMapping("/register")
-  public ResponseEntity<AuthenticationResponse> register(
-      @RequestBody RegisterRequest request
-  ){
 
-    return ResponseEntity.ok(authService.register(request));
 
-  }
 
   @PostMapping("/authenticate")
   public ResponseEntity<AuthenticationResponse> register(
       @RequestBody AuthenticationRequest request
   ){
-
-
     return ResponseEntity.ok(authService.authenticate(request));
   }
 
+  // Регистрация стажера
+  @PostMapping("/register/trainee")
+  public ResponseEntity<AuthenticationResponse> registerTrainee(
+      @RequestBody TraineeDto request
+  ){
+    return ResponseEntity.ok(authService.registerTrainee(request));
+  }
 
-
+  // Регистрация тренера
+  @PostMapping("/register/trainer")
+  public ResponseEntity<AuthenticationResponse> registerTrainer(
+      @RequestBody TrainerDto request
+  ){
+    return ResponseEntity.ok(authService.registerTrainer(request));
+  }
 
 }
