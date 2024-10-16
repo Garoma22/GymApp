@@ -123,18 +123,7 @@ public class TraineeService {
     log.info("Trainee and related entities deleted successfully.");
   }
 
-//  public List<Trainee> getAllTraineesByTrainerUsername(String trainerUsername) {
-//
-//    Optional<Trainer> trainerOpt = trainerRepository.findByUserUsername(trainerUsername);
-//
-//    if (trainerOpt.isEmpty()) {
-//      throw new NoSuchElementException("No trainee found for the provided user");
-//    }
-//    Trainer trainer = trainerOpt.get();
-//
-//    return trainingRepository.findDistinctTraineeByTrainer(trainer);
-//
-//  }
+
 
   public TraineeWithTrainerListDto getTraineeProfileWithTrainersList(String username) {
 

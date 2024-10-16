@@ -37,16 +37,6 @@ public class UserService {
     }
   }
 
-//  public User getUserByUsername(String username) {
-//    Optional<User> user = userRepository.findByUsername(username);
-//    if (user.isPresent()) {
-//      return user.get();
-//    } else {
-//      throw new NoSuchElementException("No user with such username");
-//    }
-//  }
-
-
   public UserLoginDto getUserDtoByUsername(String username) {
     User user = userRepository.findByUsername(username)
         .orElseThrow(() -> new NoSuchElementException("No user with such username"));
