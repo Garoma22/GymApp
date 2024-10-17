@@ -1,10 +1,8 @@
 package com.example.gymApp.config;
 
-//import com.example.gymApp.authentification.SessionAuthenticationFilter;
 
 import com.example.gymApp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -13,8 +11,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,20 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @ComponentScan(basePackages = "com.example.gymApp")
 public class AppConfig {
 
-  private final UserRepository userRepository; //this
-
-//    @Bean
-//    public FilterRegistrationBean<SessionAuthenticationFilter> sessionFilter() {
-//      FilterRegistrationBean<SessionAuthenticationFilter> registrationBean =
-//          new FilterRegistrationBean<>();
-//
-//      registrationBean.setFilter(new SessionAuthenticationFilter());
-//
-//      registrationBean.addUrlPatterns("/protected/*");
-//
-//      return registrationBean;
-//    }
-
+  private final UserRepository userRepository;
 
   //added userRepository to that
   @Bean
