@@ -8,6 +8,8 @@ import com.example.gymApp.dto.trainee.TraineeDto;
 import com.example.gymApp.dto.trainer.TrainerDto;
 import com.example.gymApp.dto.user.UserLoginDto;
 import com.example.gymApp.service.AuthService;
+
+import com.example.gymApp.service.TokenBlacklistService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +29,8 @@ public class AuthController {
 
   private final AuthService authService;
   private final CustomMetrics customMetrics;
+  private final TokenBlacklistService tokenBlacklistService;
+
 
 //  @PostMapping("/login")
 //  public ResponseEntity<String> login(@RequestBody UserLoginDto loginRequest, HttpServletRequest request) {
@@ -73,14 +77,25 @@ public class AuthController {
 
 
 
-  @PostMapping("/authenticate")
+  @PostMapping("/login")
   public ResponseEntity<AuthenticationResponse> register(
       @RequestBody AuthenticationRequest request
   ){
     return ResponseEntity.ok(authService.authenticate(request));
   }
 
-  // Регистрация стажера
+
+  @PostMapping("/logout")
+  public ResponseEntity<String> logout(HttpServletRequest request) {
+    String authHeader = request.getHeader("Authorization");
+    if (authHeader != null && authHeader.startsWith("Bearer ")) {
+      String jwt = authHeader.substring(7);
+      tokenBlacklistService.addTokenToBlacklist(jwt);
+      return ResponseEntity.ok("Logged out successfully.");
+    }
+    return ResponseEntity.badRequest().body("Invalid Authorization header.");
+  }
+
   @PostMapping("/register/trainee")
   public ResponseEntity<AuthenticationResponse> registerTrainee(
       @RequestBody TraineeDto request

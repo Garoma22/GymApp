@@ -1,6 +1,7 @@
 package com.example.gymApp.config;
 
 import com.example.gymApp.service.JwtService;
+import com.example.gymApp.service.TokenBlacklistService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,6 +23,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
   private final JwtService jwtService;
   private final UserDetailsService userDetailsService;
+  private final TokenBlacklistService tokenBlacklistService;
 
   @Override
   protected void doFilterInternal(
@@ -43,6 +45,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
     jwt = authHeader.substring(7);
     // Extracts the JWT token by removing the "Bearer " prefix from the Authorization header.
+
+    if (tokenBlacklistService.isTokenBlacklisted(jwt)) {
+      response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+      return;
+    }
+
     username = jwtService.extractUsername(jwt);
 
     //check is user Authenticated - SecurityContextHolder stores security information about the current thread (such as authentication data).
