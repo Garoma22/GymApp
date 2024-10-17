@@ -70,6 +70,8 @@ public class ProfileService {
 //  String rawPassword = generateRandomPassword();
     String rawPassword = "password"; //need to have when we are checking authentication
 
+
+
     String encodedPassword = passwordEncoder.encode(rawPassword);
 
     traineeService.createTrainee(

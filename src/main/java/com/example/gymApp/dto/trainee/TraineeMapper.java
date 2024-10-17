@@ -6,7 +6,6 @@ import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
-import org.springframework.stereotype.Component;
 
 
 @Mapper(componentModel = "spring")
@@ -24,7 +23,9 @@ public interface TraineeMapper {
   @Named("toTraineeDto")
   @Mapping(target = "isActive", ignore = true)
 
-  default TraineeDto toTraineeDtoWith3Fields(Trainee trainee) {
+
+  //did refactoring of the method name(from toTraineeDtoWith3Fields)
+  default TraineeDto toTraineeDto(Trainee trainee) {
     TraineeDto dto = new TraineeDto();
     dto.setFirstName(trainee.getUser().getFirstName());
     dto.setLastName(trainee.getUser().getLastName());

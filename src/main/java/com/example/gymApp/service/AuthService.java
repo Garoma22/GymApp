@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -34,6 +35,7 @@ public class AuthService {
   private final AuthenticationManager authenticationManager;
   private final ProfileService profileService;
   private final UserDetailsService userDetailsService;
+  private final LoginAttemptService loginAttemptService;
 
 
   //AN OLD AUTHENTICATION METHOD
@@ -49,50 +51,41 @@ public class AuthService {
 //  }
 
 
-  // NOT USED IN APP - HERE FOR EXAMPLE !(USER ENTITY)
 
-  //method register user in DB and return the generated token
-  //here we build user from RegisterRequest
-//  public AuthenticationResponse register(RegisterRequest request) {
-//
-//    var user = User.builder()
-//
-//        .firstName(request.getFirstName())
-//        .lastName(request.getLastName())
-//        .username(request.getUsername())
-//        .password(passwordEncoder.encode(request.getPassword()))
-//        .role(Role.USER)
-//        .build();
-//    userRepository.save(user);
-//    var jwtToken = jwtService.generateToken(user);
-//    return AuthenticationResponse
-//        .builder()
-//        .token(jwtToken)
-//        .build();
-//  }
 
 
   //here we are checking login and password
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
+
+
+
+    String username = request.getUsername();
+
+    // check of blocking
+    if (loginAttemptService.isBlocked(username)) {
+      throw new RuntimeException("User is blocked. Try again in "
+          + loginAttemptService.getRemainingBlockTime(username) + " minutes.");
+    }
+
+    try {
 
     /*
     authenticationManager is an object of type AuthenticationManager that manages the authentication
     process. It compares the provided credentials with the data stored in the system (e.g., a database)
     using the configured UserDetailsService and PasswordEncoder.
      */
+      authenticationManager.authenticate(
 
-    authenticationManager.authenticate(
+          //check username and password
+          new UsernamePasswordAuthenticationToken( //this class is used to pass credentials
+              // (username and password) to the authentication system.
+              request.getUsername(),
+              request.getPassword()
 
-        //check username and password
-        new UsernamePasswordAuthenticationToken( //this class is used to pass credentials
-            // (username and password) to the authentication system.
-            request.getUsername(),
-            request.getPassword()
-
-            // This token contains a username and password that will later be verified
-            // against data stored in a database or other storage.
-        )
-    );
+              // This token contains a username and password that will later be verified
+              // against data stored in a database or other storage.
+          )
+      );
     /*
     General process:
     After successful authentication of the user, his data (username) is used to search the database via userRepository.
@@ -101,16 +94,23 @@ public class AuthService {
     The client can use this token to access protected resources by passing it in the request header.
      */
 
-    // Use UserDetailsService for getting user from DB
-    UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
+      // Use UserDetailsService for getting user from DB
+      UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
 
-    // Генерация токена на основе объекта UserDetails
-    var jwtToken = jwtService.generateToken(userDetails);
+      // Генерация токена на основе объекта UserDetails
+      var jwtToken = jwtService.generateToken(userDetails);
 
-    return AuthenticationResponse
-        .builder()
-        .token(jwtToken)
-        .build();
+      return AuthenticationResponse
+          .builder()
+          .token(jwtToken)
+          .build();
+    }
+
+        catch (BadCredentialsException e) {
+      // attempt counter ++
+      loginAttemptService.loginFailed(username);
+      throw e;
+    }
 
 
 
