@@ -46,3 +46,10 @@ logs/application.log
 # Ignore log files
 logs/
 *.log
+
+
+# Ignore dev configuration file
+src/main/resources/application-dev.properties
+src/main/resources/application-local.properties
+src/main/resources/application-prod.properties
+src/main/resources/application-stg.properties
