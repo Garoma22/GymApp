@@ -26,10 +26,10 @@ public class User implements UserDetails { // UserDetails is needed for Spring S
   @Column(name = "first_name", nullable = false)
   private String firstName;
 
-  @Column(name = "last_name",nullable = false)
+  @Column(name = "last_name", nullable = false)
   private String lastName;
 
-  @Column(name = "username",nullable = false)
+  @Column(name = "username", nullable = false)
   private String username;
 
   @Column(name = "password", nullable = false)
@@ -37,8 +37,6 @@ public class User implements UserDetails { // UserDetails is needed for Spring S
 
   @Column(name = "is_active", nullable = false)
   private boolean isActive;
-
-
 
 
   public User(Long id, String firstName, String lastName, String username, String password,
@@ -62,24 +60,5 @@ public class User implements UserDetails { // UserDetails is needed for Spring S
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return List.of(new SimpleGrantedAuthority(role.name()));
   }
-
-  @Override
-  public boolean isAccountNonExpired() {
-    return true;
-  }
-
-  @Override
-  public boolean isAccountNonLocked() {
-    return true;
-  }
-
-  @Override
-  public boolean isCredentialsNonExpired() {
-    return true;
-  }
-
-  @Override
-  public boolean isEnabled() {
-    return true;
-  }
 }
+

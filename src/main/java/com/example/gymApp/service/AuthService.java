@@ -38,26 +38,10 @@ public class AuthService {
   private final LoginAttemptService loginAttemptService;
 
 
-  //AN OLD AUTHENTICATION METHOD
-
-//  public boolean authenticate(String username, String password, HttpServletRequest request) {
-//    User user = userService.getUserByPasswordAndUsername(username, password);
-//    if (user != null) {
-//      HttpSession session = request.getSession();
-//      session.setAttribute("user", user);
-//      return true;
-//    }
-//    return false;
-//  }
-
-
-
 
 
   //here we are checking login and password
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
-
-
 
     String username = request.getUsername();
 
@@ -97,7 +81,7 @@ public class AuthService {
       // Use UserDetailsService for getting user from DB
       UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
 
-      // Генерация токена на основе объекта UserDetails
+      //token generation from UserDetails object
       var jwtToken = jwtService.generateToken(userDetails);
 
       return AuthenticationResponse
@@ -112,20 +96,7 @@ public class AuthService {
       throw e;
     }
 
-
-
-//    var user = userRepository.findByUsername(request.getUsername())
-//        .orElseThrow();
-//    var jwtToken = jwtService.generateToken(user);
-//    return AuthenticationResponse
-//        .builder()
-//        .token(jwtToken)
-//        .build();
   }
-
-
-  //works!
-//methods i use in APP:
 
   public AuthenticationResponse registerTrainee(TraineeDto traineeDto) {
     Map<String, String> registrationData = profileService.registerTrainee(traineeDto);
@@ -145,7 +116,5 @@ public class AuthService {
     var jwtToken = jwtService.generateToken(user);
     return AuthenticationResponse.builder().token(jwtToken).build();
   }
-
-
 
 }

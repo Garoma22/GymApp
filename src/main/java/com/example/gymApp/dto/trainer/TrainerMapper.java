@@ -15,8 +15,7 @@ public interface TrainerMapper {
 
   @Mapping(source = "firstName", target = "user.firstName")
   @Mapping(source = "lastName", target = "user.lastName")
-  @Mapping(source = "specialization", target = "specialization",
-      qualifiedByName = "mapToTrainingType")
+  @Mapping(source = "specialization", target = "specialization", qualifiedByName = "mapToTrainingType")
   @Mapping(source = "username", target = "user.username")
   Trainer toTrainer(TrainerDto dto);
 

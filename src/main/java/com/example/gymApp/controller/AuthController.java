@@ -32,48 +32,6 @@ public class AuthController {
   private final TokenBlacklistService tokenBlacklistService;
 
 
-//  @PostMapping("/login")
-//  public ResponseEntity<String> login(@RequestBody UserLoginDto loginRequest, HttpServletRequest request) {
-//
-//    long startTime = System.currentTimeMillis(); //start
-//
-//    boolean isAuthenticated = authService.authenticate(loginRequest.getUsername(), loginRequest.getPassword(), request);
-//
-//    long duration = System.currentTimeMillis() - startTime; //stop
-//
-//    customMetrics.recordOperationDuration(duration); //recording operation duration
-//
-//    if (isAuthenticated) {
-//      customMetrics.recordSuccess(); // Increasing the counter of successful operations
-//      return ResponseEntity.ok("Login successful!");
-//    } else {
-//      customMetrics.recordFailure(); //decreasing the counter of successful operations
-//      return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
-//    }
-//  }
-//
-//
-//
-//  @PostMapping("/logout")
-//  public ResponseEntity<String> logout(HttpServletRequest request) {
-//    HttpSession session = request.getSession(false);
-//    if (session != null) {
-//      session.invalidate();
-//    }
-//    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Logged out successfully.");
-//  }
-
-//   //REALIZATION FROM VIDEO
-//  @PostMapping("/register")
-//  public ResponseEntity<AuthenticationResponse> register(
-//      @RequestBody RegisterRequest request
-//  ){
-//
-//    return ResponseEntity.ok(authService.register(request));
-//
-//  }
-//
-
 
 
 
@@ -103,12 +61,11 @@ public class AuthController {
     return ResponseEntity.ok(authService.registerTrainee(request));
   }
 
-  // Регистрация тренера
   @PostMapping("/register/trainer")
   public ResponseEntity<AuthenticationResponse> registerTrainer(
       @RequestBody TrainerDto request
   ){
     return ResponseEntity.ok(authService.registerTrainer(request));
   }
-
 }
+

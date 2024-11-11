@@ -16,14 +16,12 @@ import com.example.gymApp.repository.TrainingTypeRepository;
 import com.example.gymApp.repository.UserRepository;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 import org.springframework.transaction.annotation.Transactional;
 import com.example.gymApp.dto.trainee.TraineeMapper;
 import com.example.gymApp.dto.trainer.TrainerMapper;
@@ -41,13 +39,18 @@ public class TrainerService {
   private final TrainingTypeRepository trainingTypeRepository;
   private final TraineeRepository traineeRepository;
   private final TrainingRepository trainingRepository;
-  private final Converter<Trainer, TrainerDto> trainerToTrainerDtoConverter;
   private final TraineeMapper traineeMapper;
   private final TrainerMapper trainerMapper;
 
 
 
-  public TrainerWithTraineeListDto updateTrainerProfile(TrainerDto trainerDto) {
+  public TrainerWithTraineeListDto updateTrainerProfile(String username, TrainerDto trainerDto) {
+
+
+    if(!username.equals(trainerDto.getUsername())){
+      throw new IllegalArgumentException("Incorrect username");
+    }
+
     Trainer trainer = trainerRepository.findByUserUsername(trainerDto.getUsername())
         .orElseThrow(() -> new NoSuchElementException(
             "No trainer found with the username: " + trainerDto.getUsername()));
@@ -62,22 +65,18 @@ public class TrainerService {
     List<Trainee> trainees = trainer.getTrainings().stream().map(Training::getTrainee).toList();
     log.info("THIS ARE HIS TRAINEES: " + trainees);
 
-    trainerRepository.save(trainer);
+    trainerRepository.saveAndFlush(trainer);
     log.info("UPDATED trainer is SAVED : " + trainer);
 
     return trainerMapper.toDto(trainer, trainees);
   }
 
 
-  public List<TrainerDto> getAllTrainersDtoByTrainee(String traineeUsername) {
-    List<Trainer> trainers = getAlltrainersByTrainee(traineeUsername);
 
-    return trainers.stream()
-        .map(trainerToTrainerDtoConverter::convert)  //using converter
-        .collect(Collectors.toList());
-  }
 
-  public List<Trainer> getAlltrainersByTrainee(String traineeUsername) {
+
+
+  public Set<Trainer> getAlltrainersByTrainee(String traineeUsername) {
     Trainee trainee = traineeRepository.findByUserUsername(traineeUsername)
         .orElseThrow(() -> new NoSuchElementException("No trainee found for the provided user"));
     return trainingRepository.findDistinctTrainersByTrainee(trainee);
@@ -116,9 +115,13 @@ public class TrainerService {
 
   public Trainer createTrainer(String firstName, String lastName, String username, String password,
       String specialization) {
-    if (userRepository.findByUsername(username).isPresent()) {
-      throw new IllegalArgumentException("Username of trainer already exists");
-    }
+
+    userRepository.findByUsername(username)
+        .ifPresent(existingUser -> {
+          throw new IllegalArgumentException("Username of trainer already exists");
+        });
+
+
     TrainingType trainingType = checkSpecializationCorrectness(specialization);
 
     User user = new User();
@@ -132,7 +135,7 @@ public class TrainerService {
 
     Trainer trainer = new Trainer(user, trainingType);
 
-    trainerRepository.save(trainer);
+    trainerRepository.saveAndFlush(trainer);
     log.info("Trainer created successfully: {}", trainer.getUser().getUsername());
     return trainer;
   }
@@ -163,8 +166,10 @@ public class TrainerService {
 
   public TrainerWithTraineeListDto getTrainerWithTrainees(String username) {
     Trainer trainer = getTrainerByUsername(username);
-    List<Trainee> trainees =  trainingRepository.findDistinctTraineeByTrainer(trainer);
-    List<TraineeDto> traineeDtosList = traineeMapper.toTraineeDtoList(trainees);
+    Set<Trainee> trainees =  trainingRepository.findDistinctTraineeByTrainer(trainer);
+
+    List<TraineeDto> traineeDtosList = traineeMapper.toTraineeDtoList((List<Trainee>) trainees);
+
     return trainerMapper.toTrainerWithTraineeListDto(trainer,
         traineeDtosList
     );

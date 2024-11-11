@@ -70,9 +70,12 @@ public class ProfileService {
 //  String rawPassword = generateRandomPassword();
     String rawPassword = "password"; //need to have when we are checking authentication
 
-
-
     String encodedPassword = passwordEncoder.encode(rawPassword);
+
+    if (userRepository.findByUsername(username).isPresent()) {
+      throw new IllegalArgumentException("Username already exists.");
+    }
+
 
     traineeService.createTrainee(
         traineeDto.getFirstName(),
@@ -83,6 +86,9 @@ public class ProfileService {
         traineeDto.getAddress()
     );
 
+
+
+
     // todo Probably need to respond only 200 ok here, not the rawPassword
     Map<String, String> response = new HashMap<>();
     response.put("username", username);
@@ -91,28 +97,23 @@ public class ProfileService {
     return response;
   }
 
+
   public Map<String, String> registerTrainer(TrainerDto trainerDto) {
+
     trainerService.checkSpecializationCorrectness(trainerDto.getSpecialization());
-
-    Trainer trainer = trainerMapper.toTrainer(trainerDto);
-
     String username = generateUsername(trainerDto.getFirstName(), trainerDto.getLastName());
-    String password = generateRandomPassword();
-    trainer.getUser().setUsername(username);
-    trainer.getUser().setPassword(password);
-    trainer.getUser().setRole(Role.TRAINER);
+    String rawPassword = "password"; //need to have when we are checking authentication
+    String encodedPassword = passwordEncoder.encode(rawPassword);
 
-    trainerService.createTrainer(
-        trainer.getUser().getFirstName(),
-        trainer.getUser().getLastName(),
-        trainer.getUser().getUsername(),
-        trainer.getUser().getPassword(),
-        trainer.getSpecialization().getName()
-    );
+    if (userRepository.findByUsername(username).isPresent()) {
+      throw new IllegalArgumentException("Username of trainer already exists");
+    }
+
+    trainerService.createTrainer(trainerDto.getFirstName(), trainerDto.getLastName(),username,encodedPassword,trainerDto.getSpecialization());
 
     Map<String, String> response = new HashMap<>();
     response.put("username", username);
-    response.put("password", password);
+    response.put("password", encodedPassword);
 
     return response;
   }

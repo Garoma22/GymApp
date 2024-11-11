@@ -1,6 +1,7 @@
 package com.example.gymApp.service;
 
 import com.example.gymApp.dto.trainee.TraineeDto;
+import com.example.gymApp.dto.trainee.TraineeMapper;
 import com.example.gymApp.dto.trainee.TraineeWithTrainerListDto;
 import com.example.gymApp.dto.trainer.TrainerDto;
 import com.example.gymApp.dto.trainer.TrainerMapper;
@@ -17,9 +18,13 @@ import com.example.gymApp.repository.TrainingRepository;
 import com.example.gymApp.repository.UserRepository;
 import java.util.NoSuchElementException;
 
+import java.util.Set;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.hibernate.query.sql.internal.ParameterRecognizerImpl;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +43,8 @@ public class TraineeService {
   private final TrainerService trainerService;
   private final TrainingService trainingService;
   private final TrainerMapper trainerMapper;
+  private final TraineeMapper traineeMapper;
+  private final Converter<Trainer, TrainerDto> trainerToTrainerDtoConverter;
 
 
   @Transactional
@@ -63,7 +70,7 @@ public class TraineeService {
     trainee.setAddress(address);
     trainee.getUser().setRole(Role.TRAINEE);
 
-    return traineeRepository.save(trainee);
+    return traineeRepository.saveAndFlush(trainee);
   }
 
   public List<Trainee> getAllTrainees() {
@@ -76,11 +83,7 @@ public class TraineeService {
         .orElseThrow(() -> new IllegalArgumentException("Trainee not found with id: " + id));
   }
 
-//  @Transactional
-//  public void deleteTrainee(Long id) {
-//    Trainee trainee = getTraineeById(id);
-//    traineeRepository.delete(trainee);
-//  }
+
 
   public Trainee getTraineeByUsername(String username) {
     return traineeRepository.findByUserUsername(username)
@@ -116,31 +119,29 @@ public class TraineeService {
     Trainee trainee = traineeRepository.findByUser(user)
         .orElseThrow(() -> new NoSuchElementException("No trainee found for the provided user"));
 
+    //remove trainings
     trainingRepository.findByTrainee(trainee)
         .forEach(trainingRepository::delete);
 
+    //remove trainee
     traineeRepository.delete(trainee);
     log.info("Trainee and related entities deleted successfully.");
   }
 
 
   public TraineeWithTrainerListDto getTraineeProfileWithTrainersList(String username) {
-
     Trainee trainee = getTraineeByUsername(username);
+    List<TrainerDto> trainersList = getAllTrainersDtoByTrainee(username);
+    return traineeMapper.toTraineeWithTrainerListDto(trainee, trainersList); //mapstruct
+  }
+  // this method is private because it works only inside this class
 
-    List<TrainerDto> trainersList = trainerService.getAllTrainersDtoByTrainee(username);
+  List<TrainerDto> getAllTrainersDtoByTrainee(String traineeUsername) {
+    Set<Trainer> trainers = trainerService.getAlltrainersByTrainee(traineeUsername);
 
-    TraineeWithTrainerListDto responseDTO = new TraineeWithTrainerListDto(
-        trainee.getUser().getUsername(),
-        trainee.getUser().getFirstName(),
-        trainee.getUser().getLastName(),
-        trainee.getDateOfBirth(),
-        trainee.getAddress(),
-        trainee.getUser().isActive(),
-        trainersList
-    );
-
-    return responseDTO;
+    return trainers.stream()
+        .map(trainerToTrainerDtoConverter::convert)  //using converter
+        .collect(Collectors.toList());
   }
 
 
@@ -155,7 +156,7 @@ public class TraineeService {
     trainee.setAddress(traineeDto.getAddress());
     traineeRepository.save(trainee);
 
-    List<TrainerDto> trainersDtoList = trainerService.getAllTrainersDtoByTrainee(username);
+    List<TrainerDto> trainersDtoList = getAllTrainersDtoByTrainee(username);
 
     TraineeWithTrainerListDto responseDto = new TraineeWithTrainerListDto(
         trainee.getUser().getUsername(),
@@ -175,6 +176,7 @@ public class TraineeService {
 
     List<Trainer> foundedTrainers = trainerService.findByUsernameIn(newTrainersUsernames);
     Trainee trainee = getTraineeByUsername(traineeUsername);
+
     trainingService.createTraining(foundedTrainers, trainee);
     List<Trainer> trainers = trainingService.getAllTrainersByTraineeUsername(traineeUsername);
     log.info("All trainers by trainee " + trainee.getUsername() + " : " + trainers);

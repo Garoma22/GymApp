@@ -11,10 +11,11 @@ import org.mapstruct.factory.Mappers;
 
 
 //13
-@Mapper
+
+@Mapper(componentModel = "spring")
 public interface TrainingForTrainerMapper {
 
-  TrainingForTrainerMapper INSTANCE = Mappers.getMapper(TrainingForTrainerMapper.class);
+
 
   @Mapping(source = "trainingName", target = "trainingName")
   @Mapping(source = "trainingDate", target = "trainingDate")

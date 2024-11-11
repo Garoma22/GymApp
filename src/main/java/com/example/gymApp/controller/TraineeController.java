@@ -5,20 +5,15 @@ import com.example.gymApp.dto.trainee.TraineeMapper;
 import com.example.gymApp.dto.trainee.TraineeTrainingRequestDto;
 import com.example.gymApp.dto.trainee.TraineeWithTrainerListDto;
 
-import com.example.gymApp.dto.trainer.TrainerMapper;
+
 import com.example.gymApp.dto.trainer.TrainerResponseDto;
 import com.example.gymApp.dto.training.TrainingForTraineeResponseDto;
-import com.example.gymApp.dto.trainingType.TrainingForTraineeMapper;
-import com.example.gymApp.model.Trainee;
-import com.example.gymApp.service.ProfileService;
+
 import com.example.gymApp.service.TraineeService;
 import com.example.gymApp.service.TrainerService;
 import com.example.gymApp.service.TrainingService;
-import com.example.gymApp.service.UserService;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,10 +35,7 @@ public class TraineeController {
   private final TrainerService trainerService;
   private final TrainingService trainingService;
 
-  @GetMapping("/trainees")
-  public List<Trainee> getAllTrainees() {
-    return traineeService.getAllTrainees();
-  }
+//
 
 
   /*
@@ -63,7 +55,6 @@ VI. Trainers List
 3. Trainer Last Name
 4. Trainer Specialization (Training type reference)
    */
-
 
   @GetMapping("/trainees/{username}/trainers")
   public ResponseEntity<TraineeWithTrainerListDto> getTraineeProfileWithTrainersList(

@@ -66,7 +66,6 @@ public class AppConfig {
 
   }
 
-
   /*
   What BCryptPasswordEncoder does:
 Password Encryption: When a user logs in, the password entered is encoded (hashed) using the
@@ -79,6 +78,8 @@ Password Verification: When a user logs in, the password entered is verified aga
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
-
 }
+
+
+
 

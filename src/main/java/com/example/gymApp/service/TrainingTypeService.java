@@ -1,5 +1,7 @@
 package com.example.gymApp.service;
 
+import com.example.gymApp.dto.training.TrainingResponseDto;
+import com.example.gymApp.dto.trainingType.TrainingToTrainingDtoMapper;
 import com.example.gymApp.model.TrainingType;
 import com.example.gymApp.repository.TrainingTypeRepository;
 import java.util.List;
@@ -14,11 +16,12 @@ import org.springframework.stereotype.Service;
 public class TrainingTypeService {
 
   TrainingTypeRepository trainingTypeRepository;
+  TrainingToTrainingDtoMapper trainingToTrainingDtoMapper;
 
-  public List<TrainingType> getTrainingTypeList(){
-    log.info("Fetching all training types from repository");
-    List<TrainingType>trainingTypeList = trainingTypeRepository.findAll();
-    log.info("Fetched {} training types", trainingTypeList.size());
-    return trainingTypeList;
+  public List<TrainingResponseDto> getTrainingTypeList() {
+    List<TrainingType> trainingTypeList = trainingTypeRepository.findAll();
+    log.info("Fetched TrainingTypes from database: {}", trainingTypeList);
+    return trainingToTrainingDtoMapper.toTrainngDtoList(trainingTypeList);
   }
+
 }

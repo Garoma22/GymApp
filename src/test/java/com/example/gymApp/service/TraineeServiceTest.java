@@ -317,7 +317,7 @@ public class TraineeServiceTest {
     List<TrainerDto> trainersList = Arrays.asList(trainerDto1, trainerDto2);
 
     when(traineeRepository.findByUserUsername(username)).thenReturn(Optional.of(trainee));
-    when(trainerService.getAllTrainersDtoByTrainee(username)).thenReturn(trainersList);
+    when(traineeService.getAllTrainersDtoByTrainee(username)).thenReturn(trainersList);
 
     TraineeWithTrainerListDto result = traineeService.getTraineeProfileWithTrainersList(username);
 
@@ -333,7 +333,7 @@ public class TraineeServiceTest {
     assertEquals(trainerDto2, result.getTrainers().get(1));
 
     verify(traineeRepository, times(1)).findByUserUsername(username);
-    verify(trainerService, times(1)).getAllTrainersDtoByTrainee(username);
+
   }
 
 
@@ -365,7 +365,7 @@ public class TraineeServiceTest {
     List<TrainerDto> trainersList = Arrays.asList(trainerDto1, trainerDto2);
 
     when(traineeRepository.findByUserUsername(username)).thenReturn(Optional.of(existingTrainee));
-    when(trainerService.getAllTrainersDtoByTrainee(username)).thenReturn(trainersList);
+    when(traineeService.getAllTrainersDtoByTrainee(username)).thenReturn(trainersList);
 
     // When
     TraineeWithTrainerListDto result = traineeService.updateTraineeProfile(traineeDto, username);
@@ -390,7 +390,7 @@ public class TraineeServiceTest {
     assertEquals(trainerDto2, result.getTrainers().get(1));
 
     verify(traineeRepository, times(1)).save(existingTrainee);
-    verify(trainerService, times(1)).getAllTrainersDtoByTrainee(username);
+
   }
 
 
@@ -424,7 +424,7 @@ public class TraineeServiceTest {
 
     // Mock repository and service calls
     when(traineeRepository.findByUserUsername(username)).thenReturn(Optional.of(trainee));
-    when(trainerService.getAllTrainersDtoByTrainee(username)).thenReturn(trainersList);
+    when(traineeService.getAllTrainersDtoByTrainee(username)).thenReturn(trainersList);
     when(traineeRepository.save(any(Trainee.class))).thenReturn(trainee);
 
     // When
