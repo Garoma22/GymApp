@@ -2,12 +2,21 @@ package com.example.gymApp.model;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "users")
 @Data
-public class User {
+@Builder
+@AllArgsConstructor
+public class User implements UserDetails { // UserDetails is needed for Spring Security. It provides an info about user status
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,10 +26,10 @@ public class User {
   @Column(name = "first_name", nullable = false)
   private String firstName;
 
-  @Column(name = "last_name",nullable = false)
+  @Column(name = "last_name", nullable = false)
   private String lastName;
 
-  @Column(name = "username",nullable = false)
+  @Column(name = "username", nullable = false)
   private String username;
 
   @Column(name = "password", nullable = false)
@@ -28,6 +37,7 @@ public class User {
 
   @Column(name = "is_active", nullable = false)
   private boolean isActive;
+
 
   public User(Long id, String firstName, String lastName, String username, String password,
       boolean isActive) {
@@ -42,5 +52,13 @@ public class User {
   public User() {
   }
 
+  @Enumerated(EnumType.STRING)
+  @Column(name = "role", nullable = false)
+  private Role role;
 
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return List.of(new SimpleGrantedAuthority(role.name()));
+  }
 }
+

@@ -2,6 +2,7 @@ package com.example.gymApp.controller;
 
 import com.example.gymApp.dto.user.ChangePasswordRequestDto;
 import com.example.gymApp.dto.user.UserLoginDto;
+import com.example.gymApp.dto.user.UserStatusUpdateRequest;
 import com.example.gymApp.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -36,7 +37,7 @@ I. 200 OK
   @PutMapping("/users/{username}/password")
   public ResponseEntity<String> changePassword(
       @PathVariable String username,
-      @Valid @RequestBody ChangePasswordRequestDto changePasswordRequestDto) {  //old+ new pass
+      @Valid @RequestBody ChangePasswordRequestDto changePasswordRequestDto) {//old+ new pass
 
     UserLoginDto userDto = userService.getUserDtoByUsername(username);
     userDto.setPassword(changePasswordRequestDto.getNewPassword());
@@ -45,11 +46,16 @@ I. 200 OK
   }
 
 //15+16 - the joint method for trainee and trainer
+
+  //here we are using @RequestBody because it is Patch Mapping
   @PatchMapping("/users/{username}/status")
   public ResponseEntity<String> activateTrainee(@PathVariable String username,
-      @RequestParam String newActiveStatus) {
-      userService.setActivityStatusToUser(username, newActiveStatus);
+      @RequestBody UserStatusUpdateRequest request) {
+      userService.setActivityStatusToUser(username, request);
       return ResponseEntity.ok("User activity status updated successfully!");
+
+
+
   }
 }
 

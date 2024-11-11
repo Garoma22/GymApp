@@ -12,6 +12,7 @@ import com.example.gymApp.service.UserService;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -147,7 +148,7 @@ public class ConsoleInputHandler {
       System.out.println("Enter trainee's username: ");
       String traineeUsername = scanner.nextLine();
 
-      List<Trainer> allTrainers = trainerService.getAlltrainersByTrainee(traineeUsername);
+      Set<Trainer> allTrainers = trainerService.getAlltrainersByTrainee(traineeUsername);
 
       System.out.println("All trainers by trainee: " + traineeUsername + " : " + allTrainers);
 

@@ -3,6 +3,7 @@ package com.example.gymApp.service;
 
 import com.example.gymApp.dto.user.UserLoginDto;
 import com.example.gymApp.dto.user.UserMapper;
+import com.example.gymApp.dto.user.UserStatusUpdateRequest;
 import com.example.gymApp.model.User;
 import com.example.gymApp.repository.UserRepository;
 import java.util.NoSuchElementException;
@@ -37,16 +38,6 @@ public class UserService {
     }
   }
 
-//  public User getUserByUsername(String username) {
-//    Optional<User> user = userRepository.findByUsername(username);
-//    if (user.isPresent()) {
-//      return user.get();
-//    } else {
-//      throw new NoSuchElementException("No user with such username");
-//    }
-//  }
-
-
   public UserLoginDto getUserDtoByUsername(String username) {
     User user = userRepository.findByUsername(username)
         .orElseThrow(() -> new NoSuchElementException("No user with such username"));
@@ -56,9 +47,9 @@ public class UserService {
 
 
   public User getUserByUsername(String username) {
-    User user = userRepository.findByUsername(username)
+  return userRepository.findByUsername(username)
         .orElseThrow(() -> new NoSuchElementException("No user with such username"));
-    return user;
+
   }
 
 
@@ -88,19 +79,18 @@ public class UserService {
   }
 
 
-  public void setActivityStatusToUser(String username, String newActiveStatus) {
-
-    if (!"true".equalsIgnoreCase(newActiveStatus) && !"false".equalsIgnoreCase(newActiveStatus)) {
-      throw new IllegalArgumentException(
-          "Invalid activity status: " + newActiveStatus + ". Status must be 'true' or 'false'.");
+  public void setActivityStatusToUser(String username, UserStatusUpdateRequest request) {
+    if(!username.equals(request.getUsername())){
+          throw new IllegalArgumentException("Username from @PathVariable and username from @RequestBody are not equal" );
     }
-
+    if (!"true".equalsIgnoreCase(request.getNewActiveStatus()) && !"false".equalsIgnoreCase(request.getNewActiveStatus())) {
+      throw new IllegalArgumentException(
+          "Invalid activity status: " + request.getNewActiveStatus() + ". Status must be 'true' or 'false'.");
+    }
     User user = getUserByUsername(username);
-    user.setActive(Boolean.parseBoolean(newActiveStatus));
+    user.setActive(Boolean.parseBoolean(request.getNewActiveStatus()));
     log.info("Success! Activity status set to user : " + user.getUsername() + " is : "
-        + newActiveStatus);
-
-    userRepository.save(user);
-
+        + request.getNewActiveStatus());
+    userRepository.saveAndFlush(user);
   }
 }

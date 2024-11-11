@@ -1,33 +1,63 @@
 version: '3.8'
 
 services:
-  postgres:
+  postgres_local:
     image: postgres:latest
-    container_name: gym_db_container
+    container_name: LOCAL_gym_db
     environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: user
-      POSTGRES_DB: gym_db
+      POSTGRES_USER: user_local
+      POSTGRES_PASSWORD: user_local
+      POSTGRES_DB: gym_db_local
     ports:
       - "5432:5432"
     networks:
       - app-network
 
-#  app:
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    container_name: gym_app
-#    depends_on:
-#      - postgres
-#    ports:
-#      - "8081:8080"
-#    networks:
-#      - app-network
-#    environment:
-#      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/gym_db
-#      SPRING_DATASOURCE_USERNAME: user
-#      SPRING_DATASOURCE_PASSWORD: user
+  postgres_dev:
+      image: postgres:latest
+      container_name: DEV_gym_db
+      environment:
+        POSTGRES_USER: user_dev
+        POSTGRES_PASSWORD: user_dev
+        POSTGRES_DB: gym_db_dev
+      ports:
+        - "5433:5432"
+      networks:
+        - app-network
+
+  postgres_prod:
+    image: postgres:latest
+    container_name: PROD_gym_db
+    environment:
+      POSTGRES_USER: user_prod
+      POSTGRES_PASSWORD: user_prod
+      POSTGRES_DB: gym_db_prod
+    ports:
+      - "5434:5432"
+    networks:
+      - app-network
+
+
+  postgres_stg:
+    image: postgres:latest
+    container_name: STG_gym_db
+    environment:
+      POSTGRES_USER: user_stg
+      POSTGRES_PASSWORD: user_stg
+      POSTGRES_DB: gym_db_stg
+    ports:
+      - "5435:5432"
+    networks:
+      - app-network
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yaml
+    networks:
+      - app-network
 
 networks:
   app-network:

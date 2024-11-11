@@ -6,6 +6,7 @@ import com.example.gymApp.model.Training;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -38,13 +39,13 @@ public interface TrainingRepository extends JpaRepository<Training, Long> {
 
 
   @Query("SELECT DISTINCT t.trainer FROM Training t WHERE t.trainee = :trainee")
-  List<Trainer> findDistinctTrainersByTrainee(@Param("trainee") Trainee trainee);
+  Set<Trainer> findDistinctTrainersByTrainee(@Param("trainee") Trainee trainee);
 
   List<Training> findByTrainee(Trainee trainee);
 
 
   @Query("SELECT DISTINCT t.trainee FROM Training t WHERE t.trainer = :trainer")
-  List<Trainee> findDistinctTraineeByTrainer(@Param("trainer") Trainer trainer);
+  Set<Trainee> findDistinctTraineeByTrainer(@Param("trainer") Trainer trainer);
 
 
 

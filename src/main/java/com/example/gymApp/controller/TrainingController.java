@@ -1,6 +1,7 @@
 package com.example.gymApp.controller;
 
 import com.example.gymApp.dto.training.TrainingRequestDto;
+import com.example.gymApp.dto.training.TrainingResponseDto;
 import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.Trainer;
 import com.example.gymApp.model.Training;
@@ -37,7 +38,7 @@ public class TrainingController {
   private final TraineeRepository traineeRepository;
   private final TrainerRepository trainerRepository;
   private final UserRepository userRepository;
-  private final TrainingTypeService trainiingTypeService;
+  private final TrainingTypeService trainingTypeService;
 
   /*
   14. Add Training (POST method)
@@ -58,7 +59,7 @@ b. Response
     Trainee trainee = traineeService.getTraineeByUsername(request.getTraineeUsername());
     Trainer trainer = trainerService.getTrainerByUsername(request.getTrainerUsername());
 
-    Training training = trainingService.createTraining5args(trainer, trainee,
+    Training training = trainingService.createTraining(trainer, trainee,
         request.getTrainingName(),
         request.getTrainingDate(), request.getTrainingDuration());
 
@@ -84,10 +85,12 @@ Get Training types (GET method)
  */
 
   @GetMapping("/training-types")
-  public ResponseEntity<List<TrainingType>> getTrainingTypes() {
+  public ResponseEntity<List<TrainingResponseDto>> getTrainingTypes() {
     log.info("Received request to get all training types");
-    List<TrainingType> list = trainiingTypeService.getTrainingTypeList(); //get back dtos!
+    List<TrainingResponseDto> list = trainingTypeService.getTrainingTypeList(); //getting back dtos!
     log.info("Successfully retrieved {} training types", list.size());
     return ResponseEntity.ok(list);
   }
 }
+
+

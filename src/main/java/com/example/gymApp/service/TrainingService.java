@@ -38,6 +38,7 @@ public class TrainingService {
   private final TrainingTypeRepository trainingTypeRepository;
   private final TrainingRepository trainingRepository;
   private final TrainingForTraineeMapper trainingForTraineeMapper;
+  private final TrainingForTrainerMapper trainingForTrainerMapper;
   private final TrainerMapper trainerMapper;
 
 
@@ -106,7 +107,7 @@ public class TrainingService {
 
 
   @Transactional
-  public Training createTraining5args(Trainer trainer, Trainee trainee, String trainingName,
+  public Training createTraining(Trainer trainer, Trainee trainee, String trainingName,
       LocalDate trainingDate, Integer trainingDuration) {
 
     //todo : add some logic for isActive status of users
@@ -180,10 +181,9 @@ public class TrainingService {
           .collect(Collectors.toList());
     }
 
-    List<TrainingForTraineeResponseDto> responseDtos = trainingForTraineeMapper.toDtoList(
+    return trainingForTraineeMapper.toDtoList(
         trainings);
 
-    return responseDtos;
 
   }
 
@@ -208,7 +208,7 @@ public class TrainingService {
           .collect(Collectors.toList());
     }
 
-    List<TrainingForTrainerResponseDto> dtoList = TrainingForTrainerMapper.INSTANCE.toDtoList(
+    List<TrainingForTrainerResponseDto> dtoList = trainingForTrainerMapper.toDtoList(
         trainings);
 
     return dtoList;

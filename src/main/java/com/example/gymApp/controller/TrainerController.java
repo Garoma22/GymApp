@@ -86,7 +86,7 @@ VI. Trainees List
   public ResponseEntity<TrainerWithTraineeListDto> updateTrainerProfile(
       @PathVariable String username,
       @RequestBody TrainerDto trainerDto) {
-    var responseDto = trainerService.updateTrainerProfile(trainerDto);
+    var responseDto = trainerService.updateTrainerProfile(username, trainerDto);
     log.info("THIS IS RESPONSE_DTO : " + responseDto);
     return ResponseEntity.ok(responseDto);
   }

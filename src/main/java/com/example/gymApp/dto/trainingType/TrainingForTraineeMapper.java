@@ -27,7 +27,6 @@ public interface TrainingForTraineeMapper {
 
 
   //12
-
   TrainingForTraineeMapper INSTANCE = Mappers.getMapper(TrainingForTraineeMapper.class);
   @Mapping(source = "trainingName", target = "trainingName")
   @Mapping(source = "trainingDate", target = "trainingDate")
