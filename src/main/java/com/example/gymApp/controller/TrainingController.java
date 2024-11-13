@@ -1,5 +1,6 @@
 package com.example.gymApp.controller;
 
+import com.example.gymApp.dto.training.TrainingInfoResponseDto;
 import com.example.gymApp.dto.training.TrainingRequestDto;
 import com.example.gymApp.dto.training.TrainingResponseDto;
 import com.example.gymApp.model.Trainee;
@@ -39,6 +40,7 @@ public class TrainingController {
   private final TrainerRepository trainerRepository;
   private final UserRepository userRepository;
   private final TrainingTypeService trainingTypeService;
+private final TrainingInfoResponseDto trainingInfoResponseDto;
 
   /*
   14. Add Training (POST method)
@@ -52,26 +54,18 @@ b. Response
       I. 200 OK
    */
 
+
   @PostMapping("/trainings")
-  public ResponseEntity<Void> addTraining  //to get back dto!
-  (@RequestBody TrainingRequestDto request)  //todo  - addTrainingRequestDto
-  {
-    Trainee trainee = traineeService.getTraineeByUsername(request.getTraineeUsername());
-    Trainer trainer = trainerService.getTrainerByUsername(request.getTrainerUsername());
+  public ResponseEntity<TrainingInfoResponseDto> addTraining
+      (@RequestBody TrainingRequestDto request) {
 
-    Training training = trainingService.createTraining(trainer, trainee,
-        request.getTrainingName(),
-        request.getTrainingDate(), request.getTrainingDuration());
-
-    //answer option 1
-//      return ResponseEntity.ok(training);  // useful for checking
-
-    //answer option 2
-    return ResponseEntity.status(HttpStatus.CREATED).build();
-
-    //  answer option 3 - required in the task
-//      return ResponseEntity.ok().build();
+    return ResponseEntity.ok(trainingService.getTrainingInfoResponseDto(request));
   }
+
+
+
+
+
 
 /*
           17.

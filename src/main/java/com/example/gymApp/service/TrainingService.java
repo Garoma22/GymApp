@@ -5,6 +5,10 @@ import com.example.gymApp.dto.trainer.TrainerMapper;
 import com.example.gymApp.dto.trainer.TrainerTrainingRequestDto;
 import com.example.gymApp.dto.training.TrainingForTraineeResponseDto;
 import com.example.gymApp.dto.training.TrainingForTrainerResponseDto;
+import com.example.gymApp.dto.training.TrainingInfoResponseDto;
+import com.example.gymApp.dto.training.TrainingInfoResponseDtoMapper;
+import com.example.gymApp.dto.training.TrainingRequestDto;
+import com.example.gymApp.dto.training.TrainingResponseDto;
 import com.example.gymApp.dto.trainingType.TrainingForTraineeMapper;
 import com.example.gymApp.dto.trainingType.TrainingForTrainerMapper;
 import com.example.gymApp.model.Trainee;
@@ -22,6 +26,7 @@ import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,11 +44,16 @@ public class TrainingService {
   private final TrainingRepository trainingRepository;
   private final TrainingForTraineeMapper trainingForTraineeMapper;
   private final TrainingForTrainerMapper trainingForTrainerMapper;
+  private final TrainingInfoResponseDtoMapper trainingInfoResponseDtoMapper;
   private final TrainerMapper trainerMapper;
+//  private final TraineeService traineeService;
+  private final TrainerService trainerService;
+  private final TrainingInfoResponseDto trainingInfoResponseDto;
 
 
   @Transactional
-  public void createTraining(String trainerUsername, String traineeUsername, String trainingName,
+  public Training createTraining(String trainerUsername, String traineeUsername,
+      String trainingName,
       LocalDate dateOfTraining, int durationInHours) {
 
     Trainer trainer = trainerRepository.findByUserUsername(trainerUsername)
@@ -74,6 +84,7 @@ public class TrainingService {
     trainingRepository.save(training);
 
     log.info("Training " + training + " successfully saved");
+    return training;
   }
 
   //todo change naming!
@@ -212,6 +223,17 @@ public class TrainingService {
         trainings);
 
     return dtoList;
+  }
+
+  public TrainingInfoResponseDto getTrainingInfoResponseDto(
+      TrainingRequestDto request) {
+
+        createTraining(request.getTrainerUsername(), request.getTraineeUsername(),
+        request.getTrainingName(), request.getTrainingDate(), request.getTrainingDuration());
+
+    return trainingInfoResponseDtoMapper.trainingToTrainingResponseDto(request);
+
+
   }
 }
 

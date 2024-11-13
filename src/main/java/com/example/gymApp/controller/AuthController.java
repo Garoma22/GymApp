@@ -32,9 +32,6 @@ public class AuthController {
   private final TokenBlacklistService tokenBlacklistService;
 
 
-
-
-
   @PostMapping("/login")
   public ResponseEntity<AuthenticationResponse> register(
       @RequestBody AuthenticationRequest request

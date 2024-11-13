@@ -1,6 +1,5 @@
 package com.example.gymApp.config;
 
-import java.util.Arrays;
 import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +28,6 @@ public class CorsConfig {
         "http://localhost:8082",
         "http://localhost:8083",
         "http://localhost:8084"));
-//    config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH", "HEAD"));
     config.setAllowedMethods(List.of(GET,POST,PUT,DELETE,OPTIONS,PATCH,HEAD));
     config.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
 
