@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 @SpringBootApplication(scanBasePackages = "com.example.gymApp")
-
+@EnableleFeignClients
 public class GymApplication {
 
   public static void main(String[] args) {
