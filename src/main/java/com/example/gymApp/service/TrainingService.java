@@ -3,14 +3,15 @@ package com.example.gymApp.service;
 import com.example.gymApp.dto.trainee.TraineeTrainingRequestDto;
 import com.example.gymApp.dto.trainer.TrainerMapper;
 import com.example.gymApp.dto.trainer.TrainerTrainingRequestDto;
+import com.example.gymApp.dto.training.TrainerWorkloadServiceDto;
 import com.example.gymApp.dto.training.TrainingForTraineeResponseDto;
 import com.example.gymApp.dto.training.TrainingForTrainerResponseDto;
 import com.example.gymApp.dto.training.TrainingInfoResponseDto;
 import com.example.gymApp.dto.training.TrainingInfoResponseDtoMapper;
 import com.example.gymApp.dto.training.TrainingRequestDto;
-import com.example.gymApp.dto.training.TrainingResponseDto;
 import com.example.gymApp.dto.trainingType.TrainingForTraineeMapper;
 import com.example.gymApp.dto.trainingType.TrainingForTrainerMapper;
+import com.example.gymApp.feign.TrainerWorkloadServiceFeign;
 import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.Trainer;
 import com.example.gymApp.model.Training;
@@ -26,7 +27,6 @@ import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,9 +46,12 @@ public class TrainingService {
   private final TrainingForTrainerMapper trainingForTrainerMapper;
   private final TrainingInfoResponseDtoMapper trainingInfoResponseDtoMapper;
   private final TrainerMapper trainerMapper;
-//  private final TraineeService traineeService;
   private final TrainerService trainerService;
   private final TrainingInfoResponseDto trainingInfoResponseDto;
+  private final TrainerWorkloadServiceFeign trainerWorkloadServiceFeign;
+
+
+  private static final String ADD = "ADD";
 
 
   @Transactional
@@ -80,14 +83,29 @@ public class TrainingService {
     training.setTrainingName(trainingName);
     training.setTrainingDate(dateOfTraining);
     training.setTrainingDuration(durationInHours);
-
     trainingRepository.save(training);
-
     log.info("Training " + training + " successfully saved");
+
+
+    createTrainerWorkloadServiceDto(trainerUsername, trainer, dateOfTraining, durationInHours);
     return training;
   }
 
-  //todo change naming!
+// entity to send to 2-nd service
+  public void createTrainerWorkloadServiceDto(String trainerUsername, Trainer trainer,
+      LocalDate dateOfTraining, int durationInHours) {
+    TrainerWorkloadServiceDto dto = new TrainerWorkloadServiceDto();
+    dto.setTrainerUsername(trainerUsername);
+    dto.setTrainerFirstName(trainer.getUser().getFirstName());
+    dto.setTrainerLastName(trainer.getUser().getLastName());
+    dto.setActive(trainer.getUser().isActive());
+    dto.setTrainingDate(dateOfTraining);
+    dto.setTrainingDuration(durationInHours);
+    dto.setActionType(ADD);
+
+    trainerWorkloadServiceFeign.handleTraining(dto);
+  }
+
 
   @Transactional
   public void createTraining(List<Trainer> trainers, Trainee trainee) {
@@ -112,6 +130,8 @@ public class TrainingService {
         training.setTrainingDuration(1);  //hardcode!
         trainingRepository.save(training);
         System.out.println("New training is created: " + training);
+
+
       }
     }
   }
@@ -228,7 +248,7 @@ public class TrainingService {
   public TrainingInfoResponseDto getTrainingInfoResponseDto(
       TrainingRequestDto request) {
 
-        createTraining(request.getTrainerUsername(), request.getTraineeUsername(),
+    createTraining(request.getTrainerUsername(), request.getTraineeUsername(),
         request.getTrainingName(), request.getTrainingDate(), request.getTrainingDuration());
 
     return trainingInfoResponseDtoMapper.trainingToTrainingResponseDto(request);
