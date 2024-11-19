@@ -3,6 +3,7 @@ package com.example.gymApp.service;
 import com.example.gymApp.dto.trainee.TraineeTrainingRequestDto;
 import com.example.gymApp.dto.trainer.TrainerMapper;
 import com.example.gymApp.dto.trainer.TrainerTrainingRequestDto;
+import com.example.gymApp.dto.training.TrainerWorkloadServiceDto;
 import com.example.gymApp.dto.training.TrainingForTraineeResponseDto;
 import com.example.gymApp.dto.training.TrainingForTrainerResponseDto;
 import com.example.gymApp.dto.training.TrainingInfoResponseDto;
@@ -11,6 +12,7 @@ import com.example.gymApp.dto.training.TrainingRequestDto;
 import com.example.gymApp.dto.training.TrainingResponseDto;
 import com.example.gymApp.dto.trainingType.TrainingForTraineeMapper;
 import com.example.gymApp.dto.trainingType.TrainingForTrainerMapper;
+import com.example.gymApp.feign.TrainerWorkloadServiceFeign;
 import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.Trainer;
 import com.example.gymApp.model.Training;
@@ -46,10 +48,12 @@ public class TrainingService {
   private final TrainingForTrainerMapper trainingForTrainerMapper;
   private final TrainingInfoResponseDtoMapper trainingInfoResponseDtoMapper;
   private final TrainerMapper trainerMapper;
-//  private final TraineeService traineeService;
   private final TrainerService trainerService;
   private final TrainingInfoResponseDto trainingInfoResponseDto;
+  private final TrainerWorkloadServiceFeign trainerWorkloadServiceFeign;
 
+
+  private static final String ADD = "ADD";
 
   @Transactional
   public Training createTraining(String trainerUsername, String traineeUsername,
@@ -84,8 +88,28 @@ public class TrainingService {
     trainingRepository.save(training);
 
     log.info("Training " + training + " successfully saved");
+
+    createTrainerWorkloadServiceDto(trainerUsername, trainer, dateOfTraining, durationInHours);
+
     return training;
   }
+
+  // entity to send to 2-nd service
+  public void createTrainerWorkloadServiceDto(String trainerUsername, Trainer trainer,
+      LocalDate dateOfTraining, int durationInHours) {
+    TrainerWorkloadServiceDto dto = new TrainerWorkloadServiceDto();
+    dto.setTrainerUsername(trainerUsername);
+    dto.setTrainerFirstName(trainer.getUser().getFirstName());
+    dto.setTrainerLastName(trainer.getUser().getLastName());
+    dto.setActive(trainer.getUser().isActive());
+    dto.setTrainingDate(dateOfTraining);
+    dto.setTrainingDuration(durationInHours);
+    dto.setActionType(ADD);
+
+    trainerWorkloadServiceFeign.handleTraining(dto);
+  }
+
+
 
   //todo change naming!
 
