@@ -3,6 +3,7 @@ package com.example.gymApp.config;
 
 import com.example.gymApp.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @RequiredArgsConstructor
 @ComponentScan(basePackages = "com.example.gymApp")
+@EnableDiscoveryClient
 public class AppConfig {
 
   private final UserRepository userRepository;
