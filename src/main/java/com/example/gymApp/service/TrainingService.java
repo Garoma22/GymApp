@@ -21,6 +21,7 @@ import com.example.gymApp.repository.TrainerRepository;
 import com.example.gymApp.repository.TrainingRepository;
 import com.example.gymApp.repository.TrainingTypeRepository;
 import com.example.gymApp.repository.UserRepository;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -28,6 +29,8 @@ import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
+import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreaker;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,6 +54,8 @@ public class TrainingService {
   private final TrainerService trainerService;
   private final TrainingInfoResponseDto trainingInfoResponseDto;
   private final TrainerWorkloadServiceFeign trainerWorkloadServiceFeign;
+
+
 
 
   private static final String ADD = "ADD";
@@ -95,6 +100,7 @@ public class TrainingService {
   }
 
   // entity to send to 2-nd service
+  @CircuitBreaker(name = "trainerWorkloadService", fallbackMethod = "handleTrainingFallback")
   public void createTrainerWorkloadServiceDto(String trainerUsername, Trainer trainer,
       LocalDate dateOfTraining, int durationInHours) {
     TrainerWorkloadServiceDto dto = new TrainerWorkloadServiceDto();
@@ -108,6 +114,14 @@ public class TrainingService {
 
     trainerWorkloadServiceFeign.handleTraining(dto);
   }
+
+  public void handleTrainingFallback(TrainerWorkloadServiceDto dto, Throwable t) {
+    log.error("Failed to handle training due to {}", t.getMessage());
+    // дальнейшая логика для обработки ошибки
+  }
+
+
+
 
 
 

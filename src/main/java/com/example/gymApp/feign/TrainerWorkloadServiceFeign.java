@@ -19,6 +19,8 @@ public interface TrainerWorkloadServiceFeign {
   @PostMapping("/trainings")
   void handleTraining(@RequestBody TrainerWorkloadServiceDto request);
 
+
+
 //  @PostMapping("/getAauth")
 //  Stting getAuth("login", "passl"); // todo - need to create the class
 }
