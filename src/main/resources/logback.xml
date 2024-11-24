@@ -25,5 +25,6 @@
   <logger name="com.example.gymApp.controller" level="info"/>
   <logger name="com.example.gymApp.service" level="info"/>
   <logger name="com.example.gymApp.dao" level="info"/>
+  <logger name="feign.Logger" level="DEBUG"/>
 
 </configuration>

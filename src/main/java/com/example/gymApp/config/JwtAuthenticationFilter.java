@@ -36,6 +36,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     // Retrieves the Authorization header from the request. Header contains token, name and password
 
     final String jwt;  // Variable to hold the JWT token.
+
     final String username; //need to validate user
 
     if (authHeader == null || !authHeader.startsWith("Bearer ")) {
@@ -45,6 +46,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
     jwt = authHeader.substring(7);
     // Extracts the JWT token by removing the "Bearer " prefix from the Authorization header.
+
+        JwtStorage.setJwt(jwt); //save in storage
 
     if (tokenBlacklistService.isTokenBlacklisted(jwt)) {
       response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -84,8 +87,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     filterChain.doFilter(request, response) is called, allowing the request to continue its journey through the filter chain
     and eventually reach the controller, which will process the request and return the response.
      */
+
+   try{
+
     filterChain.doFilter(request, response);
-  }
+  }finally {
+     JwtStorage.clear(); // clear token
+   }
+   }
 }
 
 /*
@@ -98,3 +107,5 @@ Content-Type: application/json
 Content-Length: 123
 
  */
+
+
