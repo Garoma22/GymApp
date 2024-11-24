@@ -21,6 +21,7 @@ import com.example.gymApp.repository.TrainerRepository;
 import com.example.gymApp.repository.TrainingRepository;
 import com.example.gymApp.repository.TrainingTypeRepository;
 import com.example.gymApp.repository.UserRepository;
+import feign.FeignException;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.time.LocalDate;
 import java.util.List;
@@ -112,15 +113,21 @@ public class TrainingService {
     dto.setTrainingDuration(durationInHours);
     dto.setActionType(ADD);
 
-    trainerWorkloadServiceFeign.handleTraining(dto);
-  }
 
+    try {
+      trainerWorkloadServiceFeign.handleTraining(dto);
+      // Log success message
+    } catch (FeignException e) {
+      // Log error message, including status code and response body
+      log.error("Error while sending training data to trainer-workload-service: {}", e.getMessage());
+      log.error("Request Body: {}", dto);
+      log.error("Response Status Code: {}", e.status());
+      log.error("Response Body: {}", e.contentUTF8());
+    }
+  }
   public void handleTrainingFallback(TrainerWorkloadServiceDto dto, Throwable t) {
     log.error("Failed to handle training due to {}", t.getMessage());
-    // дальнейшая логика для обработки ошибки
   }
-
-
 
 
 
