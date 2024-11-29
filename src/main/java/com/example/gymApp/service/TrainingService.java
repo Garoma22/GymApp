@@ -9,7 +9,6 @@ import com.example.gymApp.dto.training.TrainingForTrainerResponseDto;
 import com.example.gymApp.dto.training.TrainingInfoResponseDto;
 import com.example.gymApp.dto.training.TrainingInfoResponseDtoMapper;
 import com.example.gymApp.dto.training.TrainingRequestDto;
-import com.example.gymApp.dto.training.TrainingResponseDto;
 import com.example.gymApp.dto.trainingType.TrainingForTraineeMapper;
 import com.example.gymApp.dto.trainingType.TrainingForTrainerMapper;
 import com.example.gymApp.feign.TrainerWorkloadServiceFeign;
@@ -30,9 +29,6 @@ import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
-import org.springframework.cloud.client.circuitbreaker.ReactiveCircuitBreaker;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -55,8 +51,6 @@ public class TrainingService {
   private final TrainerService trainerService;
   private final TrainingInfoResponseDto trainingInfoResponseDto;
   private final TrainerWorkloadServiceFeign trainerWorkloadServiceFeign;
-
-
 
 
   private static final String ADD = "ADD";
@@ -113,12 +107,9 @@ public class TrainingService {
     dto.setTrainingDuration(durationInHours);
     dto.setActionType(ADD);
 
-
     try {
       trainerWorkloadServiceFeign.handleTraining(dto);
-      // Log success message
     } catch (FeignException e) {
-      // Log error message, including status code and response body
       log.error("Error while sending training data to trainer-workload-service: {}", e.getMessage());
       log.error("Request Body: {}", dto);
       log.error("Response Status Code: {}", e.status());
@@ -161,28 +152,6 @@ public class TrainingService {
     }
   }
 
-
-  @Transactional
-  public Training createTraining(Trainer trainer, Trainee trainee, String trainingName,
-      LocalDate trainingDate, Integer trainingDuration) {
-
-    //todo : add some logic for isActive status of users
-    //todo : add some logic for uniques of trainings
-
-    Training training = new Training();
-
-    training.setTrainer(trainer);
-    training.setTrainee(trainee);
-    training.setTrainingType(trainer.getSpecialization());
-    training.setTrainingName(trainer.getUser().getUsername() + " - " + trainee.getUsername() + " - "
-        + trainingName);
-    training.setTrainingDate(trainingDate); //hardcode here!
-    training.setTrainingDuration(trainingDuration);  //hardcode!
-    trainingRepository.save(training);
-    System.out.println("New training is created: " + training);
-
-    return training;
-  }
 
 
   public List<Training> getTrainingsByUserUsername(String traineeUsername, LocalDate startDate,
@@ -277,10 +246,12 @@ public class TrainingService {
         request.getTrainingName(), request.getTrainingDate(), request.getTrainingDuration());
 
     return trainingInfoResponseDtoMapper.trainingToTrainingResponseDto(request);
-
-
   }
 }
+
+
+
+
 
 
 

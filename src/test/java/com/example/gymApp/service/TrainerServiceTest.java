@@ -481,5 +481,4 @@ public class TrainerServiceTest {
 
     return trainer;
   }
-
 }
