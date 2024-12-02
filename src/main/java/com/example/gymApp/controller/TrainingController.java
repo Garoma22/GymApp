@@ -40,7 +40,7 @@ public class TrainingController {
   private final TrainerRepository trainerRepository;
   private final UserRepository userRepository;
   private final TrainingTypeService trainingTypeService;
-private final TrainingInfoResponseDto trainingInfoResponseDto;
+  private final TrainingInfoResponseDto trainingInfoResponseDto;
 
   /*
   14. Add Training (POST method)

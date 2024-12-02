@@ -54,6 +54,7 @@ public class TrainingService {
 
 
   private static final String ADD = "ADD";
+  private static final String DELETE = "DELETE";
 
   @Transactional
   public Training createTraining(String trainerUsername, String traineeUsername,
@@ -89,6 +90,8 @@ public class TrainingService {
 
     log.info("Training " + training + " successfully saved");
 
+
+
     createTrainerWorkloadServiceDto(trainerUsername, trainer, dateOfTraining, durationInHours);
 
     return training;
@@ -120,10 +123,6 @@ public class TrainingService {
     log.error("Failed to handle training due to {}", t.getMessage());
   }
 
-
-
-
-  //todo change naming!
 
   @Transactional
   public void createTraining(List<Trainer> trainers, Trainee trainee) {

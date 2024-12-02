@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -22,9 +23,20 @@ Once verified, you can extract specific data from the token as JSON and transfor
  */
 @Service
 public class JwtService {
+//
+//  private static final String SECRET_KEY =
+//      "PL+rgtYceM//T3nOWL4hl4Fa2lblR31Sse/PnUqCOyA=\n";
 
-  private static final String SECRET_KEY =
-      "PL+rgtYceM//T3nOWL4hl4Fa2lblR31Sse/PnUqCOyA=\n";
+//  @Value("${jwt.secret-key}");
+//  private final String secretKey;
+
+  @Value("${jwt.secret-key}")
+  private String secretKey;
+
+//  public JwtService(@Value("${jwt.secret-key}") String secretKey) {
+//    this.secretKey = secretKey;
+//  }
+
 
 //3.
   //get username from token
@@ -97,7 +109,7 @@ String generateToken(UserDetails userDetails){
 
   //This method decodes SECRET_KEY from Base64 format to a byte array and creates a key for HMAC SHA-256 signing
   private Key getSigningKey() {
-    byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
+    byte[] keyBytes = Decoders.BASE64.decode(secretKey);
     return Keys.hmacShaKeyFor(keyBytes); //create cryptographic key
   }
 }
