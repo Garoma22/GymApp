@@ -27,7 +27,6 @@ public class UserService {
         .orElseThrow(() -> new NoSuchElementException("No user with such username and password"));
   }
 
-
   public User getUserByPasswordAndCheckUsername(String password, String username) {
 
     Optional<User> user = userRepository.findByPassword(password);

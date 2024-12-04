@@ -18,9 +18,6 @@ public interface TraineeMapper {
   @Mapping(source = "address", target = "address")
   Trainee toTrainee(TraineeDto dto);
 
-
-
-
   @Named("toTraineeDto")
   @Mapping(target = "isActive", ignore = true)
 

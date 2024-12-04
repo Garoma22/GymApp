@@ -23,5 +23,4 @@ public class TrainingTypeService {
     log.info("Fetched TrainingTypes from database: {}", trainingTypeList);
     return trainingToTrainingDtoMapper.toTrainngDtoList(trainingTypeList);
   }
-
 }

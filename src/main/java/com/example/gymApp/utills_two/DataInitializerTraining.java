@@ -13,17 +13,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DataInitializerTraining {
-
-
-
-
   private final TrainingTypeRepository trainingTypeRepository;
 
   @Autowired
   public DataInitializerTraining(TrainingTypeRepository trainingTypeRepository) {
     this.trainingTypeRepository = trainingTypeRepository;
   }
-
   @PostConstruct
   public void init() {
     loadTrainingTypes();
@@ -42,7 +37,6 @@ public class DataInitializerTraining {
           trainingTypeRepository.save(trainingType);
         }
       }
-
       reader.close();
     } catch (Exception e) {
       System.err.println("Failed to load training types: " + e.getMessage());

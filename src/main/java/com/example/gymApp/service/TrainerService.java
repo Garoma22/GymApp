@@ -42,10 +42,7 @@ public class TrainerService {
   private final TraineeMapper traineeMapper;
   private final TrainerMapper trainerMapper;
 
-
-
   public TrainerWithTraineeListDto updateTrainerProfile(String username, TrainerDto trainerDto) {
-
 
     if(!username.equals(trainerDto.getUsername())){
       throw new IllegalArgumentException("Incorrect username");
@@ -70,10 +67,6 @@ public class TrainerService {
 
     return trainerMapper.toDto(trainer, trainees);
   }
-
-
-
-
 
 
   public Set<Trainer> getAlltrainersByTrainee(String traineeUsername) {
@@ -102,16 +95,12 @@ public class TrainerService {
 
     trainerRepository.save(trainer);
     return trainer;
-
-
   }
-
 
   public TrainingType checkSpecializationCorrectness(String specialization) {
     return trainingTypeRepository.findByName(specialization)
         .orElseThrow(() -> new IllegalArgumentException("Specialization not found in the database"));
   }
-
 
   public Trainer createTrainer(String firstName, String lastName, String username, String password,
       String specialization) {

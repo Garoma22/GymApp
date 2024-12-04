@@ -59,6 +59,18 @@ services:
     networks:
       - app-network
 
+  activemq:
+    image: rmohr/activemq
+    container_name: activemq
+    ports:
+      - "61616:61616"
+      - "8161:8161"
+    environment:
+      ACTIVEMQ_ADMIN_LOGIN: admin
+      ACTIVEMQ_ADMIN_PASSWORD: admin
+
+
+
 networks:
   app-network:
     driver: bridge

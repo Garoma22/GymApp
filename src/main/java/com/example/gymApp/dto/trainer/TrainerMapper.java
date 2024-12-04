@@ -35,40 +35,6 @@ public interface TrainerMapper {
   TrainerWithTraineeListDto toTrainerWithTraineeListDto(Trainer trainer,
       List<TraineeDto> traineeDto);
 
-//  @Mapping(source = "username", target = "user.username")
-//  @Mapping(source = "firstName", target = "user.firstName")
-//  @Mapping(source = "lastName", target = "user.lastName")
-//  @Mapping(source = "active", target = "user.active")
-//  @Mapping(source = "trainingType", target = "specialization")
-//  Trainer updateTrainerFromDto(TrainerDto trainerDto, @MappingTarget Trainer trainer);
-//
-//
-//  @Mapping(source = "trainer.user.username", target = "username")
-//  @Mapping(source = "trainer.user.firstName", target = "firstName")
-//  @Mapping(source = "trainer.user.lastName", target = "lastName")
-//  @Mapping(source = "trainer.specialization", target = "trainingType")
-//  @Mapping(source = "trainer.user.active", target = "active")
-//  @Mapping(source = "traineeDto", target = "traineeDtoList")
-//  TrainerWithTraineeListDto toUpdatedTrainerWithTraineeListDto(Trainer trainer,
-//      List<TraineeDto> traineeDto);
-
-//3 fields
-
-
-//  @Mapping(source = "trainer.user.username", target = "username")
-//  @Mapping(source = "trainer.user.firstName", target = "firstName")
-//  @Mapping(source = "trainer.user.lastName", target = "lastName")
-//  @Mapping(source = "trainer.specialization", target = "trainingType")
-//  @Mapping(source = "trainer.user.active", target = "active")
-//  @Mapping(source = "traineeDto", target = "traineeDtoList")
-//    //here traineeDto
-//
-//  TrainerWithTraineeListDto toUpdatedTrainerWithTraineeListDtoNew(Trainer trainer,
-//      List<TraineeResponseDto> traineeDto);  // is here!
-//
-
-
-
 
     @Mapping(source = "trainer.user.firstName", target = "firstName")
     @Mapping(source = "trainer.user.lastName", target = "lastName")

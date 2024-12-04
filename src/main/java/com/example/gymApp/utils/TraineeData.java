@@ -20,6 +20,4 @@ public class TraineeData {
     this.dateOfBirth = dateOfBirth;
     this.address = address;
   }
-
-
 }

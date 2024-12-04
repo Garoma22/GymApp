@@ -6,9 +6,6 @@ import lombok.Data;
 @Data
 public class ChangePasswordRequestDto {
 
-
-
-
   @NotEmpty(message = "Old password is required")
   private String oldPassword;
 

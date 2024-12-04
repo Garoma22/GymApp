@@ -58,11 +58,8 @@ b. Response
   @PostMapping("/trainings")
   public ResponseEntity<TrainingInfoResponseDto> addTraining
       (@RequestBody TrainingRequestDto request) {
-
     return ResponseEntity.ok(trainingService.getTrainingInfoResponseDto(request));
   }
-
-
 
 
 

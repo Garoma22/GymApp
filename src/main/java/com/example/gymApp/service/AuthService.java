@@ -37,9 +37,6 @@ public class AuthService {
   private final UserDetailsService userDetailsService;
   private final LoginAttemptService loginAttemptService;
 
-
-
-
   //here we are checking login and password
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
 

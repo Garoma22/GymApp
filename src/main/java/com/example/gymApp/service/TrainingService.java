@@ -11,7 +11,7 @@ import com.example.gymApp.dto.training.TrainingInfoResponseDtoMapper;
 import com.example.gymApp.dto.training.TrainingRequestDto;
 import com.example.gymApp.dto.trainingType.TrainingForTraineeMapper;
 import com.example.gymApp.dto.trainingType.TrainingForTrainerMapper;
-import com.example.gymApp.feign.TrainerWorkloadServiceFeign;
+//import com.example.gymApp.feign.TrainerWorkloadServiceFeign;
 import com.example.gymApp.model.Trainee;
 import com.example.gymApp.model.Trainer;
 import com.example.gymApp.model.Training;
@@ -20,6 +20,8 @@ import com.example.gymApp.repository.TrainerRepository;
 import com.example.gymApp.repository.TrainingRepository;
 import com.example.gymApp.repository.TrainingTypeRepository;
 import com.example.gymApp.repository.UserRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.FeignException;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.time.LocalDate;
@@ -29,6 +31,7 @@ import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,7 +53,8 @@ public class TrainingService {
   private final TrainerMapper trainerMapper;
   private final TrainerService trainerService;
   private final TrainingInfoResponseDto trainingInfoResponseDto;
-  private final TrainerWorkloadServiceFeign trainerWorkloadServiceFeign;
+  private final JmsTemplate jmsTemplate;
+  private final ObjectMapper objectMapper;
 
 
   private static final String ADD = "ADD";
@@ -90,8 +94,6 @@ public class TrainingService {
 
     log.info("Training " + training + " successfully saved");
 
-
-
     createTrainerWorkloadServiceDto(trainerUsername, trainer, dateOfTraining, durationInHours);
 
     return training;
@@ -111,16 +113,22 @@ public class TrainingService {
     dto.setActionType(ADD);
 
     try {
-      trainerWorkloadServiceFeign.handleTraining(dto);
+
+     String jsonMessage = objectMapper.writeValueAsString(dto);
+      jmsTemplate.convertAndSend("trainer.workload.queue", jsonMessage);
+
     } catch (FeignException e) {
       log.error("Error while sending training data to trainer-workload-service: {}", e.getMessage());
       log.error("Request Body: {}", dto);
       log.error("Response Status Code: {}", e.status());
       log.error("Response Body: {}", e.contentUTF8());
+    } catch (JsonProcessingException e) {
+      throw new RuntimeException("Serialization error DTO to JSON", e);
     }
   }
   public void handleTrainingFallback(TrainerWorkloadServiceDto dto, Throwable t) {
     log.error("Failed to handle training due to {}", t.getMessage());
+
   }
 
 
@@ -150,8 +158,6 @@ public class TrainingService {
       }
     }
   }
-
-
 
   public List<Training> getTrainingsByUserUsername(String traineeUsername, LocalDate startDate,
       LocalDate finishDate, String trainerName, String specialization) {
@@ -207,8 +213,6 @@ public class TrainingService {
 
     return trainingForTraineeMapper.toDtoList(
         trainings);
-
-
   }
 
   public List<TrainingForTrainerResponseDto> getTrainerTrainingsByCriteria(String username,

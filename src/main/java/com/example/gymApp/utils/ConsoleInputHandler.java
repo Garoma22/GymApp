@@ -44,8 +44,6 @@ public class ConsoleInputHandler {
     this.profileService = profileService;
     this.userService = userService;
 
-
-
   }
 
   public void start() {
