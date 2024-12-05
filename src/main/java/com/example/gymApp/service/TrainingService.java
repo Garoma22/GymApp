@@ -115,7 +115,7 @@ public class TrainingService {
     try {
 
      String jsonMessage = objectMapper.writeValueAsString(dto);
-      jmsTemplate.convertAndSend("trainer.workload.queue", jsonMessage);
+     jmsTemplate.convertAndSend("trainer.workload.queue", jsonMessage);
 
     } catch (FeignException e) {
       log.error("Error while sending training data to trainer-workload-service: {}", e.getMessage());
