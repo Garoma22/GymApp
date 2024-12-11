@@ -10,6 +10,7 @@ import com.example.gym.service.AuthService;
 import com.example.gym.service.TokenBlacklistService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +28,6 @@ public class AuthController {
   private final CustomMetrics customMetrics;
   private final TokenBlacklistService tokenBlacklistService;
 
-  private final static String AUTHORIZATION = "Authorization";
   private final static String BEARER = "Bearer ";
 
   @PostMapping("/login")
@@ -40,7 +40,7 @@ public class AuthController {
 
   @PostMapping("/logout")
   public ResponseEntity<String> logout(HttpServletRequest request) {
-    String authHeader = request.getHeader(AUTHORIZATION);
+    String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
 
     if (authHeader != null && authHeader.startsWith(BEARER)) {

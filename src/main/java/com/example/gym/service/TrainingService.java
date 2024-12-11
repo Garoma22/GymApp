@@ -111,10 +111,30 @@ public class TrainingService {
     dto.setTrainingDuration(durationInHours);
     dto.setActionType(ADD);
 
+    //wrong dto for testing
+
+    TrainerWorkloadServiceDto dto2 = new TrainerWorkloadServiceDto();
+    dto2.setTrainerUsername(trainerUsername);
+    dto2.setTrainerFirstName(trainer.getUser().getFirstName());
+    dto2.setTrainerLastName(trainer.getUser().getLastName());
+    dto2.setActive(trainer.getUser().isActive());
+    dto2.setTrainingDate(null);  //null for testing
+    dto2.setTrainingDuration(durationInHours);
+    dto2.setActionType(ADD);
+
+
     try {
 
      String jsonMessage = objectMapper.writeValueAsString(dto);
      jmsTemplate.convertAndSend("trainer.workload.queue", jsonMessage);
+
+
+     //mock for testing
+      String jsonMessage2 = objectMapper.writeValueAsString(dto2);
+      jmsTemplate.convertAndSend("trainer.workload.queue", jsonMessage2);
+
+
+
 
     } catch (FeignException e) {
       log.error("Error while sending training data to trainer-workload-service: {}", e.getMessage());

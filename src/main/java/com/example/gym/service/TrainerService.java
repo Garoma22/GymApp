@@ -162,13 +162,6 @@ public class TrainerService {
     return trainerMapper.toTrainerWithTraineeListDto(trainer,
         traineeDtosList
     );
-
-
-
-
-
   }
-
-
 }
 
