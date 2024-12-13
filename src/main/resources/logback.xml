@@ -22,9 +22,9 @@
     <appender-ref ref="FILE"/>
   </root>
 
-  <logger name="com.example.gymApp.controller" level="info"/>
-  <logger name="com.example.gymApp.service" level="info"/>
-  <logger name="com.example.gymApp.dao" level="info"/>
+  <logger name="com.example.gym.controller" level="info"/>
+  <logger name="com.example.gym.service" level="info"/>
+  <logger name="com.example.gym.dao" level="info"/>
   <logger name="feign.Logger" level="DEBUG"/>
 
 </configuration>
