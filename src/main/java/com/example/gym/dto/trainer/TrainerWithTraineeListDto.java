@@ -18,7 +18,7 @@ private String username;
   private List<TraineeDto> traineeDtoList;
 
   @Data
-  public static class TraineeDto {   //static!
+  public static class TraineeDto {
     private String firstName;
     private String lastName;
     private String username;

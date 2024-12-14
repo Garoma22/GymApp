@@ -17,7 +17,7 @@ import java.util.List;
 
 @Data
 @Slf4j
-//@Component
+
 public class DataInitializer {
 
 

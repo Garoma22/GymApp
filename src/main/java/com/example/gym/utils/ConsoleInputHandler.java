@@ -138,11 +138,8 @@ public class ConsoleInputHandler {
     }
   }
 
-
-  //this method not in the task requirements!
   private void getAllTraineesTreners() {
     try {
-
       System.out.println("Enter trainee's username: ");
       String traineeUsername = scanner.nextLine();
 
@@ -244,7 +241,7 @@ public class ConsoleInputHandler {
 
       trainerService.checkSpecializationCorrectness(trainerSpecialization);
 
-      //pay attention - we ask not trainer's username but only name!
+
       List<Training> traineeTtainingList =
           trainingService.getTrainingsByUserUsername(traineeUsername,
               startOfTraining, finishOfTraining, trainerName, trainerSpecialization);
@@ -466,7 +463,6 @@ public class ConsoleInputHandler {
     String oldPassword = scanner.nextLine();
 
     try {
-      // to get user by old password and username
       User user = userService.getUserByPasswordAndUsername(oldPassword, username);
 
       String newPassword = profileService.generateRandomPassword();
@@ -475,7 +471,6 @@ public class ConsoleInputHandler {
       user.setPassword(newPassword);
       System.out.println("New password generated: " + newPassword);
 
-      // Сохранить обновленного пользователя
       userService.setNewPasswordToUserFromDtoAndSaveToDb(user);
       log.info("User password: " + user + " is updated");
 
@@ -524,7 +519,6 @@ public class ConsoleInputHandler {
     }
   }
 
-  // Метод для создания тренера с вводом данных
   public void createTrainer() {
     System.out.println("Enter Trainer's First Name:");
     String firstName = scanner.nextLine();

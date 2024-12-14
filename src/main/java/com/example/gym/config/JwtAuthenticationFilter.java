@@ -27,27 +27,25 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
   @Override
   protected void doFilterInternal(
-      HttpServletRequest request, // Intercepts every incoming HTTP request.
+      HttpServletRequest request,
       HttpServletResponse response,
-      FilterChain filterChain)  // Allows passing the request further down the filter chain.
+      FilterChain filterChain)
       throws ServletException, IOException {
 
     final String authHeader = request.getHeader("Authorization");
-    // Retrieves the Authorization header from the request. Header contains token, name and password
 
-    final String jwt;  // Variable to hold the JWT token.
+    final String jwt;
 
-    final String username; //need to validate user
+    final String username;
 
     if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-      // If the Authorization header is missing or does not start with "Bearer ", the request is passed through the filter chain without any processing.
-      filterChain.doFilter(request, response);
+       filterChain.doFilter(request, response);
       return;
     }
     jwt = authHeader.substring(7);
-    // Extracts the JWT token by removing the "Bearer " prefix from the Authorization header.
 
-        JwtStorage.setJwt(jwt); //save in storage
+
+        JwtStorage.setJwt(jwt);
 
     if (tokenBlacklistService.isTokenBlacklisted(jwt)) {
       response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -56,37 +54,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     username = jwtService.extractUsername(jwt);
 
-    //check is user Authenticated - SecurityContextHolder stores security information about the current thread (such as authentication data).
-    if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+      if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-      // loadUserByUsername(username) returns a UserDetails object that contains information about the user,
-      // such as their username, password, and permissions (roles).
       UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
-      if (jwtService.isTokenWalid(jwt, userDetails)) { //if token walid
+      if (jwtService.isTokenWalid(jwt, userDetails)) {
 
-        //Here, a UsernamePasswordAuthenticationToken object is created that represents the authenticated user
-        // in the Spring Security context. This object stores:
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-            userDetails, //info about user
-            null, //no need password, because user already authenticated by token
-            userDetails.getAuthorities() //rights and roles(!)
+         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+            userDetails,
+            null,
+            userDetails.getAuthorities()
         );
+         authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
-        // This is where you add additional authentication details to the authToken. The buildDetails(request) method extracts
-        // information from the request, such as the IP address or session data, and adds it to the authentication object.
-        // This helps store additional request details that may be needed for security purposes.
-        authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-
-        SecurityContextHolder.getContext().setAuthentication(authToken); //final
+        SecurityContextHolder.getContext().setAuthentication(authToken);
       }
     }
-
-
-    /*
-    After all the logic inside doFilterInternal() has been executed (checking the JWT token, authenticating the user, etc.),
-    filterChain.doFilter(request, response) is called, allowing the request to continue its journey through the filter chain
-    and eventually reach the controller, which will process the request and return the response.
-     */
 
    try{
 
@@ -96,16 +78,4 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
    }
    }
 }
-
-/*
-example of request:
-
-POST /api/login HTTP/1.1
-Host: example.com
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-Content-Type: application/json
-Content-Length: 123
-
- */
-
 

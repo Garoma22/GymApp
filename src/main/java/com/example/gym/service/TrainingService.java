@@ -122,22 +122,17 @@ public class TrainingService {
     dto2.setTrainingDuration(durationInHours);
     dto2.setActionType(ADD);
 
-
     try {
+      String jsonMessage = objectMapper.writeValueAsString(dto);
+      jmsTemplate.convertAndSend("trainer.workload.queue", jsonMessage);
 
-     String jsonMessage = objectMapper.writeValueAsString(dto);
-     jmsTemplate.convertAndSend("trainer.workload.queue", jsonMessage);
-
-
-     //mock for testing
       String jsonMessage2 = objectMapper.writeValueAsString(dto2);
       jmsTemplate.convertAndSend("trainer.workload.queue", jsonMessage2);
 
 
-
-
     } catch (FeignException e) {
-      log.error("Error while sending training data to trainer-workload-service: {}", e.getMessage());
+      log.error("Error while sending training data to trainer-workload-service: {}",
+          e.getMessage());
       log.error("Request Body: {}", dto);
       log.error("Response Status Code: {}", e.status());
       log.error("Response Body: {}", e.contentUTF8());
@@ -145,6 +140,7 @@ public class TrainingService {
       throw new RuntimeException("Serialization error DTO to JSON", e);
     }
   }
+
   public void handleTrainingFallback(TrainerWorkloadServiceDto dto, Throwable t) {
     log.error("Failed to handle training due to {}", t.getMessage());
 
@@ -264,7 +260,7 @@ public class TrainingService {
   public TrainingInfoResponseDto getTrainingInfoResponseDto(
       TrainingRequestDto request) {
 
-        createTraining(request.getTrainerUsername(), request.getTraineeUsername(),
+    createTraining(request.getTrainerUsername(), request.getTraineeUsername(),
         request.getTrainingName(), request.getTrainingDate(), request.getTrainingDuration());
 
     return trainingInfoResponseDtoMapper.trainingToTrainingResponseDto(request);

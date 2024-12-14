@@ -26,7 +26,6 @@ public class AppConfig {
 
   private final UserRepository userRepository;
 
-  //added userRepository to that
   @Bean
   public UserDetailsService userDetailsService() {
     return username -> userRepository.findByUsername(username)
@@ -34,32 +33,16 @@ public class AppConfig {
   }
 
   @Bean
-  //The method returns an object of type AuthenticationProvider, which is used by Spring Security to authenticate users.
   public AuthenticationProvider authenticationProvider() {
 
-    // built-in authentication provider in Spring Security that uses UserDetailsService to
-    // retrieve user information and PasswordEncoder to validate passwords.
     DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
 
-    //Sets the UserDetailsService that will be used by the provider to load user information.
     authProvider.setUserDetailsService(userDetailsService());
 
-    // Sets the PasswordEncoder that will be used to encrypt and verify passwords.
-    // This method will compare the password entered by the user with the encrypted password stored in the database.
     authProvider.setPasswordEncoder(passwordEncoder());
 
     return authProvider;
   }
-
-
-
-  /*
-  AuthenticationManager is the primary interface in Spring Security for user authentication.
-  When a user attempts to authenticate (e.g. enters a username and password),
-  the AuthenticationManager checks the credentials against one or more AuthenticationProviders
-  (in this case, this could be, for example, a DaoAuthenticationProvider that works with user data from a database).
-  If the credentials are correct, the AuthenticationManager returns an authentication object representing the authenticated user.
-   */
 
   @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
@@ -68,14 +51,6 @@ public class AppConfig {
 
   }
 
-  /*
-  What BCryptPasswordEncoder does:
-Password Encryption: When a user logs in, the password entered is encoded (hashed) using the
-Crypt algorithm before being stored in the database.
-Password Verification: When a user logs in, the password entered is verified against the
- encrypted value stored in the database. BCrypt automatically adds a "salt" (random salt) to each hash,
- making it more secure than hashing without a salt.
-   */
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
