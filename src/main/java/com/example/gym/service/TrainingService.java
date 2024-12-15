@@ -109,6 +109,7 @@ public class TrainingService {
     dto.setActive(trainer.getUser().isActive());
     dto.setTrainingDate(dateOfTraining);
     dto.setTrainingDuration(durationInHours);
+
     dto.setActionType(ADD);
 
 
