@@ -26,10 +26,13 @@ import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.activemq.Message;
+import org.slf4j.MDC;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -98,10 +101,15 @@ public class TrainingService {
     return training;
   }
 
-  // entity to send to 2-nd service
+
   @CircuitBreaker(name = "trainerWorkloadService", fallbackMethod = "handleTrainingFallback")
   public void createTrainerWorkloadServiceDto(String trainerUsername, Trainer trainer,
       LocalDate dateOfTraining, int durationInHours) {
+
+    String transactionId = UUID.randomUUID().toString();
+    MDC.put("transactionId", transactionId);
+    log.info("Generated transactionId: {}", transactionId);
+
     TrainerWorkloadServiceDto dto = new TrainerWorkloadServiceDto();
     dto.setTrainerUsername(trainerUsername);
     dto.setTrainerFirstName(trainer.getUser().getFirstName());
@@ -112,20 +120,24 @@ public class TrainingService {
 
     dto.setActionType(ADD);
 
-
     try {
+//      String jsonMessage = objectMapper.writeValueAsString(dto);
+//      jmsTemplate.convertAndSend("trainer.workload.queue", jsonMessage);
+
       String jsonMessage = objectMapper.writeValueAsString(dto);
-      jmsTemplate.convertAndSend("trainer.workload.queue", jsonMessage);
+
+      jmsTemplate.convertAndSend("trainer.workload.queue", jsonMessage, message -> {
+        message.setStringProperty("transactionId", transactionId);
+        return message;
+      });
+
+      log.info("Sent message with transactionId: {}, content: {}", transactionId, dto);
 
 
-    } catch (FeignException e) {
-      log.error("Error while sending training data to trainer-workload-service: {}",
-          e.getMessage());
-      log.error("Request Body: {}", dto);
-      log.error("Response Status Code: {}", e.status());
-      log.error("Response Body: {}", e.contentUTF8());
     } catch (JsonProcessingException e) {
-      throw new RuntimeException("Serialization error DTO to JSON", e);
+      log.error("Error serializing DTO to JSON", e);
+    } finally {
+      MDC.clear();
     }
   }
 
@@ -145,7 +157,6 @@ public class TrainingService {
 
       if (existingTrainings.isEmpty()) {
 
-        //todo : add some logic for isActive status of users
 
         Training training = new Training();
 
@@ -154,8 +165,8 @@ public class TrainingService {
         training.setTrainingType(trainer.getSpecialization());
         training.setTrainingName(trainer.getUser().getUsername() + " - " + trainee.getUsername()
             + " test training with hardcode data");
-        training.setTrainingDate(LocalDate.parse("2222-11-11")); //hardcode here!
-        training.setTrainingDuration(1);  //hardcode!
+        training.setTrainingDate(LocalDate.parse("2222-11-11"));
+        training.setTrainingDuration(1);
         trainingRepository.save(training);
         log.info("New training is created: " + training);
       }
@@ -247,10 +258,8 @@ public class TrainingService {
 
   public TrainingInfoResponseDto getTrainingInfoResponseDto(
       TrainingRequestDto request) {
-
     createTraining(request.getTrainerUsername(), request.getTraineeUsername(),
         request.getTrainingName(), request.getTrainingDate(), request.getTrainingDuration());
-
     return trainingInfoResponseDtoMapper.trainingToTrainingResponseDto(request);
   }
 }

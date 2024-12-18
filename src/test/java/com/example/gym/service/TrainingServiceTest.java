@@ -68,30 +68,7 @@ class TrainingServiceTest {
     return trainer;
   }
 
-//  @Test
-//  void whenCreateTraining_thenSuccess() {
-//    String trainerUsername = "trainerUsername";
-//    String traineeUsername = "traineeUsername";
-//
-//    Trainer trainer = createMockTrainer(trainerUsername, "cardio");
-//    Trainee trainee = createMockTrainee(traineeUsername, "someAddress");
-//    trainer.getUser().setActive(true);
-//    trainee.getUser().setActive(true);
-//
-//
-//    LocalDate date = LocalDate.now();
-//    int duration = 1;
-//    String trainingName = "Yoga Class";
-//
-//    when(trainerRepository.findByUserUsername(trainerUsername)).thenReturn(Optional.of(trainer));
-//    when(traineeRepository.findByUserUsername(traineeUsername)).thenReturn(Optional.of(trainee));
-//
-//    Training result = trainingService.createTraining(trainerUsername, traineeUsername, trainingName, date, duration);
-//
-//    assertNotNull(result);
-//    verify(trainingRepository).save(any(Training.class));
-//    verify(trainerWorkloadServiceFeign).handleTraining(any(TrainerWorkloadServiceDto.class));
-//  }
+
 
   @Test
   void whenCreateTrainingWithNonExistentTrainer_thenThrowException() {
@@ -108,41 +85,6 @@ class TrainingServiceTest {
     });
   }
 
-//  @Test
-//  void testCreateTrainerWorkloadServiceDtoSuccess(){
-//
-//    String trainerUsername = "trainerUsername";
-//    Trainer trainer = createMockTrainer(trainerUsername, "cardio");
-//
-//    TrainerWorkloadServiceDto dto = new TrainerWorkloadServiceDto();
-//    dto.setTrainingDate(LocalDate.now());
-//    dto.setTrainingDuration(2);
-//
-//
-//    doNothing().when(trainerWorkloadServiceFeign).handleTraining(any(TrainerWorkloadServiceDto.class));
-//    trainingService.createTrainerWorkloadServiceDto(trainerUsername, trainer, dto.getTrainingDate(),
-//        dto.getTrainingDuration());
-//    verify(trainerWorkloadServiceFeign).handleTraining(any(TrainerWorkloadServiceDto.class));
-//
-//  }
-//  @Test
-//  void testCreateTrainerWorkloadServiceDtoFail(){
-//
-//
-//    String trainerUsername = "trainerUsername";
-//    Trainer trainer = createMockTrainer(trainerUsername, "cardio");
-//
-//    TrainerWorkloadServiceDto dto = new TrainerWorkloadServiceDto();
-//    dto.setTrainingDate(LocalDate.now());
-//    dto.setTrainingDuration(2);
-//
-//
-//    doNothing().when(trainerWorkloadServiceFeign).handleTraining(any(TrainerWorkloadServiceDto.class));
-//    trainingService.createTrainerWorkloadServiceDto(trainerUsername, trainer, dto.getTrainingDate(),
-//        dto.getTrainingDuration());
-//    verify(trainerWorkloadServiceFeign).handleTraining(any(TrainerWorkloadServiceDto.class));
-//
-//  }
 
 
 
@@ -168,7 +110,7 @@ class TrainingServiceTest {
 
     trainingService.createTraining(trainers, trainee1);
 
-    // Verify save() is called for each trainer
+
     verify(trainingRepository, times(2)).save(any(Training.class));
   }
 
@@ -193,7 +135,7 @@ class TrainingServiceTest {
 
   @Test
   void testFindTraineeTrainingsWithFilters_onlyUsername() {
-    // Arrange
+
     String username = "john_doe";
     List<Training> mockTrainings = List.of(new Training(), new Training());
 
@@ -204,10 +146,10 @@ class TrainingServiceTest {
     TraineeTrainingRequestDto requestDto = new TraineeTrainingRequestDto();
     requestDto.setUsername(username);
 
-    // Act
+
     List<TrainingForTraineeResponseDto> result = trainingService.findTraineeTrainingsWithFilters(requestDto);
 
-    // Assert
+
     assertNotNull(result);
     assertEquals(2, result.size());
     verify(trainingRepository, times(1)).findTraineeTrainingsByUsername(username);
@@ -217,14 +159,14 @@ class TrainingServiceTest {
 
   @Test
   void testFindTraineeTrainingsWithFilters_periodFilter() {
-    // Arrange
+
     String username = "john_doe";
 
-    // Define the filter period
+
     LocalDate periodFrom = LocalDate.of(2024, 1, 1);
     LocalDate periodTo = LocalDate.of(2024, 1, 31);
 
-    // Create trainings: one inside the period, another outside the period
+
     Training trainingInPeriod = new Training();
     trainingInPeriod.setTrainingDate(LocalDate.of(2024, 1, 15));
 
@@ -233,10 +175,10 @@ class TrainingServiceTest {
 
     List<Training> mockTrainings = List.of(trainingInPeriod, trainingOutOfPeriod);
 
-    // Mock repository to return both trainings for the username
+
     when(trainingRepository.findTraineeTrainingsByUsername(username)).thenReturn(mockTrainings);
 
-    // Mock the mapper to return DTOs only for the trainings in the period
+
     when(trainingForTraineeMapper.toDtoList(anyList()))
         .thenReturn(List.of(new TrainingForTraineeResponseDto()));
 
@@ -245,12 +187,12 @@ class TrainingServiceTest {
     requestDto.setPeriodFrom(periodFrom);
     requestDto.setPeriodTo(periodTo);
 
-    // Act
+
     List<TrainingForTraineeResponseDto> result = trainingService.findTraineeTrainingsWithFilters(requestDto);
 
-    // Assert
-    assertNotNull(result); // Ensure the result is not null
-    assertEquals(1, result.size()); // Only 1 training should remain after filtering
+
+    assertNotNull(result);
+    assertEquals(1, result.size());
     verify(trainingRepository, times(1)).findTraineeTrainingsByUsername(username);
     verify(trainingForTraineeMapper, times(1)).toDtoList(argThat(trainings ->
         trainings.size() == 1 && trainings.get(0).getTrainingDate().equals(LocalDate.of(2024, 1, 15))
@@ -259,11 +201,11 @@ class TrainingServiceTest {
 
   @Test
   void testFindTraineeTrainingsWithFilters_trainerNameFilter() {
-    // Arrange
+
     String username = "john_doe";
     String trainerName = "John Trainer";
 
-    // Create trainings with different trainers
+
     Training trainingWithCorrectTrainer = new Training();
     trainingWithCorrectTrainer.setTrainer(createMockTrainer("John", "Trainer"));
     trainingWithCorrectTrainer.setTrainingDate(LocalDate.of(2024, 1, 15));
@@ -283,12 +225,12 @@ class TrainingServiceTest {
     requestDto.setUsername(username);
     requestDto.setTrainerName(trainerName);
 
-    // Act
+
     List<TrainingForTraineeResponseDto> result = trainingService.findTraineeTrainingsWithFilters(requestDto);
 
-    // Assert
+
     assertNotNull(result);
-    assertEquals(1, result.size()); // Only the training with the correct trainer should remain
+    assertEquals(1, result.size());
     verify(trainingRepository, times(1)).findTraineeTrainingsByUsername(username);
     verify(trainingForTraineeMapper, times(1)).toDtoList(argThat(trainings ->
         trainings.size() == 1 &&

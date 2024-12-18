@@ -23,7 +23,7 @@ public class TrainerDto {
   @NotBlank(message = "Specialization is required and cannot be empty")
   private String specialization;
 
-  private TrainingType trainingType;  // need to be here!
+  private TrainingType trainingType;
 
   @JsonProperty("isActive")
   private boolean isActive;

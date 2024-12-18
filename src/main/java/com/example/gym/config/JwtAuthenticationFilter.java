@@ -74,7 +74,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     filterChain.doFilter(request, response);
   }finally {
-     JwtStorage.clear(); // clear token
+     JwtStorage.clear();
    }
    }
 }

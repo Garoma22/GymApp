@@ -9,6 +9,7 @@ import com.example.gym.service.TraineeService;
 import com.example.gym.service.TrainerService;
 import com.example.gym.service.TrainingService;
 import com.example.gym.service.UserService;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -290,10 +291,10 @@ public class ConsoleInputHandler {
           trainingDurationInHours);
 
     } catch (IllegalArgumentException e) {
-      System.out.println(e.getMessage());
-    } catch (Exception e) {
+      log.info(e.getMessage());
+    } catch (RuntimeException e) {
 
-      System.out.println("An unexpected error occurred: " + e.getMessage());
+      log.info("An unexpected error occurred: " + e.getMessage());
     }
   }
 
@@ -308,8 +309,6 @@ public class ConsoleInputHandler {
 
       userService.getUserByPasswordAndUsername(oldPassword, userName);
 
-
-      //todo rewrite from trainer to trainee
       traineeService.deleteTraineeByUsername(userName);
 
     } catch (NoSuchElementException e) {

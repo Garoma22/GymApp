@@ -75,6 +75,6 @@ String generateToken(UserDetails userDetails){
 
   private Key getSigningKey() {
     byte[] keyBytes = Decoders.BASE64.decode(secretKey);
-    return Keys.hmacShaKeyFor(keyBytes); //create cryptographic key
+    return Keys.hmacShaKeyFor(keyBytes);
   }
 }
