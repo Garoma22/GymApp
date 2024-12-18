@@ -27,54 +27,11 @@ public class TrainerController {
   private final TrainingService trainingService;
 
 
-
-  /*
-  8. Get Trainer Profile (GET method)
-a. Request
-I. Username (required)
-
-
-b. Response
-I. First Name
-II. Last Name
-III. Specialization (Training type reference)
-IV. Is Active
-V. Trainees List
-   1. Trainee Username
-   2. Trainee First Name
-   3. Trainee Last Name
-   */
-
-
   @GetMapping("/trainers/{username}/trainees")
   public ResponseEntity<TrainerWithTraineeListDto> getTrainerProfileWithTraineeList(
       @PathVariable String username) {
     return ResponseEntity.ok(trainerService.getTrainerWithTrainees(username));
   }
-
-
-  /*
-  9. Update Trainer Profile (PUT method)
-a. Request
-I. Username (required)
-II. First Name (required)
-III. Last Name (required)
-IV. Specialization (read only) (Training type reference)
-V. Is Active (required)
-
-b. Response
-I. Username
-II. First Name
-III. Last Name
-IV. Specialization (Training type reference)
-V. Is Active
-VI. Trainees List
-1. Trainee Username
-2. Trainee First Name
-3. Trainee Last Name
-   */
-
-//HERE WE UPDATING FIRST AND SECOND NAME + MAKE A CUSTOM RESPONSE
 
 
   @PutMapping("trainers/{username}/trainees")
@@ -85,27 +42,6 @@ VI. Trainees List
     log.info("THIS IS RESPONSE_DTO : " + responseDto);
     return ResponseEntity.ok(responseDto);
   }
-
-
-    /*
-13. Get Trainer Trainings List (GET method)
-  a. Request
-     I. Username (required)
-     II. Period From (optional)
-     III. Period To (optional)
-     IV. Trainee Name (optional)
-  b. Response
-     I. Training Name
-     II. Training Date
-     III. Training Type
-     IV. Training Duration
-     V. Trainee Name
- */
-
-  /* This method retrieves a trainer's training sessions with optional
-   filtering by date range and trainee's first name.
-
-   */
 
 
   @GetMapping("/trainers/{username}/trainings")

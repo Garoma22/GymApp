@@ -10,7 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface TraineeRepository extends JpaRepository<Trainee, Long> {
 
   Optional<Trainee> findByUserUsername(String username);
-
-
   Optional<Trainee> findByUser(User user);
 }

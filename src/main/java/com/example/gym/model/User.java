@@ -15,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Data
 @Builder
 @AllArgsConstructor
-public class User implements UserDetails { // UserDetails is needed for Spring Security. It provides an info about user status
+public class User implements UserDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

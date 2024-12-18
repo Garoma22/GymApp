@@ -8,16 +8,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoginAttemptService {
 
-  private static final int MAX_ATTEMPT = 3; //limit of attempts
-  private static final long BLOCK_TIME_DURATION = 5; // block in minutes
+  private static final int MAX_ATTEMPT = 3;
+  private static final long BLOCK_TIME_DURATION = 5;
 
- //attempt storage
+
   private final Map<String, Integer> attemptsCache = new HashMap<>();
 
-  // time storage
   private final Map<String, LocalDateTime> blockTimeCache = new HashMap<>();
 
-  // fail attempts counter
   public void loginFailed(String username) {
     int attempts = attemptsCache.getOrDefault(username, 0);
     attempts++;
@@ -28,13 +26,11 @@ public class LoginAttemptService {
     }
   }
 
-  // reset unsuccessful attempts
   public void loginSucceeded(String username) {
     attemptsCache.remove(username);
     blockTimeCache.remove(username);
   }
 
-  // check of user block
   public boolean isBlocked(String username) {
     LocalDateTime blockTime = blockTimeCache.get(username);
     if (blockTime != null && LocalDateTime.now().isBefore(blockTime)) {
@@ -43,7 +39,6 @@ public class LoginAttemptService {
     return false;
   }
 
-  // get time to unblock
   public long getRemainingBlockTime(String username) {
     LocalDateTime blockTime = blockTimeCache.get(username);
     if (blockTime != null && LocalDateTime.now().isBefore(blockTime)) {

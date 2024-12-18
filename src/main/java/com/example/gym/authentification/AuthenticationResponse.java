@@ -1,6 +1,5 @@
 package com.example.gym.authentification;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

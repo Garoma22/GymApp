@@ -23,15 +23,10 @@ public interface TrainingForTraineeMapper {
     return trainingType.getName();
   }
 
-
-
-  //12
-//  TrainingForTraineeMapper INSTANCE = Mappers.getMapper(TrainingForTraineeMapper.class);
   @Mapping(source = "trainingName", target = "trainingName")
   @Mapping(source = "trainingDate", target = "trainingDate")
   @Mapping(source = "trainingType.name", target = "trainingType")
   @Mapping(source = "trainingDuration", target = "trainingDuration")
-//  @Mapping(expression = "java(training.getTrainer().getUser().getFirstName() + ' ' + training.getTrainer().getUser().getLastName())", target = "trainerName")
   @Mapping(source = "trainer.user.firstName", target = "trainerName")
   TrainingForTraineeResponseDto toDto(Training training);
 

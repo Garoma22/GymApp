@@ -5,6 +5,7 @@ import com.example.gym.model.TrainingType;
 import com.example.gym.repository.TrainingTypeRepository;
 import jakarta.annotation.PostConstruct;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class DataInitializerTraining {
         }
       }
       reader.close();
-    } catch (Exception e) {
+    } catch (IOException e) {
       System.err.println("Failed to load training types: " + e.getMessage());
     }
   }

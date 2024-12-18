@@ -22,21 +22,10 @@ public class UserController {
 
   private final UserService userService;
 
-  /* 4
-  Change Login (PUT method)
-a. Request
-I. Username (required)
-II. Old Password (required)
-III. New Password (required)
-b. Response
-I. 200 OK
-   */
-
-
   @PutMapping("/users/{username}/password")
   public ResponseEntity<String> changePassword(
       @PathVariable String username,
-      @Valid @RequestBody ChangePasswordRequestDto changePasswordRequestDto) {//old+ new pass
+      @Valid @RequestBody ChangePasswordRequestDto changePasswordRequestDto) {
 
     UserLoginDto userDto = userService.getUserDtoByUsername(username);
     userDto.setPassword(changePasswordRequestDto.getNewPassword());
@@ -44,17 +33,11 @@ I. 200 OK
     return ResponseEntity.ok("Password changed successfully!");
   }
 
-//15+16 - the joint method for trainee and trainer
-
-  //here we are using @RequestBody because it is Patch Mapping
   @PatchMapping("/users/{username}/status")
   public ResponseEntity<String> activateTrainee(@PathVariable String username,
       @RequestBody UserStatusUpdateRequest request) {
       userService.setActivityStatusToUser(username, request);
       return ResponseEntity.ok("User activity status updated successfully!");
-
-
-
   }
 }
 

@@ -125,7 +125,7 @@ class ProfileServiceTest {
 
   @Test
   void registerTrainer_shouldReturnUsernameAndPassword() {
-    // Arrange
+
     TrainerDto trainerDto = new TrainerDto();
     trainerDto.setFirstName("John");
     trainerDto.setLastName("Doe");

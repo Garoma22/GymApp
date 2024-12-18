@@ -35,26 +35,6 @@ public class TraineeController {
   private final TrainerService trainerService;
   private final TrainingService trainingService;
 
-//
-
-
-  /*
-
-  5. Get Trainee Profile (GET method)
-a. Request
-I. Username (required)
-b. Response
-I. First Name
-II. Last Name
-III. Date of Birth
-IV. Address
-V. Is Active
-VI. Trainers List
-1. Trainer Username
-2. Trainer First Name
-3. Trainer Last Name
-4. Trainer Specialization (Training type reference)
-   */
 
   @GetMapping("/trainees/{username}/trainers")
   public ResponseEntity<TraineeWithTrainerListDto> getTraineeProfileWithTrainersList(
@@ -65,33 +45,6 @@ VI. Trainers List
   }
 
 
-/*
-6. Update Trainee Profile (PUT method)
-a. Request
-I. Username (required)
-II. First Name (required)
-III. Last Name (required)
-IV. Date of Birth (optional)
-V. Address (optional)
-VI. Is Active (required)
-
-
-b. Response
-I. Username
-II. First Name
-III. Last Name
-IV. Date of Birth
-V. Address
-VI. Is Active
-VII. Trainers List
-1. Trainer Username
-2. Trainer First Name
-3. Trainer Last Name
-4. Trainer Specialization (Training type reference)
-
- */
-
-
   @PutMapping("/trainees/{username}")
   public ResponseEntity<TraineeWithTrainerListDto> updateTraineeProfile(
       @RequestBody TraineeDto traineeDto,
@@ -100,38 +53,11 @@ VII. Trainers List
   }
 
 
-
-/*
-7. Delete Trainee Profile (DELETE method)
-a. Request
-I. Username (required)
-b. Response
-I. 200 OK0
- */
-
-
   @DeleteMapping("/trainees/{username}")
   public ResponseEntity<String> deleteTraineeProfile(@PathVariable String username) {
     traineeService.deleteTraineeByUsername(username);
     return ResponseEntity.noContent().build();
   }
-
-
-
-
-
-  /*
-10. Get not assigned on trainee active trainers. (GET method)
-a. Request
-I. Username (required) trainee
-b. Response
-I. Trainer Username
-II. Trainer First Name
-III. Trainer Last Name
-IV. Trainer Specialization (Training type reference)
-   */
-
-//  @GetMapping("/not-assigned-active-trainers-on-trainee")
 
 
   @GetMapping("/trainees/{traineeUsername}/trainers/not-assigned")
@@ -143,22 +69,6 @@ IV. Trainer Specialization (Training type reference)
     return ResponseEntity.ok(trainers);
   }
 
-
-  /*
-  11. Update Trainee's Trainer List (PUT method)
-a. Request
-I. Trainee Username
-II. Trainers List (required)
-1. Trainer Username (required)
-b. Response
-I. Trainers List
-1. Trainer Username
-2. Trainer First Name
-3. Trainer Last Name
-4. Trainer Specialization (Training type reference)
-   */
-
-
   @PutMapping("/trainees/{traineeUsername}/trainers")
   public ResponseEntity<List<TrainerResponseDto>> updateTraineeTrainersList(
       @PathVariable String traineeUsername, @RequestBody List<String> newTrainersUsernames) {
@@ -166,33 +76,6 @@ I. Trainers List
         traineeUsername, newTrainersUsernames);
     return ResponseEntity.ok(updatedTrainersList);
   }
-
-
-  /*
-  12. Get Trainee Trainings List (GET method)
-a. Request
-   I. Username (required)
-   II. Period From (optional)
-   III. Period To (optional)
-   IV. Trainer Name (optional)
-   V. Training Type (optional)
-b. Response
-   I. Training Name
-   II. Training Date
-   III. Training Type
-   IV. Training Duration
-   V. Trainer Name
-   */
-//
-
-
-/*
-The method filters trainings based on the following criteria:
-
-Date range: If periodFrom and periodTo are provided, it filters trainings within the specified range.
-Trainer's first name: If trainerFirstName is provided, it filters trainings where the trainer's first name matches.
-Trainer's specialization: If specializationName is provided, it filters trainings by the trainer's specialization.
- */
 
 
   @GetMapping("/trainees/{username}/trainings")

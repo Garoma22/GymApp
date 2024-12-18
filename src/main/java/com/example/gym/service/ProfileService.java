@@ -64,16 +64,13 @@ public class ProfileService {
     String username = generateUsername(traineeDto.getFirstName(),
         traineeDto.getLastName());
 
-//  String rawPassword = generateRandomPassword();
-    String rawPassword = "password"; //need to have when we are checking authentication
+    String rawPassword = "password";
 
     String encodedPassword = passwordEncoder.encode(rawPassword);
 
     if (userRepository.findByUsername(username).isPresent()) {
       throw new IllegalArgumentException("Username already exists.");
     }
-
-
     traineeService.createTrainee(
         traineeDto.getFirstName(),
         traineeDto.getLastName(),
@@ -83,10 +80,6 @@ public class ProfileService {
         traineeDto.getAddress()
     );
 
-
-
-
-    // todo Probably need to respond only 200 ok here, not the rawPassword
     Map<String, String> response = new HashMap<>();
     response.put("username", username);
     response.put("password", rawPassword);
@@ -99,14 +92,15 @@ public class ProfileService {
 
     trainerService.checkSpecializationCorrectness(trainerDto.getSpecialization());
     String username = generateUsername(trainerDto.getFirstName(), trainerDto.getLastName());
-    String rawPassword = "password"; //need to have when we are checking authentication
+    String rawPassword = "password";
     String encodedPassword = passwordEncoder.encode(rawPassword);
 
     if (userRepository.findByUsername(username).isPresent()) {
       throw new IllegalArgumentException("Username of trainer already exists");
     }
 
-    trainerService.createTrainer(trainerDto.getFirstName(), trainerDto.getLastName(),username,encodedPassword,trainerDto.getSpecialization());
+    trainerService.createTrainer(trainerDto.getFirstName(), trainerDto.getLastName(), username,
+        encodedPassword, trainerDto.getSpecialization());
 
     Map<String, String> response = new HashMap<>();
     response.put("username", username);

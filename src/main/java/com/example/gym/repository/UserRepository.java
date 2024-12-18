@@ -17,20 +17,15 @@ public interface UserRepository extends JpaRepository<User, Long> {
   boolean existsByUsername(String username);
 
 
-@Query("SELECT u.username FROM User u WHERE u.username LIKE :baseUsername%")
-List<String> findAllByUsernameStartingWith(@Param("baseUsername") String baseUsername);
-
+  @Query("SELECT u.username FROM User u WHERE u.username LIKE :baseUsername%")
+  List<String> findAllByUsernameStartingWith(@Param("baseUsername") String baseUsername);
 
   Optional<User> findByPassword(String password);
 
 
-//  Optional<User> findByUsernameAndPassword(String username, String password);
-
-
   @Query("SELECT u FROM User u WHERE u.username = :username AND u.password = :password")
-  Optional<User> findByUsernameAndPassword(@Param("username") String username, @Param("password") String password);
-
-
+  Optional<User> findByUsernameAndPassword(@Param("username") String username,
+      @Param("password") String password);
 
 
 }
