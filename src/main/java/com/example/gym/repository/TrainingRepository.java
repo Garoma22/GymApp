@@ -64,7 +64,7 @@ public interface TrainingRepository extends JpaRepository<Training, Long> {
 
 
 @Query("SELECT t FROM Training t JOIN t.trainee tr JOIN tr.user u WHERE u.username = :traineeUsername")
-  List<Training> findTraineeTrainingsByUsername(@Param("traineeUsername") String traineeUsername);
+  List<Training> findAllTraineeTrainingsByUsername(@Param("traineeUsername") String traineeUsername);
 
 
 

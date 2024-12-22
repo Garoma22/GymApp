@@ -21,7 +21,6 @@ import com.example.gym.repository.TrainingTypeRepository;
 import com.example.gym.repository.UserRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import feign.FeignException;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import java.time.LocalDate;
 import java.util.List;
@@ -31,7 +30,6 @@ import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.activemq.Message;
 import org.slf4j.MDC;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
@@ -121,19 +119,13 @@ public class TrainingService {
     dto.setActionType(ADD);
 
     try {
-//      String jsonMessage = objectMapper.writeValueAsString(dto);
-//      jmsTemplate.convertAndSend("trainer.workload.queue", jsonMessage);
-
       String jsonMessage = objectMapper.writeValueAsString(dto);
-
       jmsTemplate.convertAndSend("trainer.workload.queue", jsonMessage, message -> {
         message.setStringProperty("transactionId", transactionId);
         return message;
       });
 
       log.info("Sent message with transactionId: {}, content: {}", transactionId, dto);
-
-
     } catch (JsonProcessingException e) {
       log.error("Error serializing DTO to JSON", e);
     } finally {
@@ -143,10 +135,8 @@ public class TrainingService {
 
   public void handleTrainingFallback(TrainerWorkloadServiceDto dto, Throwable t) {
     log.error("Failed to handle training due to {}", t.getMessage());
-
   }
-
-
+  
   @Transactional
   public void createTraining(List<Trainer> trainers, Trainee trainee) {
 
@@ -194,7 +184,7 @@ public class TrainingService {
 
   public List<Training> findTraineeTrainingsByUsername(String traineeUsername) {
 
-    return trainingRepository.findTraineeTrainingsByUsername(traineeUsername);
+    return trainingRepository.findAllTraineeTrainingsByUsername(traineeUsername);
   }
 
   public List<Training> findTrainerTrainingsByUsername(String trainerUsername) {

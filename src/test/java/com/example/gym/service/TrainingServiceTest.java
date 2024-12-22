@@ -139,7 +139,7 @@ class TrainingServiceTest {
     String username = "john_doe";
     List<Training> mockTrainings = List.of(new Training(), new Training());
 
-    when(trainingRepository.findTraineeTrainingsByUsername(username)).thenReturn(mockTrainings);
+    when(trainingRepository.findAllTraineeTrainingsByUsername(username)).thenReturn(mockTrainings);
     when(trainingForTraineeMapper.toDtoList(mockTrainings)).thenReturn(List.of(new TrainingForTraineeResponseDto(),
         new TrainingForTraineeResponseDto()));
 
@@ -152,7 +152,7 @@ class TrainingServiceTest {
 
     assertNotNull(result);
     assertEquals(2, result.size());
-    verify(trainingRepository, times(1)).findTraineeTrainingsByUsername(username);
+    verify(trainingRepository, times(1)).findAllTraineeTrainingsByUsername(username);
     verify(trainingForTraineeMapper, times(1)).toDtoList(mockTrainings);
   }
 
@@ -176,7 +176,7 @@ class TrainingServiceTest {
     List<Training> mockTrainings = List.of(trainingInPeriod, trainingOutOfPeriod);
 
 
-    when(trainingRepository.findTraineeTrainingsByUsername(username)).thenReturn(mockTrainings);
+    when(trainingRepository.findAllTraineeTrainingsByUsername(username)).thenReturn(mockTrainings);
 
 
     when(trainingForTraineeMapper.toDtoList(anyList()))
@@ -193,7 +193,7 @@ class TrainingServiceTest {
 
     assertNotNull(result);
     assertEquals(1, result.size());
-    verify(trainingRepository, times(1)).findTraineeTrainingsByUsername(username);
+    verify(trainingRepository, times(1)).findAllTraineeTrainingsByUsername(username);
     verify(trainingForTraineeMapper, times(1)).toDtoList(argThat(trainings ->
         trainings.size() == 1 && trainings.get(0).getTrainingDate().equals(LocalDate.of(2024, 1, 15))
     ));
@@ -216,7 +216,7 @@ class TrainingServiceTest {
 
     List<Training> mockTrainings = List.of(trainingWithCorrectTrainer, trainingWithWrongTrainer);
 
-    when(trainingRepository.findTraineeTrainingsByUsername(username)).thenReturn(mockTrainings);
+    when(trainingRepository.findAllTraineeTrainingsByUsername(username)).thenReturn(mockTrainings);
 
     when(trainingForTraineeMapper.toDtoList(anyList()))
         .thenReturn(List.of(new TrainingForTraineeResponseDto()));
@@ -231,7 +231,7 @@ class TrainingServiceTest {
 
     assertNotNull(result);
     assertEquals(1, result.size());
-    verify(trainingRepository, times(1)).findTraineeTrainingsByUsername(username);
+    verify(trainingRepository, times(1)).findAllTraineeTrainingsByUsername(username);
     verify(trainingForTraineeMapper, times(1)).toDtoList(argThat(trainings ->
         trainings.size() == 1 &&
             trainings.get(0).getTrainer().getUser().getFirstName().equals("John") &&

@@ -37,14 +37,11 @@ public class TrainingController {
   private final TrainingTypeService trainingTypeService;
   private final TrainingInfoResponseDto trainingInfoResponseDto;
 
-
-
   @PostMapping("/trainings")
   public ResponseEntity<TrainingInfoResponseDto> addTraining
       (@RequestBody TrainingRequestDto request) {
     return ResponseEntity.ok(trainingService.getTrainingInfoResponseDto(request));
   }
-
 
   @GetMapping("/training-types")
   public ResponseEntity<List<TrainingResponseDto>> getTrainingTypes() {
