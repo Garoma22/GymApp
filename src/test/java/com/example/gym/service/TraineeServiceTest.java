@@ -113,7 +113,6 @@ public class TraineeServiceTest {
     verify(userRepository, never()).save(any(User.class));
   }
 
-
   @Test
   void getTraineeById_shouldReturnTraineeWhenExists() {
 

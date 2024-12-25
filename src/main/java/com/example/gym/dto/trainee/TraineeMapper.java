@@ -21,7 +21,6 @@ public interface TraineeMapper {
   @Named("toTraineeDto")
   @Mapping(target = "isActive", ignore = true)
 
-
   default TraineeDto toTraineeDto(Trainee trainee) {
     TraineeDto dto = new TraineeDto();
     dto.setFirstName(trainee.getUser().getFirstName());
@@ -30,7 +29,6 @@ public interface TraineeMapper {
 
     return dto;
   }
-
 
   @IterableMapping(qualifiedByName = "toTraineeDto")
   List<TraineeDto> toTraineeDtoList(List<Trainee> trainees);
@@ -56,10 +54,9 @@ public interface TraineeMapper {
   @Mapping(target = "address", source = "trainee.address")
   @Mapping(target = "active", source = "trainee.user.active")
   TraineeWithTrainerListDto toTraineeWithTrainerListDto(Trainee trainee, List<TrainerDto> trainersList);
-
-
-
 }
+
+
 
 
 
