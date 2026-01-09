@@ -29,12 +29,10 @@ public class AuthService {
   private final UserDetailsService userDetailsService;
   private final LoginAttemptService loginAttemptService;
 
-  //here we are checking login and password
   public AuthenticationResponse authenticate(AuthenticationRequest request) {
 
     String username = request.getUsername();
 
-    // check of blocking
     if (loginAttemptService.isBlocked(username)) {
       throw new RuntimeException("User is blocked. Try again in "
           + loginAttemptService.getRemainingBlockTime(username) + " minutes.");
@@ -42,35 +40,17 @@ public class AuthService {
 
     try {
 
-    /*
-    authenticationManager is an object of type AuthenticationManager that manages the authentication
-    process. It compares the provided credentials with the data stored in the system (e.g., a database)
-    using the configured UserDetailsService and PasswordEncoder.
-     */
       authenticationManager.authenticate(
 
-          //check username and password
-          new UsernamePasswordAuthenticationToken( //this class is used to pass credentials
-              // (username and password) to the authentication system.
+          new UsernamePasswordAuthenticationToken(
               request.getUsername(),
               request.getPassword()
 
-              // This token contains a username and password that will later be verified
-              // against data stored in a database or other storage.
+
           )
       );
-    /*
-    General process:
-    After successful authentication of the user, his data (username) is used to search the database via userRepository.
-    If the user is found, a JWT token is generated for him using jwtService.
-    The generated token is returned to the client as part of the AuthenticationResponse object.
-    The client can use this token to access protected resources by passing it in the request header.
-     */
-
-      // Use UserDetailsService for getting user from DB
       UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
 
-      //token generation from UserDetails object
       var jwtToken = jwtService.generateToken(userDetails);
 
       return AuthenticationResponse
@@ -80,7 +60,6 @@ public class AuthService {
     }
 
         catch (BadCredentialsException e) {
-      // attempt counter ++
       loginAttemptService.loginFailed(username);
       throw e;
     }

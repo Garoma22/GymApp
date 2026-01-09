@@ -10,24 +10,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-//@ControllerAdvice
-//public class GlobalExceptionHandler {
-//
-//  private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-//
-//  @ExceptionHandler(Exception.class)
-//  public ResponseEntity<ErrorResponse> handleGenericException(Exception e, WebRequest request) {
-//    logger.error("An unexpected error occurred", e);
-//    ErrorResponse errorResponse = new ErrorResponse(
-//        HttpStatus.INTERNAL_SERVER_ERROR.value(),
-//        "An unexpected error occurred. Please try again later.",
-//        System.currentTimeMillis()
-//    );
-//    return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-//  }
-//}
-
-
 @ControllerAdvice
 public class GlobalExceptionHandler {
 

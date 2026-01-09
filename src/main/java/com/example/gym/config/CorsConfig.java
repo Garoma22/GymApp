@@ -32,7 +32,6 @@ public class CorsConfig {
     config.setAllowedHeaders(List.of("Authorization", "Cache-Control", "Content-Type"));
 
 
-    //this is global CORS -Filter
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
     source.registerCorsConfiguration("/**", config);
     return new CorsFilter(source);

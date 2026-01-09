@@ -59,9 +59,6 @@ public class TraineeService {
     user.setPassword(password);
     user.setActive(true);
 
-    // no need to save it separately! И
-    // userRepository.save(user);
-
     Trainee trainee = new Trainee();
     trainee.setUser(user);
     trainee.setDateOfBirth(dateOfBirth);
@@ -117,11 +114,11 @@ public class TraineeService {
     Trainee trainee = traineeRepository.findByUser(user)
         .orElseThrow(() -> new NoSuchElementException("No trainee found for the provided user"));
 
-    //remove trainings
+
     trainingRepository.findByTrainee(trainee)
         .forEach(trainingRepository::delete);
 
-    //remove trainee
+
     traineeRepository.delete(trainee);
     log.info("Trainee and related entities deleted successfully.");
   }
@@ -130,15 +127,15 @@ public class TraineeService {
   public TraineeWithTrainerListDto getTraineeProfileWithTrainersList(String username) {
     Trainee trainee = getTraineeByUsername(username);
     List<TrainerDto> trainersList = getAllTrainersDtoByTrainee(username);
-    return traineeMapper.toTraineeWithTrainerListDto(trainee, trainersList); //mapstruct
+    return traineeMapper.toTraineeWithTrainerListDto(trainee, trainersList);
   }
-  // this method is private because it works only inside this class
+
 
   List<TrainerDto> getAllTrainersDtoByTrainee(String traineeUsername) {
     Set<Trainer> trainers = trainerService.getAlltrainersByTrainee(traineeUsername);
 
     return trainers.stream()
-        .map(trainerToTrainerDtoConverter::convert)  //using converter
+        .map(trainerToTrainerDtoConverter::convert)
         .collect(Collectors.toList());
   }
 

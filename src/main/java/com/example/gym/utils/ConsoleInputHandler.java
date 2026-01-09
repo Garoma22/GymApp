@@ -9,6 +9,7 @@ import com.example.gym.service.TraineeService;
 import com.example.gym.service.TrainerService;
 import com.example.gym.service.TrainingService;
 import com.example.gym.service.UserService;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -138,11 +139,8 @@ public class ConsoleInputHandler {
     }
   }
 
-
-  //this method not in the task requirements!
   private void getAllTraineesTreners() {
     try {
-
       System.out.println("Enter trainee's username: ");
       String traineeUsername = scanner.nextLine();
 
@@ -244,7 +242,7 @@ public class ConsoleInputHandler {
 
       trainerService.checkSpecializationCorrectness(trainerSpecialization);
 
-      //pay attention - we ask not trainer's username but only name!
+
       List<Training> traineeTtainingList =
           trainingService.getTrainingsByUserUsername(traineeUsername,
               startOfTraining, finishOfTraining, trainerName, trainerSpecialization);
@@ -293,10 +291,10 @@ public class ConsoleInputHandler {
           trainingDurationInHours);
 
     } catch (IllegalArgumentException e) {
-      System.out.println(e.getMessage());
-    } catch (Exception e) {
+      log.info(e.getMessage());
+    } catch (RuntimeException e) {
 
-      System.out.println("An unexpected error occurred: " + e.getMessage());
+      log.info("An unexpected error occurred: " + e.getMessage());
     }
   }
 
@@ -311,8 +309,6 @@ public class ConsoleInputHandler {
 
       userService.getUserByPasswordAndUsername(oldPassword, userName);
 
-
-      //todo rewrite from trainer to trainee
       traineeService.deleteTraineeByUsername(userName);
 
     } catch (NoSuchElementException e) {
@@ -466,7 +462,6 @@ public class ConsoleInputHandler {
     String oldPassword = scanner.nextLine();
 
     try {
-      // to get user by old password and username
       User user = userService.getUserByPasswordAndUsername(oldPassword, username);
 
       String newPassword = profileService.generateRandomPassword();
@@ -475,7 +470,6 @@ public class ConsoleInputHandler {
       user.setPassword(newPassword);
       System.out.println("New password generated: " + newPassword);
 
-      // Сохранить обновленного пользователя
       userService.setNewPasswordToUserFromDtoAndSaveToDb(user);
       log.info("User password: " + user + " is updated");
 
@@ -524,7 +518,6 @@ public class ConsoleInputHandler {
     }
   }
 
-  // Метод для создания тренера с вводом данных
   public void createTrainer() {
     System.out.println("Enter Trainer's First Name:");
     String firstName = scanner.nextLine();

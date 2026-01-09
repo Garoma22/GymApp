@@ -37,43 +37,16 @@ public class TrainingController {
   private final TrainingTypeService trainingTypeService;
   private final TrainingInfoResponseDto trainingInfoResponseDto;
 
-  /*
-  14. Add Training (POST method)
-a. Request
-      I. Trainee username (required)
-      II. Trainer username (required)
-      III. Training Name (required)
-      IV. Training Date (required)
-      V. Training Duration (required)
-b. Response
-      I. 200 OK
-   */
-
-
   @PostMapping("/trainings")
   public ResponseEntity<TrainingInfoResponseDto> addTraining
       (@RequestBody TrainingRequestDto request) {
     return ResponseEntity.ok(trainingService.getTrainingInfoResponseDto(request));
   }
 
-
-
-
-/*
-          17.
-
-Get Training types (GET method)
-    a. Request -no data
-    b. Response
-       I. Training types
-          1. Training type
-          2. Training type Id
- */
-
   @GetMapping("/training-types")
   public ResponseEntity<List<TrainingResponseDto>> getTrainingTypes() {
     log.info("Received request to get all training types");
-    List<TrainingResponseDto> list = trainingTypeService.getTrainingTypeList(); //getting back dtos!
+    List<TrainingResponseDto> list = trainingTypeService.getTrainingTypeList();
     log.info("Successfully retrieved {} training types", list.size());
     return ResponseEntity.ok(list);
   }

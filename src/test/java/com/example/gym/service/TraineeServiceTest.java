@@ -71,10 +71,10 @@ public class TraineeServiceTest {
 
     String username = "existingUser";
 
-    //if we already have user with such username in db
+
     when(userRepository.findByUsername(username)).thenReturn(Optional.of(new User()));
 
-    //we throw an exception
+
     IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
       traineeService.createTrainee("John", "Doe", username, "password123", LocalDate.now(),
           "Address");
@@ -90,13 +90,13 @@ public class TraineeServiceTest {
     String username = "newUser";
     when(userRepository.findByUsername(username)).thenReturn(Optional.empty());
 
-    //joint together trainee and user
+
     Trainee trainee = new Trainee();
     User user = new User();
     user.setFirstName("John");
     user.setLastName("Doe");
-    user.setUsername(username); // set username is important here!
-    trainee.setUser(user);  //set user to trainee
+    user.setUsername(username);
+    trainee.setUser(user);
 
     when(traineeRepository.save(any(Trainee.class))).thenReturn(trainee);
 
@@ -108,11 +108,10 @@ public class TraineeServiceTest {
     assertEquals("Doe", result.getUser().getLastName());
     assertEquals(username, result.getUser().getUsername());
 
-    // Verify that trainee was saved
-    verify(traineeRepository).save(any(Trainee.class));
-    verify(userRepository, never()).save(any(User.class)); // Ensures user was not saved separately!
-  }
 
+    verify(traineeRepository).save(any(Trainee.class));
+    verify(userRepository, never()).save(any(User.class));
+  }
 
   @Test
   void getTraineeById_shouldReturnTraineeWhenExists() {
@@ -121,17 +120,17 @@ public class TraineeServiceTest {
     Trainee trainee = new Trainee();
     trainee.setId(traineeId);
 
-    // Mocking repository to return the trainee
+
     when(traineeRepository.findById(traineeId)).thenReturn(Optional.of(trainee));
 
-    // When
+
     Trainee result = traineeService.getTraineeById(traineeId);
 
-    // Then
+
     assertNotNull(result);
     assertEquals(traineeId, result.getId());
 
-    // Verify that repository's findById was called
+
     verify(traineeRepository).findById(traineeId);
   }
 
@@ -174,7 +173,7 @@ public class TraineeServiceTest {
 
     when(traineeRepository.findByUserUsername(username)).thenReturn(Optional.empty());
 
-    // When and Then
+
     NoSuchElementException exception = assertThrows(NoSuchElementException.class,
         () -> traineeService.getTraineeByUsername(username));
 
@@ -199,7 +198,7 @@ public class TraineeServiceTest {
     String address = "Updated Address";
     LocalDate dateOfBirth = LocalDate.of(1995, 5, 15);
 
-    // When
+
     Trainee updatedTrainee = traineeService.updateTrainee(
         trainee,
         newName,
@@ -211,7 +210,7 @@ public class TraineeServiceTest {
         dateOfBirth
     );
 
-    // Then
+
     assertEquals(newName, updatedTrainee.getUser().getFirstName());
     assertEquals(newLastName, updatedTrainee.getUser().getLastName());
     assertEquals(newUsername, updatedTrainee.getUser().getUsername());
@@ -229,28 +228,28 @@ public class TraineeServiceTest {
     Trainer trainer = createMockTrainer("trainerUsername", "cardio");
     Trainee trainee = createMockTrainee("traineeUsername", "someAddress");
 
-    //mock training1
+
     Training training1 = new Training();
-    training1.setId(1L);  // Ensure you set some values
+    training1.setId(1L);
     training1.setTrainingName("Training 1");
     training1.setTrainee(trainee);
     training1.setTrainer(trainer);
 
-    //mock training2
+
     Training training2 = new Training();
-    training2.setId(2L);  // Ensure you set some values
+    training2.setId(2L);
     training2.setTrainingName("Training 2");
     training2.setTrainee(trainee);
     training2.setTrainer(trainer);
 
-    // Mock repository calls for trainee
+
     when(userRepository.findByUsername(trainee.getUser().getUsername())).thenReturn(
         Optional.of(trainee.getUser()));
     when(traineeRepository.findByUser(trainee.getUser())).thenReturn(Optional.of(trainee));
     when(trainingRepository.findByTrainee(trainee)).thenReturn(List.of(training1, training2));
     traineeService.deleteTraineeByUsername(trainee.getUsername());
 
-    // Then
+
     verify(trainingRepository, times(1)).delete(training1);
     verify(trainingRepository, times(1)).delete(training2);
 
@@ -367,17 +366,16 @@ public class TraineeServiceTest {
     when(traineeRepository.findByUserUsername(username)).thenReturn(Optional.of(existingTrainee));
     when(traineeService.getAllTrainersDtoByTrainee(username)).thenReturn(trainersList);
 
-    // When
+
     TraineeWithTrainerListDto result = traineeService.updateTraineeProfile(traineeDto, username);
 
-    // Then
+
     assertEquals("NewFirstName", existingTrainee.getUser().getFirstName());
     assertEquals("NewLastName", existingTrainee.getUser().getLastName());
     assertTrue(existingTrainee.getUser().isActive());
     assertEquals(LocalDate.of(1995, 3, 20), existingTrainee.getDateOfBirth());
     assertEquals("New Address", existingTrainee.getAddress());
 
-    //trainersList
     assertNotNull(result);
     assertEquals(username, result.getUsername());
     assertEquals("NewFirstName", result.getFirstName());
@@ -422,15 +420,15 @@ public class TraineeServiceTest {
 
     List<TrainerDto> trainersList = List.of(trainerDto1, trainerDto2);
 
-    // Mock repository and service calls
+
     when(traineeRepository.findByUserUsername(username)).thenReturn(Optional.of(trainee));
     when(traineeService.getAllTrainersDtoByTrainee(username)).thenReturn(trainersList);
     when(traineeRepository.save(any(Trainee.class))).thenReturn(trainee);
 
-    // When
+
     TraineeWithTrainerListDto result = traineeService.updateTraineeProfile(traineeDto, username);
 
-    // Then
+
     assertNotNull(result);
     assertEquals(username, result.getUsername());
     assertEquals("NewFirstName", result.getFirstName());
@@ -460,21 +458,21 @@ public class TraineeServiceTest {
   @Test
   void updateTraineeTrainers_shouldUpdateTrainersAndReturnResponseDtos() {
 
-    // Mock trainee and user details
+
     User userTrainee = new User();
     userTrainee.setUsername("traineeUsername");
 
     Trainee trainee = new Trainee();
     trainee.setUser(userTrainee);
 
-    // Mock trainers with specializations + helper helps us to add mock TrainingType specialization
+
     Trainer trainer1 = createMockTrainer("trainerUsername1", "Cardio");
     Trainer trainer2 = createMockTrainer("trainerUsername2", "Strength");
 
     List<Trainer> foundTrainers = Arrays.asList(trainer1, trainer2);
     List<String> newTrainersUsernames = Arrays.asList("trainerUsername1", "trainerUsername2");
 
-    // Mock DTOs for trainers
+
     TrainerResponseDto trainerResponseDto1 = new TrainerResponseDto();
     trainerResponseDto1.setUsername("trainerUsername1");
 
@@ -483,30 +481,29 @@ public class TraineeServiceTest {
 
     List<TrainerResponseDto> trainerResponseDtos = Arrays.asList(trainerResponseDto1, trainerResponseDto2);
 
-    // Mock behavior
+
     when(trainerService.findByUsernameIn(newTrainersUsernames)).thenReturn(foundTrainers);
     when(traineeRepository.findByUserUsername(trainee.getUser().getUsername())).thenReturn(Optional.of(trainee));
     doNothing().when(trainingService).createTraining(foundTrainers, trainee);
     when(trainingService.getAllTrainersByTraineeUsername(trainee.getUser().getUsername())).thenReturn(foundTrainers);
     when(trainerMapper.toTrainerResponseDto(foundTrainers)).thenReturn(trainerResponseDtos);
 
-    // When
+
     List<TrainerResponseDto> result = traineeService.updateTraineeTrainers(trainee.getUser().getUsername(), newTrainersUsernames);
 
-    // Then
+
     assertNotNull(result);
     assertEquals(2, result.size());
     assertEquals("trainerUsername1", result.get(0).getUsername());
     assertEquals("trainerUsername2", result.get(1).getUsername());
 
-    // Verify interactions
+
     verify(trainerService, times(1)).findByUsernameIn(newTrainersUsernames);
     verify(trainingService, times(1)).createTraining(foundTrainers, trainee);
     verify(trainingService, times(1)).getAllTrainersByTraineeUsername(trainee.getUser().getUsername());
     verify(trainerMapper, times(1)).toTrainerResponseDto(foundTrainers);
   }
 
-  // Helper to create a mock trainer with specialization
   private Trainer createMockTrainer(String username, String specializationName) {
     User userTrainer = new User();
     userTrainer.setUsername(username);
